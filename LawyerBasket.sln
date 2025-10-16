@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{2657CEA3-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{E4010F3C-C5C5-4DC4-AB17-E03CC2491CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Api", "LawyerBasket.AuthService.Api\LawyerBasket.AuthService.Api.csproj", "{52FA0137-F336-41F3-8490-BA888F5E8DCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Api", "LawyerBasket.AuthService\LawyerBasket.AuthService.Api\LawyerBasket.AuthService.Api.csproj", "{52FA0137-F336-41F3-8490-BA888F5E8DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Domain", "LawyerBasket.AuthService.Domain\LawyerBasket.AuthService.Domain.csproj", "{F58FA0B8-220F-4785-81CD-6854CA23ACB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Domain", "LawyerBasket.AuthService\LawyerBasket.AuthService.Domain\LawyerBasket.AuthService.Domain.csproj", "{F58FA0B8-220F-4785-81CD-6854CA23ACB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Data", "LawyerBasket.AuthService.Data\LawyerBasket.AuthService.Data.csproj", "{9AB99FEA-F5D0-4B3D-A58F-65376D97CADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Data", "LawyerBasket.AuthService\LawyerBasket.AuthService.Data\LawyerBasket.AuthService.Data.csproj", "{9AB99FEA-F5D0-4B3D-A58F-65376D97CADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Application", "LawyerBasket.AuthService.Application\LawyerBasket.AuthService.Application.csproj", "{8D2607C5-1CA3-489D-B72D-37F4D96A69C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Application", "LawyerBasket.AuthService\LawyerBasket.AuthService.Application\LawyerBasket.AuthService.Application.csproj", "{8D2607C5-1CA3-489D-B72D-37F4D96A69C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Infrastructure", "LawyerBasket.AuthService.Infrastructure\LawyerBasket.AuthService.Infrastructure.csproj", "{22E2EE68-70C0-4A75-980E-1B4164D6A548}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Infrastructure", "LawyerBasket.AuthService\LawyerBasket.AuthService.Infrastructure\LawyerBasket.AuthService.Infrastructure.csproj", "{22E2EE68-70C0-4A75-980E-1B4164D6A548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
