@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LawyerBasket.AuthService.Application.Contracts.Data;
+﻿using LawyerBasket.AuthService.Application.Contracts.Data;
 using LawyerBasket.AuthService.Application.Contracts.Infrastructure;
 using LawyerBasket.AuthService.Application.Dtos;
 using LawyerBasket.AuthService.Application.Queries;

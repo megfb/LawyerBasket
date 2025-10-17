@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LawyerBasket.AuthService.Application.Commands;
+﻿using LawyerBasket.AuthService.Application.Commands;
+using LawyerBasket.AuthService.Application.Contracts.Api;
 using LawyerBasket.AuthService.Application.Contracts.Data;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,17 +11,20 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
         private readonly IAppUserRepository _appUserRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<RemoveUserCommandHandler> _logger;
-        public RemoveUserCommandHandler(IAppUserRepository appUserRepository, IUnitOfWork unitOfWork, ILogger<RemoveUserCommandHandler> logger)
+        private readonly ICurrentUserService _currentUserService;
+        public RemoveUserCommandHandler(IAppUserRepository appUserRepository, IUnitOfWork unitOfWork, ILogger<RemoveUserCommandHandler> logger, ICurrentUserService currentUserService)
         {
             _appUserRepository = appUserRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _currentUserService = currentUserService;
         }
         public async Task<ApiResult> Handle(RemoveUserCommand request, CancellationToken cancellationToken)
         {
+            var UserId = _currentUserService.UserId;
             _logger.LogInformation("RemoveUserCommand is started");
 
-            var user = await _appUserRepository.GetByIdAsync(request.Id);
+            var user = await _appUserRepository.GetByIdAsync(UserId);
 
             if (user is null)
             {

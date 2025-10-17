@@ -13,7 +13,7 @@ namespace LawyerBasket.AuthService.Data.AppUser
 
         public async Task<Domain.Entities.AppUser> GetByEmailAsync(string email)
         {
-            return await _dbset.FirstOrDefaultAsync(x => x.Email == email);
+            return await _dbset.Include(x => x.AppUserRole).ThenInclude(x => x.AppRole).FirstOrDefaultAsync(x => x.Email == email);
         }
     }
 }

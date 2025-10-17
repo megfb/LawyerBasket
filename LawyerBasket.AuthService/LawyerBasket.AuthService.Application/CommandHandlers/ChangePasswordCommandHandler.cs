@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using LawyerBasket.AuthService.Application.Commands;
+using LawyerBasket.AuthService.Application.Contracts.Api;
 using LawyerBasket.AuthService.Application.Contracts.Data;
 using LawyerBasket.AuthService.Application.Contracts.Infrastructure;
 using LawyerBasket.AuthService.Application.Dtos;
@@ -20,18 +16,22 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
         private readonly ILogger<ChangePasswordCommandHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher _passwordHasher;
-        public ChangePasswordCommandHandler(IAppUserRepository appUserRepository, IUnitOfWork unitOfWork, ILogger<ChangePasswordCommandHandler> logger, IMapper mapper, IPasswordHasher passwordHasher)
+        private readonly ICurrentUserService _currentUserService;
+        public ChangePasswordCommandHandler(IAppUserRepository appUserRepository, IUnitOfWork unitOfWork, ILogger<ChangePasswordCommandHandler> logger, IMapper mapper, IPasswordHasher passwordHasher, ICurrentUserService currentUserService)
         {
             _appUserRepository = appUserRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+            _currentUserService = currentUserService;
         }
         public async Task<ApiResult<AppUserDto>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Handling ChangePasswordCommand for User Id: {UserId}", request.Id);
-            var user = await _appUserRepository.GetByIdAsync(request.Id);
+
+            var UserId = _currentUserService.UserId;
+            _logger.LogInformation("Handling ChangePasswordCommand for User Id: {UserId}", UserId);
+            var user = await _appUserRepository.GetByIdAsync(UserId);
             if (user is null)
             {
                 _logger.LogWarning("User not found");

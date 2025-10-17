@@ -1,12 +1,13 @@
 ﻿using LawyerBasket.AuthService.Application.Commands;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.AuthService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -15,13 +16,13 @@ namespace LawyerBasket.AuthService.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPut("ChangePassword/{id}")]
+        [HttpPut("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordCommand changePasswordCommand)
         {
             return Ok(await _mediator.Send(changePasswordCommand));
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> RemoveUser(RemoveUserCommand removeUserCommand)
         {
             return Ok(await _mediator.Send(removeUserCommand));

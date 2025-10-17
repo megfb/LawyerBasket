@@ -20,6 +20,7 @@ namespace LawyerBasket.AuthService.Infrastructure.Security
         }
         public TokenDto CreateToken(AppUser user)
         {
+            var userRoles = user.AppUserRole.Select(x => x.AppRole.Name).ToList();
 
             var claims = new List<Claim>
             {
@@ -27,7 +28,7 @@ namespace LawyerBasket.AuthService.Infrastructure.Security
                 new Claim(ClaimTypes.Email, user.Email),
             };
             claims.AddRange(_tokenOption.Audience.Select(x => new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Aud, x)));
-
+            claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOption.ExpiryMinutes);
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOption.SecurityKey));

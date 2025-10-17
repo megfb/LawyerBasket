@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using LawyerBasket.AuthService.Application.Queries;
 
 namespace LawyerBasket.AuthService.Application.Validators
 {
-    public class LoginQueryValidator:AbstractValidator<LoginQuery>
+    public class LoginQueryValidator : AbstractValidator<LoginQuery>
     {
         public LoginQueryValidator()
         {

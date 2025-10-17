@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Api\" />
     <Folder Include="Contracts\Application\" />
   </ItemGroup>
 
