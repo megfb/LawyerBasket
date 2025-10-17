@@ -10,5 +10,10 @@ namespace LawyerBasket.AuthService.Data.AppUser
         {
             return await _dbset.AnyAsync(u => u.Email == email);
         }
+
+        public async Task<Domain.Entities.AppUser> GetByEmailAsync(string email)
+        {
+            return await _dbset.FirstOrDefaultAsync(x => x.Email == email);
+        }
     }
 }
