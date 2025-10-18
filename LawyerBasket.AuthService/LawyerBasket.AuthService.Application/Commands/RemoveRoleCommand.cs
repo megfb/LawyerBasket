@@ -1,9 +1,9 @@
-﻿using MediatR;
+using MediatR;
 
 namespace LawyerBasket.AuthService.Application.Commands
 {
-    public class RemoveRoleCommand : IRequest<ApiResult>
-    {
-        public string Id { get; set; }
-    }
+  public class RemoveRoleCommand : IRequest<ApiResult>
+  {
+    public string Id { get; set; }
+  }
 }

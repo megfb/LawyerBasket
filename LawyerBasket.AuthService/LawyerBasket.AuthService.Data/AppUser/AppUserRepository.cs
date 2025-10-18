@@ -1,19 +1,19 @@
-﻿using LawyerBasket.AuthService.Application.Contracts.Data;
+using LawyerBasket.AuthService.Application.Contracts.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LawyerBasket.AuthService.Data.AppUser
 {
-    public class AppUserRepository(AppDbContext appDbContext) : GenericRepository<Domain.Entities.AppUser>(appDbContext), IAppUserRepository
+  public class AppUserRepository(AppDbContext appDbContext) : GenericRepository<Domain.Entities.AppUser>(appDbContext), IAppUserRepository
+  {
+    private readonly DbSet<Domain.Entities.AppUser> _dbset = appDbContext.Set<Domain.Entities.AppUser>();
+    public async Task<bool> Any(string email)
     {
-        private readonly DbSet<Domain.Entities.AppUser> _dbset = appDbContext.Set<Domain.Entities.AppUser>();
-        public async Task<bool> Any(string email)
-        {
-            return await _dbset.AnyAsync(u => u.Email == email);
-        }
-
-        public async Task<Domain.Entities.AppUser> GetByEmailAsync(string email)
-        {
-            return await _dbset.Include(x => x.AppUserRole).ThenInclude(x => x.AppRole).FirstOrDefaultAsync(x => x.Email == email);
-        }
+      return await _dbset.AnyAsync(u => u.Email == email);
     }
+
+    public async Task<Domain.Entities.AppUser> GetByEmailAsync(string email)
+    {
+      return await _dbset.Include(x => x.AppUserRole).ThenInclude(x => x.AppRole).FirstOrDefaultAsync(x => x.Email == email);
+    }
+  }
 }

@@ -1,8 +1,8 @@
-﻿namespace LawyerBasket.AuthService.Application.Contracts.Data
+namespace LawyerBasket.AuthService.Application.Contracts.Data
 {
-    public interface IUnitOfWork
-    {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+  public interface IUnitOfWork
+  {
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-    }
+  }
 }

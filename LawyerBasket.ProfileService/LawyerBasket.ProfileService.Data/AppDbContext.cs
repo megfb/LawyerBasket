@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using LawyerBasket.ProfileService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LawyerBasket.ProfileService.Data
@@ -22,7 +16,7 @@ namespace LawyerBasket.ProfileService.Data
     public DbSet<Domain.Entities.LawyerExpertisement> LawyerExpertisement { get; set; }
     public DbSet<Domain.Entities.Gender> Gender { get; set; }
     public DbSet<Domain.Entities.LawyerProfile> LawyerProfile { get; set; }
-    
+
 
 
 

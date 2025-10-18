@@ -1,9 +1,9 @@
-﻿namespace LawyerBasket.AuthService.Application.Contracts.Api
+namespace LawyerBasket.AuthService.Application.Contracts.Api
 {
-    public interface ICurrentUserService
-    {
+  public interface ICurrentUserService
+  {
 
-        string? UserId { get; }
+    string? UserId { get; }
 
-    }
+  }
 }

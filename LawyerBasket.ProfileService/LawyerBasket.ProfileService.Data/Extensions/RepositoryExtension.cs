@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
 using LawyerBasket.ProfileService.Data.Academy;
 using LawyerBasket.ProfileService.Data.Address;

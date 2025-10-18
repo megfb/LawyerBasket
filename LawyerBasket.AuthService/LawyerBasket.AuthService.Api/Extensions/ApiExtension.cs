@@ -1,13 +1,13 @@
-﻿using LawyerBasket.AuthService.Application.Contracts.Api;
+using LawyerBasket.AuthService.Application.Contracts.Api;
 
 namespace LawyerBasket.AuthService.Api.Extensions
 {
-    public static class ApiExtension
+  public static class ApiExtension
+  {
+    public static IServiceCollection AddApiExtension(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddApiExtension(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
-            return services;
-        }
+      services.AddScoped<ICurrentUserService, CurrentUserService>();
+      return services;
     }
+  }
 }

@@ -1,12 +1,12 @@
-﻿using LawyerBasket.AuthService.Domain.Entities.Common;
+using LawyerBasket.AuthService.Domain.Entities.Common;
 
 namespace LawyerBasket.AuthService.Domain.Entities
 {
-    public class AppUser : Entity
-    {
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public DateTime? LastLoginAt { get; set; }
-        public List<AppUserRole>? AppUserRole { get; set; }
-    }
+  public class AppUser : Entity
+  {
+    public string Email { get; set; }
+    public string PasswordHash { get; set; }
+    public DateTime? LastLoginAt { get; set; }
+    public List<AppUserRole>? AppUserRole { get; set; }
+  }
 }

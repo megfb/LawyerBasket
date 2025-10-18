@@ -2,7 +2,7 @@ using LawyerBasket.ProfileService.Domain.Entities.Common;
 
 namespace LawyerBasket.ProfileService.Domain.Entities
 {
-  public class Experience: Entity
+  public class Experience : Entity
   {
     public LawyerProfile LawyerProfile { get; set; }
     public string LawyerProfileId { get; set; }
@@ -11,6 +11,6 @@ namespace LawyerBasket.ProfileService.Domain.Entities
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public string Description { get; set; }
-    
+
   }
 }

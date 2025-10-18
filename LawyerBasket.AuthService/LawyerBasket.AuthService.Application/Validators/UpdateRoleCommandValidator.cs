@@ -1,6 +1,6 @@
-﻿namespace LawyerBasket.AuthService.Application.Validators
+namespace LawyerBasket.AuthService.Application.Validators
 {
-    public class UpdateRoleCommandValidator
-    {
-    }
+  public class UpdateRoleCommandValidator
+  {
+  }
 }

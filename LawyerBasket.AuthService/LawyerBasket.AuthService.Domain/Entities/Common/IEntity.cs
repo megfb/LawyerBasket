@@ -1,6 +1,6 @@
-﻿namespace LawyerBasket.AuthService.Domain.Entities.Common
+namespace LawyerBasket.AuthService.Domain.Entities.Common
 {
-    public interface IEntity
-    {
-    }
+  public interface IEntity
+  {
+  }
 }

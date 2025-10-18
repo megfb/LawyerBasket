@@ -2,7 +2,7 @@ using LawyerBasket.ProfileService.Domain.Entities.Common;
 
 namespace LawyerBasket.ProfileService.Domain.Entities
 {
-  public class Contact:Entity
+  public class Contact : Entity
   {
     public LawyerProfile LawyerProfile { get; set; }
     public string LawyerProfileId { get; set; }
