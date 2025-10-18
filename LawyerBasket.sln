@@ -25,6 +25,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.AuthService.Infrastructure", "LawyerBasket.AuthService\LawyerBasket.AuthService.Infrastructure\LawyerBasket.AuthService.Infrastructure.csproj", "{22E2EE68-70C0-4A75-980E-1B4164D6A548}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfileService", "ProfileService", "{BA8D80C9-AE57-4C69-93F5-F7F664EB12E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{FDB8EB4D-CC2A-4D5C-8F15-F361D2674109}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0BC9D72F-9C51-466E-B2EF-2A8CE57EA77F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{BD3EB674-9E53-4919-9226-7D21255ABEB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{F9A1F828-84BE-4204-8DC0-4E7226784F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService.Api", "LawyerBasket.ProfileService\LawyerBasket.ProfileService.Api\LawyerBasket.ProfileService.Api.csproj", "{699D635F-D437-429D-844D-B111F257648C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService.Application", "LawyerBasket.ProfileService\LawyerBasket.ProfileService.Application\LawyerBasket.ProfileService.Application.csproj", "{48C3DA08-5303-464E-BE64-348108ADC471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService.Domain", "LawyerBasket.ProfileService\LawyerBasket.ProfileService.Domain\LawyerBasket.ProfileService.Domain.csproj", "{5A5FC154-836B-41F9-A28F-254F61E9443D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService.Data", "LawyerBasket.ProfileService\LawyerBasket.ProfileService.Data\LawyerBasket.ProfileService.Data.csproj", "{6C1FD2F3-07F1-404D-952B-AC334F42F90F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService.Infrastructure", "LawyerBasket.ProfileService\LawyerBasket.ProfileService.Infrastructure\LawyerBasket.ProfileService.Infrastructure.csproj", "{4488449C-341C-4C8E-99BE-075273C3DF22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +71,26 @@ Global
 		{22E2EE68-70C0-4A75-980E-1B4164D6A548}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E2EE68-70C0-4A75-980E-1B4164D6A548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E2EE68-70C0-4A75-980E-1B4164D6A548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{699D635F-D437-429D-844D-B111F257648C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{699D635F-D437-429D-844D-B111F257648C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{699D635F-D437-429D-844D-B111F257648C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{699D635F-D437-429D-844D-B111F257648C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C3DA08-5303-464E-BE64-348108ADC471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C3DA08-5303-464E-BE64-348108ADC471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C3DA08-5303-464E-BE64-348108ADC471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C3DA08-5303-464E-BE64-348108ADC471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5FC154-836B-41F9-A28F-254F61E9443D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5FC154-836B-41F9-A28F-254F61E9443D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5FC154-836B-41F9-A28F-254F61E9443D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5FC154-836B-41F9-A28F-254F61E9443D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C1FD2F3-07F1-404D-952B-AC334F42F90F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C1FD2F3-07F1-404D-952B-AC334F42F90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C1FD2F3-07F1-404D-952B-AC334F42F90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C1FD2F3-07F1-404D-952B-AC334F42F90F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4488449C-341C-4C8E-99BE-075273C3DF22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4488449C-341C-4C8E-99BE-075273C3DF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4488449C-341C-4C8E-99BE-075273C3DF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4488449C-341C-4C8E-99BE-075273C3DF22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +106,16 @@ Global
 		{9AB99FEA-F5D0-4B3D-A58F-65376D97CADA} = {E4010F3C-C5C5-4DC4-AB17-E03CC2491CE2}
 		{8D2607C5-1CA3-489D-B72D-37F4D96A69C3} = {2657CEA3-0E45-4090-AFED-04B74D551962}
 		{22E2EE68-70C0-4A75-980E-1B4164D6A548} = {E4010F3C-C5C5-4DC4-AB17-E03CC2491CE2}
+		{BA8D80C9-AE57-4C69-93F5-F7F664EB12E1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FDB8EB4D-CC2A-4D5C-8F15-F361D2674109} = {BA8D80C9-AE57-4C69-93F5-F7F664EB12E1}
+		{0BC9D72F-9C51-466E-B2EF-2A8CE57EA77F} = {BA8D80C9-AE57-4C69-93F5-F7F664EB12E1}
+		{BD3EB674-9E53-4919-9226-7D21255ABEB9} = {0BC9D72F-9C51-466E-B2EF-2A8CE57EA77F}
+		{F9A1F828-84BE-4204-8DC0-4E7226784F15} = {0BC9D72F-9C51-466E-B2EF-2A8CE57EA77F}
+		{699D635F-D437-429D-844D-B111F257648C} = {FDB8EB4D-CC2A-4D5C-8F15-F361D2674109}
+		{48C3DA08-5303-464E-BE64-348108ADC471} = {BD3EB674-9E53-4919-9226-7D21255ABEB9}
+		{5A5FC154-836B-41F9-A28F-254F61E9443D} = {BD3EB674-9E53-4919-9226-7D21255ABEB9}
+		{6C1FD2F3-07F1-404D-952B-AC334F42F90F} = {F9A1F828-84BE-4204-8DC0-4E7226784F15}
+		{4488449C-341C-4C8E-99BE-075273C3DF22} = {F9A1F828-84BE-4204-8DC0-4E7226784F15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA1C4097-169A-473F-83DC-B719E7F3182A}

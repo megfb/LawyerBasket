@@ -1,0 +1,6 @@
+@LawyerBasket.ProfileService.Api_HostAddress = http://localhost:5033
+
+GET {{LawyerBasket.ProfileService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
