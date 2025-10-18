@@ -10,9 +10,20 @@
     <Folder Include="Contracts\Api\" />
     <Folder Include="Contracts\Application\" />
     <Folder Include="Contracts\Infrastructure\" />
+    <Folder Include="CommandHandlers\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Mapping\" />
+    <Folder Include="QueryHandlers\" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.10" />
     <ProjectReference Include="..\LawyerBasket.ProfileService.Domain\LawyerBasket.ProfileService.Domain.csproj" />
   </ItemGroup>
 

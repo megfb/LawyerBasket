@@ -14,6 +14,14 @@ namespace LawyerBasket.AuthService.Data.AppUser
       builder.Property(x => x.CreatedAt).IsRequired();
       builder.Property(x => x.UpdatedAt).IsRequired(false);
 
+      builder.HasData(new Domain.Entities.AppUser
+      {
+        Id = "d9f8c5b2-4a1e-4c3b-9f21-7e2b8c123456",
+        Email = "admin@admin.com",
+        PasswordHash = "$2a$11$6zFgHTy5N6mMPRIyEiut1ei.PTzGCZA3wZYWgfRToORZP1oW7qBBi",
+        CreatedAt = new DateTime(2025, 01, 01, 0, 0, 0, DateTimeKind.Utc)
+      });
+
     }
   }
 }

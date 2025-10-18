@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LawyerBasket.AuthService.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251015123117_Initialize")]
+    [Migration("20251018195013_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -48,6 +48,36 @@ namespace LawyerBasket.AuthService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8a1f4a29-4f91-4b6b-835b-9c12f89e6f21",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Role for Admin",
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = "f39d0b0f-4a2e-4f9a-a4da-9b61b0b8c112",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Role for User",
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = "a1a7a79e-5c53-47e8-b44d-19a98f5ac789",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Role for lawyers",
+                            Name = "Lawyer"
+                        },
+                        new
+                        {
+                            Id = "5f1f0a00-cf2e-4ee8-b0e8-23e3a091cdee",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Role for clients",
+                            Name = "Client"
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.AuthService.Domain.Entities.AppUser", b =>
@@ -76,6 +106,15 @@ namespace LawyerBasket.AuthService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "d9f8c5b2-4a1e-4c3b-9f21-7e2b8c123456",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "admin@admin.com",
+                            PasswordHash = "$2a$11$6zFgHTy5N6mMPRIyEiut1ei.PTzGCZA3wZYWgfRToORZP1oW7qBBi"
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.AuthService.Domain.Entities.AppUserRole", b =>
@@ -104,6 +143,15 @@ namespace LawyerBasket.AuthService.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AppUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a3f5d2c7-9b8e-4f1a-92d4-6c3e7b8f1a2b",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            RoleId = "8a1f4a29-4f91-4b6b-835b-9c12f89e6f21",
+                            UserId = "d9f8c5b2-4a1e-4c3b-9f21-7e2b8c123456"
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.AuthService.Domain.Entities.AppUserRole", b =>

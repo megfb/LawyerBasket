@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LawyerBasket.ProfileService.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251018160635_Initialize")]
+    [Migration("20251018200014_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -149,6 +149,43 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b1e2c3d4-0001-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "İstanbul",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0002-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Ankara",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0003-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "İzmir",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0004-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bursa",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0005-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Antalya",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.ProfileService.Domain.Entities.Contact", b =>
@@ -263,6 +300,88 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Expertisement");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e1a2b3c4-0001-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Criminal Law",
+                            Name = "Ceza Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0002-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Commercial / Corporate Law",
+                            Name = "Ticaret / Şirketler Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0003-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Labor / Employment Law",
+                            Name = "İş Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0004-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Family Law",
+                            Name = "Aile Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0005-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Inheritance Law",
+                            Name = "Miras Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0006-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Real Estate Law",
+                            Name = "Gayrimenkul / Emlak Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0007-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Intellectual Property Law",
+                            Name = "Fikri Mülkiyet Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0008-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Tax Law",
+                            Name = "Vergi Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0009-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Administrative Law",
+                            Name = "İdare Hukuku",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "e1a2b3c4-0010-4f5a-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "International Law",
+                            Name = "Uluslararası Hukuk",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.ProfileService.Domain.Entities.Gender", b =>
@@ -289,6 +408,24 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Gender");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c1d2e3f4-0001-4a5b-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Male",
+                            Name = "Male",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "c1d2e3f4-0002-4a5b-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Female",
+                            Name = "Female",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("LawyerBasket.ProfileService.Domain.Entities.LawyerExpertisement", b =>
