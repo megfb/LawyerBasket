@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LawyerBasket.ProfileService.Data\LawyerBasket.ProfileService.Data.csproj" />
+    <ProjectReference Include="..\LawyerBasket.ProfileService.Infrastructure\LawyerBasket.ProfileService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

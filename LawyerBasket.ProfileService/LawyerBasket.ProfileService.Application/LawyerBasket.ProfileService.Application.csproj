@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Api\" />
     <Folder Include="Contracts\Application\" />
     <Folder Include="Contracts\Infrastructure\" />
-    <Folder Include="CommandHandlers\" />
-    <Folder Include="Commands\" />
     <Folder Include="Dtos\" />
     <Folder Include="Mapping\" />
     <Folder Include="QueryHandlers\" />
