@@ -3,8 +3,9 @@ using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Commands
 {
-  public class CreateLawyerProfileCommand : IRequest<ApiResult<LawyerProfileDto>>
+  public class UpdateLawyerProfileCommand : IRequest<ApiResult<LawyerProfileDto>>
   {
+    public string Id { get; set; }
     public string UserProfileId { get; set; }
     public string BarAssociation { get; set; }
     public string BarNumber { get; set; }
@@ -12,5 +13,3 @@ namespace LawyerBasket.ProfileService.Application.Commands
     public DateTime LicenseDate { get; set; }
   }
 }
-
-

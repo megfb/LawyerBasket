@@ -1,5 +1,4 @@
 using LawyerBasket.ProfileService.Application.Commands;
-using LawyerBasket.ProfileService.Application.Dtos;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -40,7 +39,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
           request.LawyerProfile.UserProfileId = userId;
           var lw = await _mediator.Send(request.LawyerProfile, cancellationToken);
           if (lw.IsFail) return ApiResult<string>.Fail(lw.ErrorMessage);
-          lawyerProfileId = lw.Data;
+          lawyerProfileId = lw.Data.Id;
         }
 
         if (lawyerProfileId != null)

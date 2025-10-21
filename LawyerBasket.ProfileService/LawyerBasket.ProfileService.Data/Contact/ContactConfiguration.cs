@@ -12,7 +12,7 @@ namespace LawyerBasket.ProfileService.Data.Contact
       builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
       builder.Property(c => c.AlternateEmail).HasMaxLength(100).IsRequired(false);
       builder.Property(c => c.Website).IsRequired(false).HasMaxLength(200);
-      builder.HasOne(c => c.LawyerProfile).WithOne(lp => lp.Contact).HasForeignKey<Domain.Entities.Contact>(c => c.LawyerProfileId).OnDelete(DeleteBehavior.Cascade);
+      builder.HasOne(c => c.LawyerProfile).WithOne(lp => lp.Contact).HasForeignKey<Domain.Entities.Contact>(c => c.LawyerProfileId);
       builder.HasIndex(p => p.LawyerProfileId).IsUnique();
 
     }

@@ -1,8 +1,9 @@
+using LawyerBasket.ProfileService.Application.Dtos;
 using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Commands
 {
-  public class CreateContactCommand : IRequest<ApiResult<string>>
+  public class CreateContactCommand : IRequest<ApiResult<ContactDto>>
   {
     public string LawyerProfileId { get; set; }
     public string PhoneNumber { get; set; }

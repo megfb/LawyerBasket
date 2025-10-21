@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
 using LawyerBasket.ProfileService.Application.Dtos;
@@ -16,17 +12,54 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
     private readonly ILogger<UpdateUserProfileCommandHandler> _logger;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserProfileRepository _userProfileRepository;
-    public UpdateUserProfileCommandHandler(ILogger<UpdateUserProfileCommandHandler> logger, IUnitOfWork unitOfWork, IUserProfileRepository userProfileRepository)
+    private readonly IMapper _mapper;
+    public UpdateUserProfileCommandHandler(IMapper mapper, ILogger<UpdateUserProfileCommandHandler> logger, IUnitOfWork unitOfWork, IUserProfileRepository userProfileRepository)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;
       _userProfileRepository = userProfileRepository;
+      _mapper = mapper;
+
     }
-    public Task<ApiResult<UserProfileDto>> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<UserProfileDto>> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
     {
-      _logger.LogInformation("UpdateUserProfileCommandHandler handle started.");
-      //var userProfile = _userProfileRepository.GetByIdAsync();
-      throw new NotImplementedException();
+
+      try
+      {
+
+        _logger.LogInformation("UpdateUserProfileCommandHandler handle started.");
+
+        var user = await _userProfileRepository.GetByIdAsync(request.Id);
+
+        if (user is null)
+        {
+          _logger.LogWarning("User not found. UserId: {UserId}", request.Id);
+          return ApiResult<UserProfileDto>.Fail("User not found");
+        }
+
+        user.FirstName = request.FirstName;
+        user.LastName = request.LastName;
+        user.Email = request.Email;
+        user.PhoneNumber = request.PhoneNumber;
+        user.GenderId = request.GenderId;
+        user.BirthDate = request.BirthDate;
+        user.NationalId = request.NationalId;
+        user.UpdatedAt = DateTime.UtcNow;
+
+        _logger.LogInformation("Updating user profile in repository. UserId: {UserId}", request.Id);
+        _userProfileRepository.Update(user);
+        _logger.LogInformation("Saving changes to the database.");
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+
+        return ApiResult<UserProfileDto>.Success(_mapper.Map<UserProfileDto>(user));
+      }
+      catch (Exception ex)
+      {
+        _logger.LogWarning(ex, "An error occurred while updating user profile. UserId: {UserId}", request.Id);
+        return ApiResult<UserProfileDto>.Fail("An unexpected error occurred");
+      }
+
     }
   }
 }

@@ -9,10 +9,7 @@
   <ItemGroup>
     <Folder Include="Contracts\Application\" />
     <Folder Include="Contracts\Infrastructure\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Mapping\" />
-    <Folder Include="QueryHandlers\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
