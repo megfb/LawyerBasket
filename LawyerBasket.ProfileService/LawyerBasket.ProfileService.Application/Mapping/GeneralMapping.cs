@@ -10,6 +10,8 @@ namespace LawyerBasket.ProfileService.Application.Mapping
       CreateMap<Domain.Entities.Address, Dtos.AddressDto>().ReverseMap();
       CreateMap<Domain.Entities.LawyerProfile, Dtos.LawyerProfileDto>().ReverseMap();
       CreateMap<Domain.Entities.Contact, Dtos.ContactDto>().ReverseMap();
+      CreateMap<Domain.Entities.Experience, Dtos.ExperienceDto>().ReverseMap();
+      CreateMap<Domain.Entities.Academy, Dtos.AcademyDto>().ReverseMap();
     }
   }
 }

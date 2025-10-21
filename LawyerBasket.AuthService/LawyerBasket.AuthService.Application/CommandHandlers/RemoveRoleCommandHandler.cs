@@ -1,8 +1,8 @@
-using System.Net;
 using LawyerBasket.AuthService.Application.Commands;
 using LawyerBasket.AuthService.Application.Contracts.Data;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace LawyerBasket.AuthService.Application.CommandHandlers
 {

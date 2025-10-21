@@ -3,9 +3,9 @@ using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Commands
 {
-  public class CreateExperienceCommand : IRequest<ApiResult<ExperienceDto>>
+  public class UpdateExperienceCommand : IRequest<ApiResult<ExperienceDto>>
   {
-    public string LawyerProfileId { get; set; }
+    public string Id { get; set; }
     public string CompanyName { get; set; }
     public string Position { get; set; }
     public DateTime StartDate { get; set; }
@@ -13,5 +13,3 @@ namespace LawyerBasket.ProfileService.Application.Commands
     public string Description { get; set; }
   }
 }
-
-

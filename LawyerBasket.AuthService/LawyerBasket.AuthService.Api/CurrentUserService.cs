@@ -1,5 +1,5 @@
-using System.Security.Claims;
 using LawyerBasket.AuthService.Application.Contracts.Api;
+using System.Security.Claims;
 
 namespace LawyerBasket.AuthService.Api
 {

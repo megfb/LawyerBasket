@@ -1,9 +1,9 @@
-using System.Reflection;
 using FluentValidation;
 using LawyerBasket.AuthService.Application.Validators;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace LawyerBasket.AuthService.Application.Extensions
 {

@@ -1,10 +1,10 @@
-using System.Net;
 using AutoMapper;
 using LawyerBasket.AuthService.Application.Commands;
 using LawyerBasket.AuthService.Application.Contracts.Data;
 using LawyerBasket.AuthService.Application.Dtos;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace LawyerBasket.AuthService.Application.CommandHandlers
 {

@@ -1,12 +1,12 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using LawyerBasket.AuthService.Application.Contracts.Infrastructure;
 using LawyerBasket.AuthService.Application.Dtos;
 using LawyerBasket.AuthService.Domain;
 using LawyerBasket.AuthService.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace LawyerBasket.AuthService.Infrastructure.Security
 {

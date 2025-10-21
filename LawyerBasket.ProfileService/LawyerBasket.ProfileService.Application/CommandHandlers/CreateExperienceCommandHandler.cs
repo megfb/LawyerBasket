@@ -1,27 +1,32 @@
+using AutoMapper;
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
+using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace LawyerBasket.ProfileService.Application.CommandHandlers
 {
-  public class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCommand, ApiResult<string>>
+  public class CreateExperienceCommandHandler : IRequestHandler<CreateExperienceCommand, ApiResult<ExperienceDto>>
   {
     private readonly IExperienceRepository _experienceRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<CreateExperienceCommandHandler> _logger;
-    public CreateExperienceCommandHandler(IExperienceRepository experienceRepository, IUnitOfWork unitOfWork, ILogger<CreateExperienceCommandHandler> logger)
+    private readonly IMapper _mapper;
+    public CreateExperienceCommandHandler(IMapper mapper, IExperienceRepository experienceRepository, IUnitOfWork unitOfWork, ILogger<CreateExperienceCommandHandler> logger)
     {
       _experienceRepository = experienceRepository;
       _unitOfWork = unitOfWork;
       _logger = logger;
+      _mapper = mapper;
     }
-    public async Task<ApiResult<string>> Handle(CreateExperienceCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<ExperienceDto>> Handle(CreateExperienceCommand request, CancellationToken cancellationToken)
     {
+      _logger.LogInformation("CreateExperience started. LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
       try
       {
-        _logger.LogInformation("CreateExperience started. LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
+        _logger.LogInformation("Creating experience entity for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         var entity = new Experience
         {
           Id = Guid.NewGuid().ToString(),
@@ -32,16 +37,18 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
           EndDate = request.EndDate,
           Description = request.Description,
           CreatedAt = DateTime.UtcNow,
-          UpdatedAt = DateTime.UtcNow
         };
+        _logger.LogInformation("Persisting experience entity for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         await _experienceRepository.CreateAsync(entity);
+        _logger.LogInformation("Saving changes to the database for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ApiResult<string>.Success(entity.Id);
+        _logger.LogInformation("Experience created successfully with Id: {ExperienceId} for LawyerProfileId: {LawyerProfileId}", entity.Id, request.LawyerProfileId);
+        return ApiResult<ExperienceDto>.Success(_mapper.Map<ExperienceDto>(entity));
       }
       catch (Exception ex)
       {
         _logger.LogError(ex, "Error creating experience for lawyer profile {LawyerProfileId}", request.LawyerProfileId);
-        return ApiResult<string>.Fail("An unexpected error occurred");
+        return ApiResult<ExperienceDto>.Fail("An unexpected error occurred");
       }
     }
   }

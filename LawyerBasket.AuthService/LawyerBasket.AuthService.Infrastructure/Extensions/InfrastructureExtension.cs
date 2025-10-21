@@ -1,4 +1,3 @@
-using System.Text;
 using LawyerBasket.AuthService.Application.Contracts.Infrastructure;
 using LawyerBasket.AuthService.Domain;
 using LawyerBasket.AuthService.Infrastructure.Security;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 
 namespace LawyerBasket.AuthService.Infrastructure.Extensions

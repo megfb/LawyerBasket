@@ -1,27 +1,31 @@
+using AutoMapper;
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
+using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace LawyerBasket.ProfileService.Application.CommandHandlers
 {
-  public class CreateAcademyCommandHandler : IRequestHandler<CreateAcademyCommand, ApiResult<string>>
+  public class CreateAcademyCommandHandler : IRequestHandler<CreateAcademyCommand, ApiResult<AcademyDto>>
   {
     private readonly IAcademyRepository _academyRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<CreateAcademyCommandHandler> _logger;
-    public CreateAcademyCommandHandler(IAcademyRepository academyRepository, IUnitOfWork unitOfWork, ILogger<CreateAcademyCommandHandler> logger)
+    private readonly IMapper _mapper;
+    public CreateAcademyCommandHandler(IAcademyRepository academyRepository, IUnitOfWork unitOfWork, ILogger<CreateAcademyCommandHandler> logger, IMapper mapper)
     {
       _academyRepository = academyRepository;
       _unitOfWork = unitOfWork;
       _logger = logger;
+      _mapper = mapper;
     }
-    public async Task<ApiResult<string>> Handle(CreateAcademyCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<AcademyDto>> Handle(CreateAcademyCommand request, CancellationToken cancellationToken)
     {
+      _logger.LogInformation("CreateAcademy started. LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
       try
       {
-        _logger.LogInformation("CreateAcademy started. LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         var entity = new Academy
         {
           Id = Guid.NewGuid().ToString(),
@@ -31,16 +35,20 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
           StartDate = request.StartDate,
           EndDate = request.EndDate,
           CreatedAt = DateTime.UtcNow,
-          UpdatedAt = DateTime.UtcNow
         };
+        _logger.LogInformation("Creating academy entity for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         await _academyRepository.CreateAsync(entity);
+
+        _logger.LogInformation("Saving changes to the database for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ApiResult<string>.Success(entity.Id);
+
+        _logger.LogInformation("Academy created successfully with Id: {AcademyId}", entity.Id);
+        return ApiResult<AcademyDto>.Success(_mapper.Map<AcademyDto>(entity));
       }
       catch (Exception ex)
       {
         _logger.LogError(ex, "Error creating academy for lawyer profile {LawyerProfileId}", request.LawyerProfileId);
-        return ApiResult<string>.Fail("An unexpected error occurred");
+        return ApiResult<AcademyDto>.Fail("An unexpected error occurred");
       }
     }
   }

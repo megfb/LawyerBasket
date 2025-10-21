@@ -1,5 +1,5 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace LawyerBasket.ProfileService.Data
 {

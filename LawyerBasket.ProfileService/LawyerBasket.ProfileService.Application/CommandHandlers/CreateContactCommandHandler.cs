@@ -42,7 +42,6 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
         await _contactRepository.CreateAsync(entity);
         _logger.LogInformation("Saving changes to the database for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
 
-        //BURDA HATA VAR
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         _logger.LogInformation("CreateContact completed. ContactId: {ContactId}", entity.Id);
         return ApiResult<ContactDto>.Success(_mapper.Map<ContactDto>(entity));
