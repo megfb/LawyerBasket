@@ -2,11 +2,6 @@ using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.ProfileService.Application.CommandHandlers
 {

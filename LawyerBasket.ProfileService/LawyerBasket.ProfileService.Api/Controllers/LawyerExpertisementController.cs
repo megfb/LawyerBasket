@@ -1,7 +1,6 @@
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.ProfileService.Api.Controllers
