@@ -3,8 +3,8 @@ using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Queries
 {
-  public class GetExperiencesQuery : IRequest<ApiResult<List<ExperienceDto>>>
+  public class GetCertificatesQuery : IRequest<ApiResult<List<CertificatesDto>>>
   {
-    public string Id { get; set; }
+    public string LawyerProfileId { get; set; }
   }
 }

@@ -4,11 +4,6 @@ using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Application.Queries;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.ProfileService.Application.QueryHandlers
 {

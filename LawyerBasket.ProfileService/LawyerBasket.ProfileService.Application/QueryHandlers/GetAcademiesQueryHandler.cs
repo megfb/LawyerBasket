@@ -4,11 +4,6 @@ using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Application.Queries;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.ProfileService.Application.QueryHandlers
 {
@@ -28,7 +23,7 @@ namespace LawyerBasket.ProfileService.Application.QueryHandlers
       _logger.LogInformation("Handling GetAcademiesQuery");
       try
       {
-        var academies = await _academyRepository.GetAllAsync();
+        var academies = await _academyRepository.GetAllByLawyerIdAsync(request.Id);
         var academyDtos = _mapper.Map<List<AcademyDto>>(academies);
         _logger.LogInformation("Successfully retrieved {Count} academies", academyDtos.Count);
         return ApiResult<List<AcademyDto>>.Success(academyDtos);

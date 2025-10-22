@@ -1,7 +1,6 @@
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.ProfileService.Api.Controllers
@@ -35,10 +34,10 @@ namespace LawyerBasket.ProfileService.Api.Controllers
     {
       return Ok(await _mediator.Send(new GetAcademyQuery { Id = id }));
     }
-    [HttpGet("GetAcademies")]
-    public async Task<IActionResult> GetAcademies()
+    [HttpGet("GetAcademies/{id}")]
+    public async Task<IActionResult> GetAcademies(string id)
     {
-      return Ok(await _mediator.Send(new GetAcademiesQuery()));
+      return Ok(await _mediator.Send(new GetAcademiesQuery { Id = id }));
     }
   }
 }

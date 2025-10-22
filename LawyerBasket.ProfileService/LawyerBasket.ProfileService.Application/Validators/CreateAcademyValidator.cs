@@ -1,14 +1,9 @@
 using FluentValidation;
 using LawyerBasket.ProfileService.Application.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.ProfileService.Application.Validators
 {
-  public class CreateAcademyValidator:AbstractValidator<CreateAcademyCommand>
+  public class CreateAcademyValidator : AbstractValidator<CreateAcademyCommand>
   {
     public CreateAcademyValidator()
     {

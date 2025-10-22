@@ -4,11 +4,6 @@ using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Application.Queries;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.ProfileService.Application.QueryHandlers
 {
@@ -28,7 +23,7 @@ namespace LawyerBasket.ProfileService.Application.QueryHandlers
       _logger.LogInformation("Handling GetExperiencesQuery");
       try
       {
-        var experiences = await _experienceRepository.GetAllAsync();
+        var experiences = await _experienceRepository.GetAllByLawyerIdAsync(request.Id);
         var experienceDtos = _mapper.Map<List<ExperienceDto>>(experiences);
 
         _logger.LogInformation("Successfully retrieved {Count} experiences", experienceDtos.Count);

@@ -34,10 +34,10 @@ namespace LawyerBasket.ProfileService.Api.Controllers
     {
       return Ok(await _mediator.Send(new GetExperienceQuery { Id = id }));
     }
-    [HttpGet("GetExperiences")]
-    public async Task<IActionResult> GetExperiences()
+    [HttpGet("GetExperiences/{id}")]
+    public async Task<IActionResult> GetExperiences(string id)
     {
-      return Ok(await _mediator.Send(new GetExperiencesQuery()));
+      return Ok(await _mediator.Send(new GetExperiencesQuery { Id = id }));
     }
   }
 }
