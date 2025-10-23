@@ -4,7 +4,6 @@ namespace LawyerBasket.ProfileService.Application.Dtos
 {
   public class UserProfileDto
   {
-    public string UserId { get; set; }
     public string Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
