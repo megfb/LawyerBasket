@@ -1,4 +1,5 @@
 using LawyerBasket.ProfileService.Application.Commands;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

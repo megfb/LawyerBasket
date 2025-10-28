@@ -1,4 +1,4 @@
-using LawyerBasket.ProfileService.Application.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.ProfileService.Data
 {

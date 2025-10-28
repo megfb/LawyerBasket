@@ -10,6 +10,7 @@ using LawyerBasket.ProfileService.Data.Gender;
 using LawyerBasket.ProfileService.Data.LawyerExpertisement;
 using LawyerBasket.ProfileService.Data.LawyerProfile;
 using LawyerBasket.ProfileService.Data.UserProfile;
+using LawyerBasket.Shared.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

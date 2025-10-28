@@ -1,4 +1,5 @@
-using LawyerBasket.AuthService.Domain.Entities.Common;
+
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.AuthService.Domain.Entities
 {

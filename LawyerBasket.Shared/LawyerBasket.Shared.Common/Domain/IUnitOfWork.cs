@@ -1,4 +1,4 @@
-namespace LawyerBasket.AuthService.Application.Contracts.Data
+namespace LawyerBasket.Shared.Common.Domain
 {
   public interface IUnitOfWork
   {

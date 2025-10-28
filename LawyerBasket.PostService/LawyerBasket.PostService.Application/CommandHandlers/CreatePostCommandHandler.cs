@@ -3,6 +3,8 @@ using LawyerBasket.PostService.Application.Commands;
 using LawyerBasket.PostService.Application.Contracts.Data;
 using LawyerBasket.PostService.Application.Dtos;
 using LawyerBasket.PostService.Domain.Entities;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

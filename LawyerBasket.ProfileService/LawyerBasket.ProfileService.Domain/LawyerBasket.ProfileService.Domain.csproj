@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Common\LawyerBasket.Shared.Common.csproj" />
+  </ItemGroup>
+
 </Project>

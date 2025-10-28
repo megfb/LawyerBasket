@@ -2,6 +2,8 @@ using AutoMapper;
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
 using LawyerBasket.ProfileService.Application.Dtos;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

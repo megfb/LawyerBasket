@@ -1,4 +1,5 @@
 using LawyerBasket.AuthService.Application.Dtos;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 
 namespace LawyerBasket.AuthService.Application.Commands

@@ -4,6 +4,8 @@ using LawyerBasket.AuthService.Application.Contracts.Data;
 using LawyerBasket.AuthService.Application.Contracts.Infrastructure;
 using LawyerBasket.AuthService.Application.Dtos;
 using LawyerBasket.AuthService.Domain.Entities;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -66,7 +68,7 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
         await _appUserRepository.CreateAsync(user);
 
         _logger.LogInformation("New user created successfully. Email: {Email}", request.Email);
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("RegisterCommand completed successfully. Email: {Email}", request.Email);
         return ApiResult<AppUserDto>.Success(_mapper.Map<AppUserDto>(user));

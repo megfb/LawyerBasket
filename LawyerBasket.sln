@@ -74,6 +74,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.PostService.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.PostService.Domain", "LawyerBasket.PostService\LawyerBasket.PostService.Domain\LawyerBasket.PostService.Domain.csproj", "{8C692368-D17C-546B-5D09-B2097F9F030B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{562569D6-9F43-4DC7-B599-6AE9EBD2AB92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.Shared.Common", "LawyerBasket.Shared\LawyerBasket.Shared.Common\LawyerBasket.Shared.Common.csproj", "{1BA349DB-C26B-46E9-9573-40F56F9120FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +144,10 @@ Global
 		{8C692368-D17C-546B-5D09-B2097F9F030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C692368-D17C-546B-5D09-B2097F9F030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C692368-D17C-546B-5D09-B2097F9F030B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA349DB-C26B-46E9-9573-40F56F9120FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA349DB-C26B-46E9-9573-40F56F9120FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA349DB-C26B-46E9-9573-40F56F9120FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA349DB-C26B-46E9-9573-40F56F9120FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +185,7 @@ Global
 		{4169CB61-559D-438B-BB5B-62D283B7E638} = {457A9518-D96D-40F7-8346-CB9C4AADFFC3}
 		{A9AED6EA-2623-475F-927D-9F976FD9AD30} = {6352817A-0DEA-4A30-96A5-F8D2DA81CE90}
 		{8C692368-D17C-546B-5D09-B2097F9F030B} = {457A9518-D96D-40F7-8346-CB9C4AADFFC3}
+		{1BA349DB-C26B-46E9-9573-40F56F9120FC} = {562569D6-9F43-4DC7-B599-6AE9EBD2AB92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA1C4097-169A-473F-83DC-B719E7F3182A}

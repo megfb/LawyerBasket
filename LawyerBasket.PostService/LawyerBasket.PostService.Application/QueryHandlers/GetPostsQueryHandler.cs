@@ -2,6 +2,7 @@ using AutoMapper;
 using LawyerBasket.PostService.Application.Contracts.Data;
 using LawyerBasket.PostService.Application.Dtos;
 using LawyerBasket.PostService.Application.Queries;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

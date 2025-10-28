@@ -1,4 +1,4 @@
-using LawyerBasket.ProfileService.Application;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 
 namespace LawyerBasket.SocialService.Api.Application.Commands

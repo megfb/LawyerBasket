@@ -1,4 +1,4 @@
-namespace LawyerBasket.SocialService.Api.Domain.Entities.Common
+namespace LawyerBasket.Shared.Common.Domain
 {
   public abstract class Entity : IEntity
   {

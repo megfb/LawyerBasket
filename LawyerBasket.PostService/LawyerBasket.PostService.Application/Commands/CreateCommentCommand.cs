@@ -1,10 +1,6 @@
 using LawyerBasket.PostService.Application.Dtos;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.PostService.Application.Commands
 {

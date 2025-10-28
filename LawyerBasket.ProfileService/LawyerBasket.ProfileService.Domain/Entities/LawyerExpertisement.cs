@@ -1,4 +1,4 @@
-using LawyerBasket.ProfileService.Domain.Entities.Common;
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.ProfileService.Domain.Entities
 {

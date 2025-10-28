@@ -33,4 +33,8 @@
     <Folder Include="Application\Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Common\LawyerBasket.Shared.Common.csproj" />
+  </ItemGroup>
+
 </Project>

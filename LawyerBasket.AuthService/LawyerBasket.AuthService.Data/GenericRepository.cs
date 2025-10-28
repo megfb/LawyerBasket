@@ -1,5 +1,4 @@
-using LawyerBasket.AuthService.Application.Contracts.Data;
-using LawyerBasket.AuthService.Domain.Entities.Common;
+using LawyerBasket.Shared.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace LawyerBasket.AuthService.Data

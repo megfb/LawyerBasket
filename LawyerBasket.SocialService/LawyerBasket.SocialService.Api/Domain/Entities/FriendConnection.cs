@@ -1,4 +1,4 @@
-using LawyerBasket.SocialService.Api.Domain.Entities.Common;
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.SocialService.Api.Domain.Entities
 {

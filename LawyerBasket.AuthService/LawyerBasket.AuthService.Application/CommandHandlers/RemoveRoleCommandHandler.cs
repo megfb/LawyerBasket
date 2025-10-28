@@ -1,5 +1,7 @@
 using LawyerBasket.AuthService.Application.Commands;
 using LawyerBasket.AuthService.Application.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Net;

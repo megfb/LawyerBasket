@@ -1,5 +1,7 @@
 using LawyerBasket.ProfileService.Application.Commands;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -30,7 +32,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
         _logger.LogInformation("Removing Academy with Id: {Id}", request.Id);
         _academyRepository.Delete(academy);
         _logger.LogInformation("Saving changes to the database for removing Academy with Id: {Id}", request.Id);
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         _logger.LogInformation("Successfully removed Academy with Id: {Id}", request.Id);
         return ApiResult.Success(System.Net.HttpStatusCode.NoContent);
       }

@@ -1,9 +1,8 @@
-using LawyerBasket.SocialService.Api.Domain.Contracts.Data;
-using LawyerBasket.SocialService.Api.Domain.Entities.Common;
+using LawyerBasket.Shared.Common.Domain;
 using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace LawyerBasket.AuthService.Data
+namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework
 {
   public class GenericRepository<T>(AppDbContext context) : IGenericRepository<T> where T : class, IEntity, new()
   {

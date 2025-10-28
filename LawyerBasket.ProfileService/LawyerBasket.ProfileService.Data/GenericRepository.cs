@@ -1,5 +1,4 @@
-using LawyerBasket.ProfileService.Application.Contracts.Data;
-using LawyerBasket.ProfileService.Domain.Entities.Common;
+using LawyerBasket.Shared.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace LawyerBasket.ProfileService.Data

@@ -1,5 +1,6 @@
 using AutoMapper;
-using LawyerBasket.ProfileService.Application;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using LawyerBasket.SocialService.Api.Application.Commands;
 using LawyerBasket.SocialService.Api.Domain.Contracts.Data;
 using LawyerBasket.SocialService.Api.Domain.Entities;

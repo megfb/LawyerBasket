@@ -1,4 +1,4 @@
-using LawyerBasket.AuthService.Application.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.AuthService.Data
 {

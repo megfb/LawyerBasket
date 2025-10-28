@@ -1,4 +1,5 @@
 using LawyerBasket.PostService.Domain.Entities;
+using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.PostService.Application.Contracts.Data
 {

@@ -2,6 +2,7 @@ using LawyerBasket.AuthService.Application.Contracts.Data;
 using LawyerBasket.AuthService.Data.AppRole;
 using LawyerBasket.AuthService.Data.AppUser;
 using LawyerBasket.AuthService.Data.AppUserRole;
+using LawyerBasket.Shared.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

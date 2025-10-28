@@ -1,6 +1,5 @@
 using LawyerBasket.PostService.Application.Commands;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.PostService.Api.Controllers

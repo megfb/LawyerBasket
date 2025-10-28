@@ -1,13 +1,9 @@
-using AutoMapper;
 using LawyerBasket.PostService.Application.Commands;
 using LawyerBasket.PostService.Application.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LawyerBasket.PostService.Application.CommandHandlers
 {

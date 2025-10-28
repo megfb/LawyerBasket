@@ -1,4 +1,4 @@
-using LawyerBasket.SocialService.Api.Domain.Contracts.Data;
+using LawyerBasket.Shared.Common.Domain;
 using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts;
 
 namespace LawyerBasket.SocialService.Api.Domain.Repositories

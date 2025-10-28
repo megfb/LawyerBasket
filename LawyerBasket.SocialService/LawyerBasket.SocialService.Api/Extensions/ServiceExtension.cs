@@ -1,5 +1,6 @@
 using FluentValidation;
 using LawyerBasket.ProfileService.Data;
+using LawyerBasket.Shared.Common.Domain;
 using LawyerBasket.SocialService.Api.Application.Validators;
 using LawyerBasket.SocialService.Api.Domain.Contracts.Data;
 using LawyerBasket.SocialService.Api.Domain.Repositories;

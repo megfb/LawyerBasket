@@ -1,5 +1,6 @@
 using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Domain.Entities;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Commands

@@ -1,5 +1,6 @@
 using LawyerBasket.PostService.Application.Contracts.Data;
 using LawyerBasket.PostService.Data.Post;
+using LawyerBasket.Shared.Common.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

@@ -1,4 +1,3 @@
-using LawyerBasket.AuthService.Data;
 using LawyerBasket.SocialService.Api.Domain.Contracts.Data;
 using LawyerBasket.SocialService.Api.Domain.Entities;
 using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts;

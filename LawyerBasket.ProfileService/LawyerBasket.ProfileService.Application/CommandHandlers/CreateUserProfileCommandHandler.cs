@@ -4,6 +4,8 @@ using LawyerBasket.ProfileService.Application.Contracts.Api;
 using LawyerBasket.ProfileService.Application.Contracts.Data;
 using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Domain.Entities;
+using LawyerBasket.Shared.Common.Domain;
+using LawyerBasket.Shared.Common.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

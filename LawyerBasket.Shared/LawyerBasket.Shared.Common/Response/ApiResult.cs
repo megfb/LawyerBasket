@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text.Json.Serialization;
 
-namespace LawyerBasket.PostService.Application
+namespace LawyerBasket.Shared.Common.Response
 {
   public class ApiResult<T>
   {

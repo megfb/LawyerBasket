@@ -1,4 +1,4 @@
-namespace LawyerBasket.PostService.Application.Contracts.Data
+namespace LawyerBasket.Shared.Common.Domain
 {
   public interface IGenericRepository<T>
   {
