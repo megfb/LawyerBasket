@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LawyerBasket.PostService.Domain\LawyerBasket.PostService.Domain.csproj" />
     <ProjectReference Include="..\LawyerBasket.PostService.Application\LawyerBasket.PostService.Application.csproj" />
     <ProjectReference Include="..\LawyerBasket.PostService.Domain\LawyerBasket.PostService.Domain.csproj" />
   </ItemGroup>

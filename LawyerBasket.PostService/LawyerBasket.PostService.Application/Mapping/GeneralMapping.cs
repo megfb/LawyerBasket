@@ -8,8 +8,9 @@ namespace LawyerBasket.PostService.Application.Mapping
   {
     public GeneralMapping()
     {
-      CreateMap<Post, PostDto>();
-      CreateMap<Comment, CommentDto>();
+      CreateMap<Post, PostDto>().ReverseMap();
+      CreateMap<Comment, CommentDto>().ReverseMap();
+      CreateMap<Likes, LikesDto>().ReverseMap();
     }
   }
 }

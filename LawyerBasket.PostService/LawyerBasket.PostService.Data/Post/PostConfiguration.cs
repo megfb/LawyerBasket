@@ -19,7 +19,15 @@ namespace LawyerBasket.PostService.Data.Post
         comments.HasElementName("comments");
         comments.HasKey(p => p.Id);
         comments.Property(x => x.UserId).HasElementName("userId").IsRequired();
+        comments.Property(x => x.PostId).HasElementName("postId").IsRequired();
         comments.Property(x => x.Text).HasElementName("text").HasMaxLength(255).IsRequired();
+      });
+      builder.OwnsMany(x => x.Likes, likes =>
+      {
+        likes.HasElementName("likes");
+        likes.HasKey(p => p.Id);
+        likes.Property(x => x.UserId).HasElementName("userId").IsRequired();
+        likes.Property(x => x.PostId).HasElementName("postId").IsRequired();
       });
 
     }
