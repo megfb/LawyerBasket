@@ -1,6 +1,5 @@
 using LawyerBasket.SocialService.Api.Application.Commands;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.SocialService.Api.Controllers

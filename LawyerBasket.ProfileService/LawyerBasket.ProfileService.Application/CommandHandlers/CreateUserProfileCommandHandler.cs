@@ -52,7 +52,6 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
           CreatedAt = DateTime.UtcNow,
           UpdatedAt = DateTime.UtcNow
         };
-
         await _userProfileRepository.CreateAsync(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

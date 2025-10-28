@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LawyerBasket.PostService.Domain.Entities;
 
 namespace LawyerBasket.PostService.Application.Contracts.Data
 {
-  public interface IPostRepository:IGenericRepository<Domain.Entities.Post>
+  public interface IPostRepository : IGenericRepository<Domain.Entities.Post>
   {
-
+    Task<IEnumerable<Post>> GetAllByUserIdAsync(string id);
   }
 }

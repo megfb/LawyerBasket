@@ -33,7 +33,7 @@ namespace LawyerBasket.ProfileService.Application.QueryHandlers
 
         var addressDto = _mapper.Map<AddressDto>(address);
 
-        _logger.LogError("Handler is successful");
+        _logger.LogInformation("Handler is successful");
         return ApiResult<AddressDto>.Success(addressDto);
 
       }

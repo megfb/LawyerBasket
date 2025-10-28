@@ -10,7 +10,7 @@ namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework
   {
     public Task<FriendConnection> GetByStatusAsync(string SenderId, string ReceiverId, Status status)
     {
-     return appDbContext.FriendConnection.Where(fc => fc.SenderId == SenderId && fc.ReceiverId == ReceiverId && fc.Status == status).FirstOrDefaultAsync();
+      return appDbContext.FriendConnection.Where(fc => fc.SenderId == SenderId && fc.ReceiverId == ReceiverId && fc.Status == status).FirstOrDefaultAsync();
     }
   }
 }

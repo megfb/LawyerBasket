@@ -5,7 +5,7 @@ using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbConte
 
 namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework
 {
-  public class FriendshipRepository(AppDbContext appDbContext):GenericRepository<Friendship>(appDbContext), IFriendshipRepository
+  public class FriendshipRepository(AppDbContext appDbContext) : GenericRepository<Friendship>(appDbContext), IFriendshipRepository
   {
   }
 }

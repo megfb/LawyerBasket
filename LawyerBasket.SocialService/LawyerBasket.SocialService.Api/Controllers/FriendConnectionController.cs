@@ -11,7 +11,7 @@ namespace LawyerBasket.SocialService.Api.Controllers
     private readonly IMediator _mediator;
     public FriendConnectionController(IMediator mediator)
     {
-        _mediator = mediator;
+      _mediator = mediator;
     }
     [HttpPost("CreateFriendConnection")]
     public async Task<IActionResult> CreateFriendConnection(CreateFriendConnectionCommand command)

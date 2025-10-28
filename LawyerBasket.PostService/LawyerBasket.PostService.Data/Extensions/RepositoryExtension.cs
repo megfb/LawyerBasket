@@ -1,3 +1,5 @@
+using LawyerBasket.PostService.Application.Contracts.Data;
+using LawyerBasket.PostService.Data.Post;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -10,6 +12,10 @@ namespace LawyerBasket.PostService.Data.Extensions
   {
     public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
     {
+
+      services.AddScoped<IPostRepository, PostRepository>();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
+
       services.AddOptions<MongoOption>().BindConfiguration(nameof(MongoOption)).ValidateDataAnnotations()
           .ValidateOnStart();
 

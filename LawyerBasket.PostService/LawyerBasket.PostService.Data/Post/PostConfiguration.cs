@@ -17,18 +17,10 @@ namespace LawyerBasket.PostService.Data.Post
       builder.OwnsMany(p => p.Comments, comments =>
       {
         comments.HasElementName("comments");
+        comments.HasKey(p => p.Id);
         comments.Property(x => x.UserId).HasElementName("userId").IsRequired();
         comments.Property(x => x.Text).HasElementName("text").HasMaxLength(255).IsRequired();
       });
-      // Gömülü Comments koleksiyonu
-      //builder.OwnsMany(p => p.Comments, comments =>
-      //{
-      //  comments.HasElementName("comments");
-      //  comments.Property(c => c.UserId).HasElementName("userId").IsRequired();
-      //  comments.Property(c => c.Text).HasElementName("text").HasMaxLength(255).IsRequired();
-
-      //});
-
 
     }
   }
