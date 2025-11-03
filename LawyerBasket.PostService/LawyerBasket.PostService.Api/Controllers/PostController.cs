@@ -1,4 +1,5 @@
 using LawyerBasket.PostService.Application.Commands;
+using LawyerBasket.PostService.Application.Contracts.Api;
 using LawyerBasket.PostService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,11 @@ namespace LawyerBasket.PostService.Api.Controllers
   public class PostController : ControllerBase
   {
     private readonly IMediator _mediator;
-    public PostController(IMediator mediator)
+    private readonly ICurrentUserService _currentUserService;
+    public PostController(IMediator mediator, ICurrentUserService currentUserService)
     {
       _mediator = mediator;
+      _currentUserService = currentUserService;
     }
 
     [HttpPost("CreatePost")]

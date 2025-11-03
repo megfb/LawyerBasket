@@ -1,4 +1,5 @@
 using LawyerBasket.SocialService.Api.Application.Commands;
+using LawyerBasket.SocialService.Api.Domain.Contracts.Application;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,14 +9,25 @@ namespace LawyerBasket.SocialService.Api.Controllers
   [ApiController]
   public class FriendConnectionController : ControllerBase
   {
+    private readonly ICurrentUserService _currentUserService;
     private readonly IMediator _mediator;
-    public FriendConnectionController(IMediator mediator)
+    public FriendConnectionController(IMediator mediator, ICurrentUserService currentUserService)
     {
       _mediator = mediator;
+      _currentUserService = currentUserService;
     }
     [HttpPost("CreateFriendConnection")]
     public async Task<IActionResult> CreateFriendConnection(CreateFriendConnectionCommand command)
     {
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
+      Console.WriteLine(_currentUserService.UserId);
       return Ok(await _mediator.Send(command));
     }
   }

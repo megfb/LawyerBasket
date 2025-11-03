@@ -11,10 +11,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LawyerBasket.ProfileService.Domain\LawyerBasket.ProfileService.Domain.csproj" />
+    <ProjectReference Include="..\LawyerBasket.PostService.Domain\LawyerBasket.PostService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

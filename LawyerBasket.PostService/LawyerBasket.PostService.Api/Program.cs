@@ -1,5 +1,7 @@
+using LawyerBasket.PostService.Api.Extensions;
 using LawyerBasket.PostService.Application.Extensions;
 using LawyerBasket.PostService.Data.Extensions;
+using LawyerBasket.PostService.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.Configuration);
+builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.Configuration).AddApiServices(builder.Configuration).AddInfrastructure(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -22,6 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
