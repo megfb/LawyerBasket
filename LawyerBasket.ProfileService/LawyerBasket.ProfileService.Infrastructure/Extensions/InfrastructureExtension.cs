@@ -39,7 +39,7 @@ namespace LawyerBasket.ProfileService.Infrastructure.Extensions
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = tokenOptions.Issuer,
-            ValidAudience = tokenOptions.Audience.FirstOrDefault(), // Daha sonra kontrol edilecek
+            ValidAudiences = tokenOptions.Audience, // Daha sonra kontrol edilecek
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
           };
         });
