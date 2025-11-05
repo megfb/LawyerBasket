@@ -1,7 +1,9 @@
-using LawyerBasket.AuthService.Api.Extensions;
+﻿using LawyerBasket.AuthService.Api.Extensions;
 using LawyerBasket.AuthService.Application.Extensions;
+using LawyerBasket.AuthService.Data;
 using LawyerBasket.AuthService.Data.Extensions;
 using LawyerBasket.AuthService.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,11 @@ builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.C
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate(); // Eksik tablolar varsa oluþturur
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -48,7 +48,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -75,7 +75,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserProfileId")
@@ -117,7 +117,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -140,7 +140,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -152,36 +152,31 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         {
                             Id = "b1e2c3d4-0001-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "İstanbul",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "İstanbul"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0002-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Ankara",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Ankara"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0003-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "İzmir",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "İzmir"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0004-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Bursa",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Bursa"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0005-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Antalya",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Antalya"
                         });
                 });
 
@@ -215,7 +210,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Website")
@@ -263,7 +258,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -291,7 +286,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -304,80 +299,70 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                             Id = "e1a2b3c4-0001-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Criminal Law",
-                            Name = "Ceza Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Ceza Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0002-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Commercial / Corporate Law",
-                            Name = "Ticaret / Şirketler Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Ticaret / Şirketler Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0003-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Labor / Employment Law",
-                            Name = "İş Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "İş Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0004-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Family Law",
-                            Name = "Aile Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Aile Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0005-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Inheritance Law",
-                            Name = "Miras Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Miras Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0006-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Real Estate Law",
-                            Name = "Gayrimenkul / Emlak Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Gayrimenkul / Emlak Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0007-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Intellectual Property Law",
-                            Name = "Fikri Mülkiyet Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Fikri Mülkiyet Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0008-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Tax Law",
-                            Name = "Vergi Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Vergi Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0009-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Administrative Law",
-                            Name = "İdare Hukuku",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "İdare Hukuku"
                         },
                         new
                         {
                             Id = "e1a2b3c4-0010-4f5a-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "International Law",
-                            Name = "Uluslararası Hukuk",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Uluslararası Hukuk"
                         });
                 });
 
@@ -399,7 +384,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -412,16 +397,14 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                             Id = "c1d2e3f4-0001-4a5b-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Male",
-                            Name = "Male",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Male"
                         },
                         new
                         {
                             Id = "c1d2e3f4-0002-4a5b-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Female",
-                            Name = "Female",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Female"
                         });
                 });
 
@@ -441,7 +424,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -479,7 +462,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserProfileId")
@@ -532,7 +515,7 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserType")

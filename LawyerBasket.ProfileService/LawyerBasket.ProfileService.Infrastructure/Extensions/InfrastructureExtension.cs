@@ -52,7 +52,7 @@ namespace LawyerBasket.ProfileService.Infrastructure.Extensions
       {
         c.SwaggerDoc("v1", new OpenApiInfo
         {
-          Title = "LawyerBasket AuthService API",
+          Title = "LawyerBasket ProfileService API",
           Version = "v1"
         });
 
