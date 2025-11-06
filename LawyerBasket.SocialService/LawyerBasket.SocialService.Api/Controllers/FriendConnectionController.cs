@@ -19,15 +19,6 @@ namespace LawyerBasket.SocialService.Api.Controllers
     [HttpPost("CreateFriendConnection")]
     public async Task<IActionResult> CreateFriendConnection(CreateFriendConnectionCommand command)
     {
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
-      Console.WriteLine(_currentUserService.UserId);
       return Ok(await _mediator.Send(command));
     }
   }
