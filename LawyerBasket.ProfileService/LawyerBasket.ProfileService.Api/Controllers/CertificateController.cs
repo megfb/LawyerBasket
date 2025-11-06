@@ -26,8 +26,13 @@ namespace LawyerBasket.ProfileService.Api.Controllers
             return Ok(await _mediator.Send(updateCertificateCommand));
 
         }
+        [HttpDelete("RemoveCertificate/{id}")]
+        public async Task<IActionResult> RemoveCertificate(string id)
+        {
+            return Ok(await _mediator.Send(new RemoveCertificateCommand { Id = id }));
+        }
         [HttpGet("GetCertificate/{id}")]
-        public async Task<IActionResult> GetCertificateById(string id)
+        public async Task<IActionResult> GetCertificate(string id)
         {
             return Ok(await _mediator.Send(new GetCertificateQuery { Id = id }));
         }
@@ -36,10 +41,6 @@ namespace LawyerBasket.ProfileService.Api.Controllers
         {
             return Ok(await _mediator.Send(new GetCertificatesQuery { LawyerProfileId = id }));
         }
-        [HttpDelete("RemoveCertificate/{id}")]
-        public async Task<IActionResult> RemoveCertificate(string id)
-        {
-            return Ok(await _mediator.Send(new RemoveCertificateCommand { Id = id }));
-        }
+
     }
 }

@@ -26,7 +26,7 @@ namespace LawyerBasket.ProfileService.Api.Controllers
         {
             return Ok(await _mediatr.Send(updateAddressCommand));
         }
-        [HttpDelete("DeleteAddress/{id}")]
+        [HttpDelete("RemoveAddress/{id}")]
         public async Task<IActionResult> DeleteAddress(string id)
         {
             return Ok(await _mediatr.Send(new RemoveAddressCommand { Id = id }));

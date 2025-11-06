@@ -30,7 +30,7 @@ namespace LawyerBasket.ProfileService.Api.Controllers
             return Ok(await _mediator.Send(new RemoveAcademyCommand { Id = id }));
         }
         [HttpGet("GetAcademy/{id}")]
-        public async Task<IActionResult> GetAcademyById(string id)
+        public async Task<IActionResult> GetAcademy(string id)
         {
             return Ok(await _mediator.Send(new GetAcademyQuery { Id = id }));
         }

@@ -1,18 +1,6 @@
 {
   "Routes": [
-    {
-      "UpstreamHttpMethod": [ "Get" ],
-      "UpstreamPathTemplate": "/user/{id}",
-
-      "DownstreamPathTemplate": "/api/UserProfile/GetUserProfile/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7141
-        }
-      ]
-    },
+    //AuthService Endpoints
     {
       "UpstreamHttpMethod": [ "Post" ],
       "UpstreamPathTemplate": "/register",
@@ -23,6 +11,646 @@
         {
           "Host": "localhost",
           "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/login",
+
+      "DownstreamPathTemplate": "/api/Auth/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/changepassword",
+
+      "DownstreamPathTemplate": "/api/Account/ChangePassword",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/deleteuser",
+
+      "DownstreamPathTemplate": "/api/Account/DeleteUser",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createrole",
+
+      "DownstreamPathTemplate": "/api/Role/CreateRole",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removerole/{id}",
+
+      "DownstreamPathTemplate": "/api/Role/RemoveRole/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updaterole",
+
+      "DownstreamPathTemplate": "/api/Role/UpdateRole",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getroles",
+
+      "DownstreamPathTemplate": "/api/Role/GetRoles",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ]
+    },
+    //UserProfileService Endpoints
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createacademy",
+
+      "DownstreamPathTemplate": "/api/Academy/CreateAcademy",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updateacademy/{id}",
+
+      "DownstreamPathTemplate": "/api/Academy/UpdateAcademy/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removeacademy/{id}",
+
+      "DownstreamPathTemplate": "/api/Academy/RemoveAcademy/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getacademy/{id}",
+
+      "DownstreamPathTemplate": "/api/Academy/GetAcademy/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getacademies",
+
+      "DownstreamPathTemplate": "/api/Academy/GetAcademies",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createaddress",
+
+      "DownstreamPathTemplate": "/api/Address/CreateAddress",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/UpdateAddress/{id}",
+
+      "DownstreamPathTemplate": "/api/Address/UpdateAddress/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removeaddress{id}",
+
+      "DownstreamPathTemplate": "/api/Address/RemoveAddress/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getaddress/{id}",
+
+      "DownstreamPathTemplate": "/api/Academy/GetAddress/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/CreateCertificate",
+
+      "DownstreamPathTemplate": "/api/Certificate/CreateCertificate",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updatecertificate/{id}",
+
+      "DownstreamPathTemplate": "/api/Certificate/UpdateCertificate/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removecertificate/{id}",
+
+      "DownstreamPathTemplate": "/api/Certificate/RemoveCertificate/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getcertificate/{id}",
+
+      "DownstreamPathTemplate": "/api/Certificate/GetCertificate/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getcertificates/{id}",
+
+      "DownstreamPathTemplate": "/api/Certificate/GetCertificates/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createcontact",
+
+      "DownstreamPathTemplate": "/api/Contact/CreateContact",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updatecontact/{id}",
+
+      "DownstreamPathTemplate": "/api/Contact/UpdateContact/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removecontact/{id}",
+
+      "DownstreamPathTemplate": "/api/Contact/RemoveContact/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getcontact/{id}",
+
+      "DownstreamPathTemplate": "/api/Contact/GetContact/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createexperience",
+
+      "DownstreamPathTemplate": "/api/Experience/CreateExperience",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updateexperience/{id}",
+
+      "DownstreamPathTemplate": "/api/Experience/UpdateExperience/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removeexperience/{id}",
+
+      "DownstreamPathTemplate": "/api/Experience/RemoveExperience/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getexperience/{id}",
+
+      "DownstreamPathTemplate": "/api/Experience/GetExperience/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getexperiences/{id}",
+
+      "DownstreamPathTemplate": "/api/Experience/GetExperiences/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createlawyerexpertisement",
+
+      "DownstreamPathTemplate": "/api/LawyerExpertisement/CreateLawyerExpertisement",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removelawyerexpertisement/{id}",
+
+      "DownstreamPathTemplate": "/api/LawyerExpertisement/RemoveLawyerExpertisement/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/getlawyerexpertisements/{id}",
+
+      "DownstreamPathTemplate": "/api/LawyerExpertisements/GetLawyerExpertisements/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createlawyerprofile",
+
+      "DownstreamPathTemplate": "/api/LawyerProfile/CreateLawyerProfile",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updatelawyerprofile/{id}",
+
+      "DownstreamPathTemplate": "/api/LawyerProfile/UpdateLawyerProfile/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/GetLawyerProfile/{id}",
+
+      "DownstreamPathTemplate": "/api/LawyerProfile/GetLawyerProfile/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createuserprofile",
+
+      "DownstreamPathTemplate": "/api/UserProfile/CreateUserProfile",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamPathTemplate": "/updateuserprofile/{id}",
+
+      "DownstreamPathTemplate": "/api/UserProfile/UpdateUserProfile/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/GetUserProfile/{id}",
+
+      "DownstreamPathTemplate": "/api/UserProfile/GetUserProfile/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7141
+        }
+      ]
+    },
+    //PostService Endpoints
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createcomment",
+
+      "DownstreamPathTemplate": "/api/Comment/CreateComment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removecomment/{id}",
+
+      "DownstreamPathTemplate": "/api/Comment/removecomment/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createlike",
+
+      "DownstreamPathTemplate": "/api/Likes/CreateLike",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removelike/{id}",
+
+      "DownstreamPathTemplate": "/api/Likes/RemoveLike/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createpost",
+
+      "DownstreamPathTemplate": "/api/Post/CreatePost",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamPathTemplate": "/removepost/{id}",
+
+      "DownstreamPathTemplate": "/api/Post/RemovePost/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/GetPost/{id}",
+
+      "DownstreamPathTemplate": "/api/Post/GetPost/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamPathTemplate": "/GetPosts/{id}",
+
+      "DownstreamPathTemplate": "/api/Post/GetPosts/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ]
+    },
+    //SocialService Endpoints
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createfriendconnection",
+
+      "DownstreamPathTemplate": "/api/FriendConnection/CreateFriendConnection",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7176
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamPathTemplate": "/createfriendship",
+
+      "DownstreamPathTemplate": "/api/Friendship/CreateFriendship",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7176
         }
       ]
     }
