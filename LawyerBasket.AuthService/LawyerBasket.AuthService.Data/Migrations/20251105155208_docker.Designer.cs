@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LawyerBasket.AuthService.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251018195013_Initialize")]
-    partial class Initialize
+    [Migration("20251105155208_docker")]
+    partial class docker
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.ProfileService
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.override.yml = docker-compose.override.yml
+		docker-compose.yml = docker-compose.yml
 		notes.txt = notes.txt
 	EndProjectSection
 EndProject
@@ -79,6 +81,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.Shared.Common", "LawyerBasket.Shared\LawyerBasket.Shared.Common\LawyerBasket.Shared.Common.csproj", "{1BA349DB-C26B-46E9-9573-40F56F9120FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.PostService.Infrastructure", "LawyerBasket.PostService\LawyerBasket.PostService.Infrastructure\LawyerBasket.PostService.Infrastructure.csproj", "{BB115C8C-CCA7-44FE-A804-6F1BD690F3B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateway", "gateway", "{61655A9E-4F04-4460-8B85-6BB4F66A99C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawyerBasket.GatewayTest", "LawyerBasket.GatewayTest\LawyerBasket.GatewayTest.csproj", "{EAC60966-4F48-4B9C-BF58-F67780256BAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -154,6 +160,10 @@ Global
 		{BB115C8C-CCA7-44FE-A804-6F1BD690F3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB115C8C-CCA7-44FE-A804-6F1BD690F3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB115C8C-CCA7-44FE-A804-6F1BD690F3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC60966-4F48-4B9C-BF58-F67780256BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC60966-4F48-4B9C-BF58-F67780256BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC60966-4F48-4B9C-BF58-F67780256BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC60966-4F48-4B9C-BF58-F67780256BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,6 +203,7 @@ Global
 		{8C692368-D17C-546B-5D09-B2097F9F030B} = {457A9518-D96D-40F7-8346-CB9C4AADFFC3}
 		{1BA349DB-C26B-46E9-9573-40F56F9120FC} = {562569D6-9F43-4DC7-B599-6AE9EBD2AB92}
 		{BB115C8C-CCA7-44FE-A804-6F1BD690F3B4} = {6352817A-0DEA-4A30-96A5-F8D2DA81CE90}
+		{EAC60966-4F48-4B9C-BF58-F67780256BAA} = {61655A9E-4F04-4460-8B85-6BB4F66A99C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA1C4097-169A-473F-83DC-B719E7F3182A}

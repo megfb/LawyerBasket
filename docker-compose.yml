@@ -1,0 +1,24 @@
+services:
+  authdb:
+    image: postgres
+  postdb:
+    image: mongo
+  profiledb:
+    image: postgres
+  socialdb:
+    image: postgres
+  authservice.api:
+    image: authservice_api_image
+    build:
+       context: .
+       dockerfile: LawyerBasket.AuthService/LawyerBasket.AuthService.Api/Dockerfile
+  profileservice.api:
+    image: profileservice_api_image
+    build:
+       context: .
+       dockerfile: LawyerBasket.ProfileService/LawyerBasket.ProfileService.Api/Dockerfile
+volumes:
+  authdb_volume:  
+  postdb_volume:
+  profiledb_volume:
+  socialdb_volume:

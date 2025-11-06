@@ -58,6 +58,7 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
                     {
                         new AppUserRole
                         {
+                            Id = Guid.NewGuid().ToString(),
                             RoleId = role.Id,
                             CreatedAt = DateTime.UtcNow
                         }
