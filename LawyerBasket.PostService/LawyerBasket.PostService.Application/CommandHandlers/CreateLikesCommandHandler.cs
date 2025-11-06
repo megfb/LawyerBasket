@@ -44,7 +44,7 @@ namespace LawyerBasket.PostService.Application.CommandHandlers
           UpdatedAt = DateTime.UtcNow
         };
 
-        post.Likes.Add(likes);
+        post.Likes!.Add(likes);
 
         _postRepository.Update(post);
         await _unitOfWork.SaveChangesAsync();

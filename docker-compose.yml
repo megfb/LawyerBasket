@@ -17,6 +17,16 @@ services:
     build:
        context: .
        dockerfile: LawyerBasket.ProfileService/LawyerBasket.ProfileService.Api/Dockerfile
+  socialservice.api:
+    image: socialservice_api_image
+    build:
+       context: .
+       dockerfile: LawyerBasket.SocialService/LawyerBasket.SocialService.Api/Dockerfile
+  postservice.api:
+    image: postservice_api_image
+    build:
+       context: .
+       dockerfile: LawyerBasket.PostService/LawyerBasket.PostService.Api/Dockerfile
 volumes:
   authdb_volume:  
   postdb_volume:

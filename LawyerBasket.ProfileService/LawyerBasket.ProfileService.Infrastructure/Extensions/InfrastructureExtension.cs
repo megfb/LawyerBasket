@@ -13,82 +13,63 @@ namespace LawyerBasket.ProfileService.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var tokenOptions = configuration.GetSection("TokenOption").Get<CustomTokenOption>();
-
-<<<<<<< HEAD
-        services.AddAuthentication(options =>
-        {
-          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = tokenOptions.Issuer,
-            ValidAudiences = tokenOptions.Audience, // Daha sonra kontrol edilecek
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
-          };
-        });
-=======
-            if (tokenOptions != null)
             {
-                services.Configure<CustomTokenOption>(options =>
-                {
-                    options.Issuer = tokenOptions.Issuer;
-                    options.Audience = tokenOptions.Audience; // No change here
-                    options.ExpiryMinutes = tokenOptions.ExpiryMinutes;
-                    options.SecurityKey = tokenOptions.SecurityKey;
-                });
->>>>>>> Gateway
 
-                services.AddAuthentication(options =>
+                var tokenOptions = configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+
+                if (tokenOptions != null)
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    services.Configure<CustomTokenOption>(options =>
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = tokenOptions.Issuer,
-                        ValidAudiences = tokenOptions.Audience, // Daha sonra kontrol edilecek
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
-                    };
-                });
+                        options.Issuer = tokenOptions.Issuer;
+                        options.Audience = tokenOptions.Audience; // No change here
+                        options.ExpiryMinutes = tokenOptions.ExpiryMinutes;
+                        options.SecurityKey = tokenOptions.SecurityKey;
+                    });
 
-                services.AddAuthorization();
-            }
+                    services.AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = tokenOptions.Issuer,
+                            ValidAudiences = tokenOptions.Audience, // Daha sonra kontrol edilecek
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
+                        };
+                    });
 
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                    services.AddAuthorization();
+                }
+
+                services.AddEndpointsApiExplorer();
+                services.AddSwaggerGen(c =>
                 {
-                    Title = "LawyerBasket ProfileService API",
-                    Version = "v1"
-                });
+                    c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = "LawyerBasket ProfileService API",
+                        Version = "v1"
+                    });
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "JWT token giriniz. Örnek: Bearer {token}"
-                });
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "JWT token giriniz. Örnek: Bearer {token}"
+                    });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+          {
                             {
                                 new OpenApiSecurityScheme
                                 {
@@ -100,10 +81,11 @@ namespace LawyerBasket.ProfileService.Infrastructure.Extensions
                                 },
                                 new string[] {}
                             }
+          });
                 });
-            });
 
-            return services;
+                return services;
+            }
         }
     }
 }

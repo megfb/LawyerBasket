@@ -6,8 +6,8 @@ namespace LawyerBasket.AuthService.Application.Commands
 {
   public class ChangePasswordCommand : IRequest<ApiResult<AppUserDto>>
   {
-    public string Password { get; set; }
-    public string NewPassword { get; set; }
-    public string ReNewPassword { get; set; }
+    public string Password { get; set; } = default!;
+    public string NewPassword { get; set; } = default!;
+    public string ReNewPassword { get; set; } = default!;
   }
 }

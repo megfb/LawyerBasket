@@ -5,6 +5,6 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class RemoveCertificateCommand : IRequest<ApiResult>
   {
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
   }
 }

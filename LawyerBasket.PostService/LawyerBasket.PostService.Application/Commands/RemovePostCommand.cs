@@ -5,6 +5,6 @@ namespace LawyerBasket.PostService.Application.Commands
 {
   public class RemovePostCommand : IRequest<ApiResult>
   {
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
   }
 }

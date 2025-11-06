@@ -5,7 +5,7 @@ namespace LawyerBasket.PostService.Application.Commands
 {
   public class RemoveCommentCommand : IRequest<ApiResult>
   {
-    public string PostId { get; set; }
-    public string CommentId { get; set; }
+    public string PostId { get; set; } = default!;
+    public string CommentId { get; set; } = default!;
   }
 }

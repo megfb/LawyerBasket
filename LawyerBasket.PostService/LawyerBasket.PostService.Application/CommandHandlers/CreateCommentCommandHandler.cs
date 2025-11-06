@@ -50,7 +50,7 @@ namespace LawyerBasket.PostService.Application.CommandHandlers
           UpdatedAt = DateTime.UtcNow
         };
         _logger.LogInformation("Comment is adding");
-        post.Comments.Add(comment);
+        post.Comments!.Add(comment);
         _logger.LogInformation("Comment is updating");
         _postRepository.Update(post);
         _logger.LogInformation("Saving changes to db");

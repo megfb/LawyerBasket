@@ -57,3 +57,22 @@ services:
         - "7141:8080"
     depends_on:
         - profiledb
+  socialservice.api:
+    container_name: socialservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - "ConnectionStrings:PostgreSql=Host=socialdb;Port=5432;Database=LawyerBasketSocialService;Username=postgres;Password=1234"
+    ports:
+        - "7176:8080"
+    depends_on:
+        - socialdb
+  postservice.api:
+    container_name: postservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - MongoOption__ConnectionString=mongodb://postdb:27017
+        - MongoOption__DatabaseName=LawyerBasketPostService
+    ports:
+        - "7254:8080"
+    depends_on:
+        - postdb

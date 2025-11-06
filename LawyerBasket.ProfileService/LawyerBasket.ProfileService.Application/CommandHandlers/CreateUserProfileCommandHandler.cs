@@ -42,7 +42,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
 
         var entity = new UserProfile
         {
-          Id = _currentUserService.UserId,
+          Id = _currentUserService.UserId!,
           FirstName = request.FirstName,
           LastName = request.LastName,
           Email = request.Email,

@@ -5,7 +5,7 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class RemoveLawyerExpertisementCommand : IRequest<ApiResult>
   {
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
 
   }
 }

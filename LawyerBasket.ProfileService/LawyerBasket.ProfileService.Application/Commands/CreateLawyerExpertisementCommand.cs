@@ -6,7 +6,7 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class CreateLawyerExpertisementCommand : IRequest<ApiResult<LawyerExpertisementDto>>
   {
-    public string LawyerProfileId { get; set; }
-    public string ExpertisementId { get; set; }
+    public string LawyerProfileId { get; set; } = default!;
+    public string ExpertisementId { get; set; } = default!;
   }
 }

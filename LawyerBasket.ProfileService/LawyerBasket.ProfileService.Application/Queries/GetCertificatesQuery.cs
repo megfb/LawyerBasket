@@ -6,6 +6,6 @@ namespace LawyerBasket.ProfileService.Application.Queries
 {
   public class GetCertificatesQuery : IRequest<ApiResult<List<CertificatesDto>>>
   {
-    public string LawyerProfileId { get; set; }
+    public string LawyerProfileId { get; set; } = default!;
   }
 }

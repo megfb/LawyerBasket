@@ -4,8 +4,8 @@ namespace LawyerBasket.ProfileService.Domain.Entities
 {
   public class Gender : Entity
   {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public List<UserProfile> UserProfile { get; set; }
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public List<UserProfile>? UserProfile { get; set; }
   }
 }

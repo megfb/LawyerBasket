@@ -6,9 +6,9 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class CreateCertificateCommand : IRequest<ApiResult<CertificatesDto>>
   {
-    public string LawyerProfileId { get; set; }
-    public string Name { get; set; }
-    public string Institution { get; set; }
+    public string LawyerProfileId { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Institution { get; set; } = default!;
     public DateTime DateReceived { get; set; }
   }
 }

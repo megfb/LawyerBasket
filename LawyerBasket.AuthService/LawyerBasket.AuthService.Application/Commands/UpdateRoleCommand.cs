@@ -6,8 +6,8 @@ namespace LawyerBasket.AuthService.Application.Commands
 {
   public class UpdateRoleCommand : IRequest<ApiResult<AppRoleDto>>
   {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Id { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
   }
 }

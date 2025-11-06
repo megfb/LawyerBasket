@@ -32,10 +32,10 @@ namespace LawyerBasket.PostService.Application.CommandHandlers
           return ApiResult.Fail("Post not found", System.Net.HttpStatusCode.NotFound);
         }
 
-        var like = post.Likes.Where(x => x.Id == request.LikeId).FirstOrDefault();
+        var like = post.Likes!.Where(x => x.Id == request.LikeId).FirstOrDefault();
 
         _logger.LogInformation("Like is removing");
-        post.Likes.Remove(like);
+        post.Likes!.Remove(like!);
 
         _logger.LogInformation("Post is updating");
         _postRepository.Update(post);

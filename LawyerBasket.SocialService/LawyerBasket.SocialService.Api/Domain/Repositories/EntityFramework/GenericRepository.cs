@@ -24,7 +24,7 @@ namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework
       return await _dbSet.ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(string id)
+    public async Task<T?> GetByIdAsync(string id)
     {
       return await _dbSet.FindAsync(id);
     }

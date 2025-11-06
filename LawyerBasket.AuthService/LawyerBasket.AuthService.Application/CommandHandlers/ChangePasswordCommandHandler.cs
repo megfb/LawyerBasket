@@ -33,7 +33,7 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
 
       var UserId = _currentUserService.UserId;
       _logger.LogInformation("Handling ChangePasswordCommand for User Id: {UserId}", UserId);
-      var user = await _appUserRepository.GetByIdAsync(UserId);
+      var user = await _appUserRepository.GetByIdAsync(UserId!);
       if (user is null)
       {
         _logger.LogWarning("User not found");

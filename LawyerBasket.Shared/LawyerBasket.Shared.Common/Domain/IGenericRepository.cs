@@ -6,6 +6,6 @@ namespace LawyerBasket.Shared.Common.Domain
     void Update(T entity);
     void Delete(T entity);
     Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsync(string id);
+    Task<T?> GetByIdAsync(string id);
   }
 }

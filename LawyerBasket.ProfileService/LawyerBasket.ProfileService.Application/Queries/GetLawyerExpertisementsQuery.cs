@@ -6,6 +6,6 @@ namespace LawyerBasket.ProfileService.Application.Queries
 {
   public class GetLawyerExpertisementsQuery : IRequest<ApiResult<List<LawyerExpertisementDto>>>
   {
-    public string LawyerProfileId { get; set; }
+    public string LawyerProfileId { get; set; } = default!;
   }
 }

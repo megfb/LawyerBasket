@@ -16,7 +16,7 @@ namespace LawyerBasket.AuthService.Data.Extensions
       services.AddDbContext<AppDbContext>(options =>
       {
         var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
-        options.UseNpgsql(connectionString.PostgreSql);
+        options.UseNpgsql(connectionString!.PostgreSql);
       });
 
       services.AddScoped<IAppRoleRepository, AppRoleRepository>();

@@ -11,9 +11,9 @@ namespace LawyerBasket.AuthService.Data.AppUser
       return await _dbset.AnyAsync(u => u.Email == email);
     }
 
-    public async Task<Domain.Entities.AppUser> GetByEmailAsync(string email)
+    public async Task<Domain.Entities.AppUser?> GetByEmailAsync(string email)
     {
-      return await _dbset.Include(x => x.AppUserRole).ThenInclude(x => x.AppRole).FirstOrDefaultAsync(x => x.Email == email);
+      return await _dbset.Include(x => x.AppUserRole!).ThenInclude(x => x.AppRole).FirstOrDefaultAsync(x => x.Email == email);
     }
   }
 }

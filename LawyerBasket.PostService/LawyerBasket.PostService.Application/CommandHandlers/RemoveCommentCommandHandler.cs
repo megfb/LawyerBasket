@@ -31,14 +31,14 @@ namespace LawyerBasket.PostService.Application.CommandHandlers
           return ApiResult.Fail("Post not found", System.Net.HttpStatusCode.NotFound);
         }
 
-        var comment = post.Comments.Where(x => x.Id == request.CommentId).FirstOrDefault();
+        var comment = post.Comments!.Where(x => x.Id == request.CommentId).FirstOrDefault();
         if (comment is null)
         {
           _logger.LogError("Comment not found");
           return ApiResult.Fail("Comment not found", System.Net.HttpStatusCode.NotFound);
         }
         _logger.LogInformation("Comment is removing");
-        post.Comments.Remove(comment);
+        post.Comments!.Remove(comment);
         _logger.LogInformation("Database is updating");
         _postRepository.Update(post);
         _logger.LogInformation("Saving changes to database");

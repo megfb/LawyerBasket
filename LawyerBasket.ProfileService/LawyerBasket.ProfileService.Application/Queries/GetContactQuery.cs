@@ -6,6 +6,6 @@ namespace LawyerBasket.ProfileService.Application.Queries
 {
   public class GetContactQuery : IRequest<ApiResult<ContactDto>>
   {
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
   }
 }

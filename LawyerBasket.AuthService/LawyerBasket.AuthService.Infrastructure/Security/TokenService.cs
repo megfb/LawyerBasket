@@ -20,7 +20,7 @@ namespace LawyerBasket.AuthService.Infrastructure.Security
     }
     public TokenDto CreateToken(AppUser user)
     {
-      var userRoles = user.AppUserRole.Select(x => x.AppRole.Name).ToList();
+      var userRoles = user.AppUserRole!.Select(x => x.AppRole!.Name).ToList();
 
       var claims = new List<Claim>
             {

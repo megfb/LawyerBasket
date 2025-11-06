@@ -4,9 +4,9 @@ namespace LawyerBasket.ProfileService.Application.Dtos
 {
   public class LawyerProfileDto
   {
-    public string Id { get; set; }
-    public string UserProfileId { get; set; }
-    public UserProfile UserProfile { get; set; }
+    public string Id { get; set; } = default!;
+    public string UserProfileId { get; set; } = default!;
+    public UserProfile? UserProfile { get; set; }
     public string BarAssociation { get; set; } = default!;   // Baro adı (örn: İstanbul Barosu)
     public string BarNumber { get; set; } = default!;        // Baro kayıt numarası
     public string LicenseNumber { get; set; } = default!;    // Avukatlık ruhsat numarası

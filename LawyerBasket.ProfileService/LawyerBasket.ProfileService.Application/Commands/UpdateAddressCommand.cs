@@ -6,8 +6,8 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class UpdateAddressCommand : IRequest<ApiResult<AddressDto>>
   {
-    public string Id { get; set; }
-    public string AddressLine { get; set; }
-    public string CityId { get; set; }
+    public string Id { get; set; } = default!;
+    public string AddressLine { get; set; } = default!;
+    public string CityId { get; set; } = default!;
   }
 }

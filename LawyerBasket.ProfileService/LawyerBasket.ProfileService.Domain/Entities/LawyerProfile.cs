@@ -4,8 +4,8 @@ namespace LawyerBasket.ProfileService.Domain.Entities
 {
   public class LawyerProfile : Entity
   {
-    public string UserProfileId { get; set; }
-    public UserProfile UserProfile { get; set; }
+    public string UserProfileId { get; set; } = default!;
+    public UserProfile? UserProfile { get; set; }
     // Mesleki bilgiler
     public string BarAssociation { get; set; } = default!;   // Baro adı (örn: İstanbul Barosu)
     public string BarNumber { get; set; } = default!;        // Baro kayıt numarası

@@ -6,6 +6,6 @@ namespace LawyerBasket.ProfileService.Application.Queries
 {
   public class GetAcademyQuery : IRequest<ApiResult<AcademyDto>>
   {
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
   }
 }

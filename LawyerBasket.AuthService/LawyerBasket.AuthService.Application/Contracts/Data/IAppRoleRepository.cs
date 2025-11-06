@@ -6,7 +6,7 @@ namespace LawyerBasket.AuthService.Application.Contracts.Data
   public interface IAppRoleRepository : IGenericRepository<AppRole>
   {
     Task<bool> Any(string role);
-    Task<AppRole> GetByNameAsync(string name);
+    Task<AppRole?> GetByNameAsync(string name);
 
 
   }

@@ -11,7 +11,7 @@ namespace LawyerBasket.AuthService.Data.AppRole
       return await _dbset.AnyAsync(r => r.Name == role);
     }
 
-    public async Task<Domain.Entities.AppRole> GetByNameAsync(string name)
+    public async Task<Domain.Entities.AppRole?> GetByNameAsync(string name)
     {
       return await _dbset.FirstOrDefaultAsync(r => r.Name == name);
     }

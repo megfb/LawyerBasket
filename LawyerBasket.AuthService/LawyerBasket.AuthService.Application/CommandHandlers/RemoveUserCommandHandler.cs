@@ -26,7 +26,7 @@ namespace LawyerBasket.AuthService.Application.CommandHandlers
       var UserId = _currentUserService.UserId;
       _logger.LogInformation("RemoveUserCommand is started");
 
-      var user = await _appUserRepository.GetByIdAsync(UserId);
+      var user = await _appUserRepository.GetByIdAsync(UserId!);
 
       if (user is null)
       {

@@ -5,8 +5,8 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class CreateExpertisementToLawyerCommand : IRequest<ApiResult<string>>
   {
-    public string LawyerProfileId { get; set; }
-    public string ExpertisementId { get; set; }
+    public string LawyerProfileId { get; set; } = default!;
+    public string ExpertisementId { get; set; } = default!;
   }
 }
 

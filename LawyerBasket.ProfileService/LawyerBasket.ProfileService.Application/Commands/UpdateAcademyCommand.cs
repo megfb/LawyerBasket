@@ -6,8 +6,8 @@ namespace LawyerBasket.ProfileService.Application.Commands
 {
   public class UpdateAcademyCommand : IRequest<ApiResult<AcademyDto>>
   {
-    public string Id { get; set; }
-    public string University { get; set; }
+    public string Id { get; set; } = default!;
+    public string University { get; set; } = default!;
     public string? Degree { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
