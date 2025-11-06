@@ -4,8 +4,8 @@ using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Queries
 {
-  public class GetCertificatesQuery : IRequest<ApiResult<List<CertificatesDto>>>
-  {
-    public string LawyerProfileId { get; set; } = default!;
-  }
+    public class GetCertificatesQuery : IRequest<ApiResult<List<CertificatesDto>>>
+    {
+        public string LawyerProfileId { get; set; } = default!;
+    }
 }

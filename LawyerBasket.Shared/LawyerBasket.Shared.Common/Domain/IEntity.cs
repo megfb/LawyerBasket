@@ -1,6 +1,6 @@
 namespace LawyerBasket.Shared.Common.Domain
 {
-  public interface IEntity
-  {
-  }
+    public interface IEntity
+    {
+    }
 }

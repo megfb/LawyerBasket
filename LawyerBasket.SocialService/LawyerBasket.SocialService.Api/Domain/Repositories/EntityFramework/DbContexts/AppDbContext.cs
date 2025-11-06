@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts
 {
-  public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
-  {
-    public DbSet<FriendConnection> FriendConnection { get; set; }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-      modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        public DbSet<FriendConnection> FriendConnection { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
-  }
 }

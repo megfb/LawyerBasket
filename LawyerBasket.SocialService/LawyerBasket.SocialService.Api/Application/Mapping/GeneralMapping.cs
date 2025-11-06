@@ -4,12 +4,12 @@ using LawyerBasket.SocialService.Api.Domain.Entities;
 
 namespace LawyerBasket.SocialService.Api.Application.Mapping
 {
-  public class GeneralMapping : Profile
-  {
-    public GeneralMapping()
+    public class GeneralMapping : Profile
     {
-      CreateMap<FriendConnection, FriendConnectionDto>().ReverseMap();
-      CreateMap<Friendship, FriendshipDto>().ReverseMap();
+        public GeneralMapping()
+        {
+            CreateMap<FriendConnection, FriendConnectionDto>().ReverseMap();
+            CreateMap<Friendship, FriendshipDto>().ReverseMap();
+        }
     }
-  }
 }

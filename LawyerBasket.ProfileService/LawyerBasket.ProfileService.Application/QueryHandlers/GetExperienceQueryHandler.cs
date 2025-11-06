@@ -8,38 +8,38 @@ using Microsoft.Extensions.Logging;
 
 namespace LawyerBasket.ProfileService.Application.QueryHandlers
 {
-  public class GetExperienceQueryHandler : IRequestHandler<GetExperienceQuery, ApiResult<ExperienceDto>>
-  {
-    private readonly IExperienceRepository _experienceRepository;
-    private readonly IMapper _mapper;
-    private readonly ILogger<GetExperienceQueryHandler> _logger;
-    public GetExperienceQueryHandler(IExperienceRepository experienceRepository, IMapper mapper, ILogger<GetExperienceQueryHandler> logger)
+    public class GetExperienceQueryHandler : IRequestHandler<GetExperienceQuery, ApiResult<ExperienceDto>>
     {
-      _experienceRepository = experienceRepository;
-      _mapper = mapper;
-      _logger = logger;
-    }
-    public async Task<ApiResult<ExperienceDto>> Handle(GetExperienceQuery request, CancellationToken cancellationToken)
-    {
-      _logger.LogInformation("Handling GetExperienceQuery for Id: {Id}", request.Id);
-      try
-      {
-        var experience = await _experienceRepository.GetByIdAsync(request.Id);
-        if (experience == null)
+        private readonly IExperienceRepository _experienceRepository;
+        private readonly IMapper _mapper;
+        private readonly ILogger<GetExperienceQueryHandler> _logger;
+        public GetExperienceQueryHandler(IExperienceRepository experienceRepository, IMapper mapper, ILogger<GetExperienceQueryHandler> logger)
         {
-          _logger.LogWarning("Experience not found for Id: {Id}", request.Id);
-          return ApiResult<ExperienceDto>.Fail("Experience not found", System.Net.HttpStatusCode.NotFound);
+            _experienceRepository = experienceRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
-        var experienceDto = _mapper.Map<ExperienceDto>(experience);
-        _logger.LogInformation("Successfully retrieved Experience for Id: {Id}", request.Id);
-        return ApiResult<ExperienceDto>.Success(experienceDto, System.Net.HttpStatusCode.OK);
+        public async Task<ApiResult<ExperienceDto>> Handle(GetExperienceQuery request, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Handling GetExperienceQuery for Id: {Id}", request.Id);
+            try
+            {
+                var experience = await _experienceRepository.GetByIdAsync(request.Id);
+                if (experience == null)
+                {
+                    _logger.LogWarning("Experience not found for Id: {Id}", request.Id);
+                    return ApiResult<ExperienceDto>.Fail("Experience not found", System.Net.HttpStatusCode.NotFound);
+                }
+                var experienceDto = _mapper.Map<ExperienceDto>(experience);
+                _logger.LogInformation("Successfully retrieved Experience for Id: {Id}", request.Id);
+                return ApiResult<ExperienceDto>.Success(experienceDto, System.Net.HttpStatusCode.OK);
 
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError(ex, "Error occurred while handling GetExperienceQuery for Id: {Id}", request.Id);
-        return ApiResult<ExperienceDto>.Fail("An error occurred while processing your request.", System.Net.HttpStatusCode.InternalServerError);
-      }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while handling GetExperienceQuery for Id: {Id}", request.Id);
+                return ApiResult<ExperienceDto>.Fail("An error occurred while processing your request.", System.Net.HttpStatusCode.InternalServerError);
+            }
+        }
     }
-  }
 }

@@ -3,8 +3,8 @@ using MediatR;
 
 namespace LawyerBasket.PostService.Application.Commands
 {
-  public class RemovePostCommand : IRequest<ApiResult>
-  {
-    public string Id { get; set; } = default!;
-  }
+    public class RemovePostCommand : IRequest<ApiResult>
+    {
+        public string Id { get; set; } = default!;
+    }
 }

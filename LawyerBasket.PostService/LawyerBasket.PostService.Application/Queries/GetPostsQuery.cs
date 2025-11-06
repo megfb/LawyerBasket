@@ -4,8 +4,8 @@ using MediatR;
 
 namespace LawyerBasket.PostService.Application.Queries
 {
-  public class GetPostsQuery : IRequest<ApiResult<IEnumerable<PostDto>>>
-  {
-    public string Id { get; set; } = default!;
-  }
+    public class GetPostsQuery : IRequest<ApiResult<IEnumerable<PostDto>>>
+    {
+        public string Id { get; set; } = default!;
+    }
 }

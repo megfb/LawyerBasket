@@ -8,42 +8,42 @@ using Microsoft.Extensions.Logging;
 
 namespace LawyerBasket.ProfileService.Application.QueryHandlers
 {
-  public class GetAddressQueryHandler : IRequestHandler<GetAddressQuery, ApiResult<AddressDto>>
-  {
-    private readonly IAddressRepository _addressRepository;
-    private readonly IMapper _mapper;
-    private readonly ILogger<GetAddressQueryHandler> _logger;
-    public GetAddressQueryHandler(IAddressRepository addressRepository, IMapper mapper, ILogger<GetAddressQueryHandler> logger)
+    public class GetAddressQueryHandler : IRequestHandler<GetAddressQuery, ApiResult<AddressDto>>
     {
-      _mapper = mapper;
-      _logger = logger;
-      _addressRepository = addressRepository;
-    }
-    async Task<ApiResult<AddressDto>> IRequestHandler<GetAddressQuery, ApiResult<AddressDto>>.Handle(GetAddressQuery request, CancellationToken cancellationToken)
-    {
-      try
-      {
-        _logger.LogInformation("Handler is started");
-        var address = await _addressRepository.GetByIdAsync(request.Id);
-
-        if (address is null)
+        private readonly IAddressRepository _addressRepository;
+        private readonly IMapper _mapper;
+        private readonly ILogger<GetAddressQueryHandler> _logger;
+        public GetAddressQueryHandler(IAddressRepository addressRepository, IMapper mapper, ILogger<GetAddressQueryHandler> logger)
         {
-          _logger.LogError("Address not found");
-          return ApiResult<AddressDto>.Fail("Address not found");
+            _mapper = mapper;
+            _logger = logger;
+            _addressRepository = addressRepository;
         }
+        async Task<ApiResult<AddressDto>> IRequestHandler<GetAddressQuery, ApiResult<AddressDto>>.Handle(GetAddressQuery request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                _logger.LogInformation("Handler is started");
+                var address = await _addressRepository.GetByIdAsync(request.Id);
 
-        var addressDto = _mapper.Map<AddressDto>(address);
+                if (address is null)
+                {
+                    _logger.LogError("Address not found");
+                    return ApiResult<AddressDto>.Fail("Address not found");
+                }
 
-        _logger.LogInformation("Handler is successful");
-        return ApiResult<AddressDto>.Success(addressDto);
+                var addressDto = _mapper.Map<AddressDto>(address);
 
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError(ex, "Error occurred while getting address");
-        return ApiResult<AddressDto>.Fail("Error occurred while getting address");
-      }
+                _logger.LogInformation("Handler is successful");
+                return ApiResult<AddressDto>.Success(addressDto);
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting address");
+                return ApiResult<AddressDto>.Fail("Error occurred while getting address");
+            }
+
+        }
     }
-  }
 }

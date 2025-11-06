@@ -4,7 +4,7 @@ using MediatR;
 
 namespace LawyerBasket.AuthService.Application.Queries
 {
-  public class GetRolesQuery : IRequest<ApiResult<List<AppRoleDto>>>
-  {
-  }
+    public class GetRolesQuery : IRequest<ApiResult<List<AppRoleDto>>>
+    {
+    }
 }

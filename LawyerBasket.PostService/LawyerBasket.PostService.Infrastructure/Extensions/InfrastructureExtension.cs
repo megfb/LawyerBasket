@@ -8,65 +8,65 @@ using System.Text;
 
 namespace LawyerBasket.PostService.Infrastructure.Extensions
 {
-  public static class InfrastructureExtension
-  {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static class InfrastructureExtension
     {
-      var tokenOptions = configuration.GetSection("TokenOption").Get<CustomTokenOption>();
-
-      if (tokenOptions != null)
-      {
-        services.Configure<CustomTokenOption>(options =>
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-          options.Issuer = tokenOptions.Issuer;
-          options.Audience = tokenOptions.Audience; // No change here
-          options.ExpiryMinutes = tokenOptions.ExpiryMinutes;
-          options.SecurityKey = tokenOptions.SecurityKey;
-        });
+            var tokenOptions = configuration.GetSection("TokenOption").Get<CustomTokenOption>();
 
-        services.AddAuthentication(options =>
-        {
-          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = tokenOptions.Issuer,
-            ValidAudience = tokenOptions.Audience.FirstOrDefault(), // Daha sonra kontrol edilecek
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
-          };
-        });
+            if (tokenOptions != null)
+            {
+                services.Configure<CustomTokenOption>(options =>
+                {
+                    options.Issuer = tokenOptions.Issuer;
+                    options.Audience = tokenOptions.Audience; // No change here
+                    options.ExpiryMinutes = tokenOptions.ExpiryMinutes;
+                    options.SecurityKey = tokenOptions.SecurityKey;
+                });
 
-        services.AddAuthorization();
-      }
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience.FirstOrDefault(), // Daha sonra kontrol edilecek
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
+                    };
+                });
 
-      services.AddEndpointsApiExplorer();
-      services.AddSwaggerGen(c =>
-      {
-        c.SwaggerDoc("v1", new OpenApiInfo
-        {
-          Title = "LawyerBasket AuthService API",
-          Version = "v1"
-        });
+                services.AddAuthorization();
+            }
 
-        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        {
-          Name = "Authorization",
-          Type = SecuritySchemeType.Http,
-          Scheme = "bearer",
-          BearerFormat = "JWT",
-          In = ParameterLocation.Header,
-          Description = "JWT token giriniz. Örnek: Bearer {token}"
-        });
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "LawyerBasket AuthService API",
+                    Version = "v1"
+                });
 
-        c.AddSecurityRequirement(new OpenApiSecurityRequirement
-          {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT token giriniz. Örnek: Bearer {token}"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                             {
                                 new OpenApiSecurityScheme
                                 {
@@ -78,10 +78,10 @@ namespace LawyerBasket.PostService.Infrastructure.Extensions
                                 },
                                 new string[] {}
                             }
-          });
-      });
+                });
+            });
 
-      return services;
+            return services;
+        }
     }
-  }
 }

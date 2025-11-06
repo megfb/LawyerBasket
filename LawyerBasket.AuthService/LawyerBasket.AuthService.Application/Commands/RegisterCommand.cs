@@ -4,9 +4,9 @@ using MediatR;
 
 namespace LawyerBasket.AuthService.Application.Commands
 {
-  public class RegisterCommand : IRequest<ApiResult<AppUserDto>>
-  {
-    public string Email { get; set; } = default!;
-    public string Password { get; set; } = default!;
-  }
+    public class RegisterCommand : IRequest<ApiResult<AppUserDto>>
+    {
+        public string Email { get; set; } = default!;
+        public string Password { get; set; } = default!;
+    }
 }

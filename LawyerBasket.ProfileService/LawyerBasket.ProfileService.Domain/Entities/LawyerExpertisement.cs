@@ -2,11 +2,11 @@ using LawyerBasket.Shared.Common.Domain;
 
 namespace LawyerBasket.ProfileService.Domain.Entities
 {
-  public class LawyerExpertisement : Entity
-  {
-    public LawyerProfile? LawyerProfile { get; set; }
-    public string LawyerProfileId { get; set; } = default!;
-    public Expertisement? Expertisement { get; set; }
-    public string ExpertisementId { get; set; } = default!;
-  }
+    public class LawyerExpertisement : Entity
+    {
+        public LawyerProfile? LawyerProfile { get; set; }
+        public string LawyerProfileId { get; set; } = default!;
+        public Expertisement? Expertisement { get; set; }
+        public string ExpertisementId { get; set; } = default!;
+    }
 }

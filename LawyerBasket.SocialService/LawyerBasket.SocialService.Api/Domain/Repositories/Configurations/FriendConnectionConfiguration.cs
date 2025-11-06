@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LawyerBasket.SocialService.Api.Domain.Repositories.Configurations
 {
-  public class FriendConnectionConfiguration : IEntityTypeConfiguration<FriendConnection>
-  {
-    public void Configure(EntityTypeBuilder<FriendConnection> builder)
+    public class FriendConnectionConfiguration : IEntityTypeConfiguration<FriendConnection>
     {
-      builder.HasKey(fc => fc.Id);
+        public void Configure(EntityTypeBuilder<FriendConnection> builder)
+        {
+            builder.HasKey(fc => fc.Id);
 
+        }
     }
-  }
 }

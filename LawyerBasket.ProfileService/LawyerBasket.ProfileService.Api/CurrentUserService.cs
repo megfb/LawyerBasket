@@ -3,13 +3,13 @@ using System.Security.Claims;
 
 namespace LawyerBasket.ProfileService.Api
 {
-  public class CurrentUserService : ICurrentUserService
-  {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    public CurrentUserService(IHttpContextAccessor httpContextAccessor)
+    public class CurrentUserService : ICurrentUserService
     {
-      _httpContextAccessor = httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CurrentUserService(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+        public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
-    public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-  }
 }

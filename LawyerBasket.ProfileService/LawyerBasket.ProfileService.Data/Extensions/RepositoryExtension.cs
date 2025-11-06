@@ -17,31 +17,31 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LawyerBasket.ProfileService.Data.Extensions
 {
-  public static class RepositoryExtension
-  {
-    public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+    public static class RepositoryExtension
     {
-      services.AddDbContext<AppDbContext>(options =>
-      {
-        var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
-        options.UseNpgsql(connectionString!.PostgreSql);
-      });
+        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
+                options.UseNpgsql(connectionString!.PostgreSql);
+            });
 
 
-      services.AddScoped<IAcademyRepository, AcademyRepository>();
-      services.AddScoped<IAddressRepository, AddressRepository>();
-      services.AddScoped<ICertificateRepository, CertificateRepository>();
-      services.AddScoped<ICityRepository, CityRepository>();
-      services.AddScoped<IContactRepository, ContactRepository>();
-      services.AddScoped<IExperienceRepository, ExperienceRepository>();
-      services.AddScoped<IExpertisemenetRepository, ExpertisementRepository>();
-      services.AddScoped<IGenderRepository, GenderRepository>();
-      services.AddScoped<ILawyerExpertisementRepository, LawyerExpertisementRepository>();
-      services.AddScoped<ILawyerProfileRepository, LawyerProfileRepository>();
-      services.AddScoped<IUserProfileRepository, UserProfileRepository>();
-      services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAcademyRepository, AcademyRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICertificateRepository, CertificateRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IExperienceRepository, ExperienceRepository>();
+            services.AddScoped<IExpertisemenetRepository, ExpertisementRepository>();
+            services.AddScoped<IGenderRepository, GenderRepository>();
+            services.AddScoped<ILawyerExpertisementRepository, LawyerExpertisementRepository>();
+            services.AddScoped<ILawyerProfileRepository, LawyerProfileRepository>();
+            services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-      return services;
+            return services;
+        }
     }
-  }
 }

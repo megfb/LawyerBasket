@@ -8,15 +8,15 @@ using System.Reflection;
 
 namespace LawyerBasket.PostService.Application.Extensions
 {
-  public static class ServiceExtension
-  {
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    public static class ServiceExtension
     {
-      services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-      services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
-      services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-      services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-      return services;
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            return services;
+        }
     }
-  }
 }

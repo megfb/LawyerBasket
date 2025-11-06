@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LawyerBasket.ProfileService.Data.Experience
 {
-  public class ExperienceRepository(AppDbContext context) : GenericRepository<Domain.Entities.Experience>(context), IExperienceRepository
-  {
-    public async Task<IEnumerable<Domain.Entities.Experience>> GetAllByLawyerIdAsync(string id)
+    public class ExperienceRepository(AppDbContext context) : GenericRepository<Domain.Entities.Experience>(context), IExperienceRepository
     {
-      return await context.Experience.Where(x => x.LawyerProfileId == id).ToListAsync();
+        public async Task<IEnumerable<Domain.Entities.Experience>> GetAllByLawyerIdAsync(string id)
+        {
+            return await context.Experience.Where(x => x.LawyerProfileId == id).ToListAsync();
+        }
     }
-  }
 }

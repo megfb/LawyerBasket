@@ -4,10 +4,10 @@ using MediatR;
 
 namespace LawyerBasket.ProfileService.Application.Commands
 {
-  public class UpdateAddressCommand : IRequest<ApiResult<AddressDto>>
-  {
-    public string Id { get; set; } = default!;
-    public string AddressLine { get; set; } = default!;
-    public string CityId { get; set; } = default!;
-  }
+    public class UpdateAddressCommand : IRequest<ApiResult<AddressDto>>
+    {
+        public string Id { get; set; } = default!;
+        public string AddressLine { get; set; } = default!;
+        public string CityId { get; set; } = default!;
+    }
 }

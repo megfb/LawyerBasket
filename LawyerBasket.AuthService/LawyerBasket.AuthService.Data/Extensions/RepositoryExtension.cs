@@ -9,21 +9,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LawyerBasket.AuthService.Data.Extensions
 {
-  public static class RepositoryExtension
-  {
-    public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+    public static class RepositoryExtension
     {
-      services.AddDbContext<AppDbContext>(options =>
-      {
-        var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
-        options.UseNpgsql(connectionString!.PostgreSql);
-      });
+        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
+                options.UseNpgsql(connectionString!.PostgreSql);
+            });
 
-      services.AddScoped<IAppRoleRepository, AppRoleRepository>();
-      services.AddScoped<IUnitOfWork, UnitOfWork>();
-      services.AddScoped<IAppUserRepository, AppUserRepository>();
-      services.AddScoped<IAppUserRoleRepository, AppUserRoleRepository>();
-      return services;
+            services.AddScoped<IAppRoleRepository, AppRoleRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<IAppUserRoleRepository, AppUserRoleRepository>();
+            return services;
+        }
     }
-  }
 }

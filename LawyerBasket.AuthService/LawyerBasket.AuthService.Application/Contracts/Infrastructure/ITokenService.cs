@@ -3,9 +3,9 @@ using LawyerBasket.AuthService.Domain.Entities;
 
 namespace LawyerBasket.AuthService.Application.Contracts.Infrastructure
 {
-  public interface ITokenService
-  {
-    public TokenDto CreateToken(AppUser user);
+    public interface ITokenService
+    {
+        public TokenDto CreateToken(AppUser user);
 
-  }
+    }
 }

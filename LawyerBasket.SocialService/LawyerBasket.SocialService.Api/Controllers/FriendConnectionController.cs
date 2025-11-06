@@ -5,21 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.SocialService.Api.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class FriendConnectionController : ControllerBase
-  {
-    private readonly ICurrentUserService _currentUserService;
-    private readonly IMediator _mediator;
-    public FriendConnectionController(IMediator mediator, ICurrentUserService currentUserService)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class FriendConnectionController : ControllerBase
     {
-      _mediator = mediator;
-      _currentUserService = currentUserService;
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IMediator _mediator;
+        public FriendConnectionController(IMediator mediator, ICurrentUserService currentUserService)
+        {
+            _mediator = mediator;
+            _currentUserService = currentUserService;
+        }
+        [HttpPost("CreateFriendConnection")]
+        public async Task<IActionResult> CreateFriendConnection(CreateFriendConnectionCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
     }
-    [HttpPost("CreateFriendConnection")]
-    public async Task<IActionResult> CreateFriendConnection(CreateFriendConnectionCommand command)
-    {
-      return Ok(await _mediator.Send(command));
-    }
-  }
 }
