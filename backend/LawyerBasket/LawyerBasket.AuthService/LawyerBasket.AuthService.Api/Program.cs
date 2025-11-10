@@ -14,6 +14,29 @@ builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.C
 
 builder.Services.AddHttpContextAccessor();
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        if (builder.Environment.IsDevelopment())
+        {
+            // Development: Allow all origins for easier testing
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        }
+        else
+        {
+            // Production: Specific origins only
+            policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        }
+    });
+});
+
 var app = builder.Build();
 //using (var scope = app.Services.CreateScope())
 //{
@@ -21,13 +44,20 @@ var app = builder.Build();
 //    db.Database.Migrate(); // Eksik tablolar varsa oluþturur
 //}
 // Configure the HTTP request pipeline.
+
+// Use CORS first - Must be before any other middleware that might send responses
+app.UseCors("AllowAngularApp");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
+else
+{
+    // Only use HTTPS redirection in production
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthentication();
 app.UseAuthorization();

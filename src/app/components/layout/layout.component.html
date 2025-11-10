@@ -1,0 +1,68 @@
+<div class="layout-container">
+  <nav class="navbar">
+    <div class="navbar-content">
+      <!-- Logo -->
+      <div class="navbar-logo" (click)="navigateTo('/dashboard')">
+        <span class="material-symbols-outlined logo-icon">balance</span>
+        <span class="logo-text">Lawyer Basket</span>
+      </div>
+
+      <!-- Search Box -->
+      <div class="navbar-search">
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchQuery"
+          placeholder="Ara..."
+          class="search-input"
+          (keyup.enter)="onSearch()"
+        />
+        <button
+          pButton
+          icon="pi pi-search"
+          class="p-button-text search-button"
+          (click)="onSearch()"
+        ></button>
+      </div>
+
+      <!-- Menu Items -->
+      <div class="navbar-menu">
+        @for (item of menuItems; track item.route) {
+          <button
+            pButton
+            [label]="item.label"
+            [icon]="item.icon"
+            class="p-button-text menu-button"
+            (click)="navigateTo(item.route)"
+          ></button>
+        }
+      </div>
+
+      <!-- Profile Menu -->
+      <div class="navbar-profile">
+        <p-menu
+          #profileMenu
+          [model]="profileMenuItems"
+          [popup]="true"
+          [appendTo]="'body'"
+        ></p-menu>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-user"
+          label="Profil"
+          class="p-button-text profile-button"
+          (click)="profileMenu.toggle($event)"
+          aria-haspopup="true"
+          aria-controls="profile-menu"
+        ></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
