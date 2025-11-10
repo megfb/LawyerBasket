@@ -26,10 +26,10 @@ namespace LawyerBasket.ProfileService.Api.Controllers
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("GetLawyerProfile/{id}")]
-        public async Task<IActionResult> GetLawyerProfile(string id)
+        [HttpGet("GetLawyerProfile")]
+        public async Task<IActionResult> GetLawyerProfile()
         {
-            return Ok(await _mediator.Send(new GetLawyerProfileQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetLawyerProfileQuery()));
         }
     }
 }

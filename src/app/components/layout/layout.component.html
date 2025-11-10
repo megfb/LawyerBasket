@@ -25,37 +25,39 @@
         ></button>
       </div>
 
-      <!-- Menu Items -->
-      <div class="navbar-menu">
-        @for (item of menuItems; track item.route) {
+      <!-- Menu Items and Profile -->
+      <div class="navbar-actions">
+        <div class="navbar-menu">
+          @for (item of menuItems; track item.route) {
+            <button
+              pButton
+              [label]="item.label"
+              [icon]="item.icon"
+              class="p-button-text menu-button"
+              (click)="navigateTo(item.route)"
+            ></button>
+          }
+        </div>
+
+        <!-- Profile Menu -->
+        <div class="navbar-profile">
+          <p-menu
+            #profileMenu
+            [model]="profileMenuItems"
+            [popup]="true"
+            [appendTo]="'body'"
+          ></p-menu>
           <button
             pButton
-            [label]="item.label"
-            [icon]="item.icon"
-            class="p-button-text menu-button"
-            (click)="navigateTo(item.route)"
+            type="button"
+            icon="pi pi-user"
+            label="Profil"
+            class="p-button-text profile-button"
+            (click)="profileMenu.toggle($event)"
+            aria-haspopup="true"
+            aria-controls="profile-menu"
           ></button>
-        }
-      </div>
-
-      <!-- Profile Menu -->
-      <div class="navbar-profile">
-        <p-menu
-          #profileMenu
-          [model]="profileMenuItems"
-          [popup]="true"
-          [appendTo]="'body'"
-        ></p-menu>
-        <button
-          pButton
-          type="button"
-          icon="pi pi-user"
-          label="Profil"
-          class="p-button-text profile-button"
-          (click)="profileMenu.toggle($event)"
-          aria-haspopup="true"
-          aria-controls="profile-menu"
-        ></button>
+        </div>
       </div>
     </div>
   </nav>

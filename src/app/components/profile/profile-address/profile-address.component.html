@@ -1,0 +1,45 @@
+<p-card class="profile-section-card">
+  <div class="card-header">
+    <h2 class="section-title">
+      <span class="material-symbols-outlined section-icon">location_on</span>
+      Adres
+    </h2>
+  </div>
+  
+  <div class="card-content">
+    <div class="address-details">
+      @if (address.city) {
+        <div class="address-item">
+          <span class="material-symbols-outlined address-icon">location_city</span>
+          <span class="address-text">{{ address.city }}</span>
+        </div>
+      }
+      
+      @if (address.district) {
+        <div class="address-item">
+          <span class="material-symbols-outlined address-icon">place</span>
+          <span class="address-text">{{ address.district }}</span>
+        </div>
+      }
+      
+      @if (address.fullAddress) {
+        <div class="address-item">
+          <span class="material-symbols-outlined address-icon">home</span>
+          <span class="address-text">{{ address.fullAddress }}</span>
+        </div>
+      }
+      
+      @if (address.postalCode) {
+        <div class="address-item">
+          <span class="material-symbols-outlined address-icon">markunread_mailbox</span>
+          <span class="address-text">{{ address.postalCode }}</span>
+        </div>
+      }
+      
+      @if (!address.city && !address.district && !address.fullAddress && !address.postalCode) {
+        <p class="empty-message">Adres bilgisi eklenmemiş.</p>
+      }
+    </div>
+  </div>
+</p-card>
+

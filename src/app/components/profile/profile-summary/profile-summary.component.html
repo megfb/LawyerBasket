@@ -1,0 +1,47 @@
+<p-card class="profile-summary-card">
+  <!-- Cover Image -->
+  <div class="cover-image-container">
+    <img 
+      [src]="summary.coverImage || '/img/cover.jpg'" 
+      [alt]="summary.firstName + ' ' + summary.lastName + ' Cover Image'"
+      class="cover-image"
+    />
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <!-- Profile Image -->
+    <div class="profile-image-container">
+      <img 
+        [src]="summary.profileImage || '/img/profilephoto.jpg'" 
+        [alt]="summary.firstName + ' ' + summary.lastName"
+        class="profile-avatar-image"
+        (error)="onImageError($event)"
+      />
+    </div>
+
+    <!-- Profile Info -->
+    <div class="profile-info">
+      <h1 class="profile-name">{{ summary.firstName }} {{ summary.lastName }}</h1>
+      <p class="profile-title">{{ summary.title }}</p>
+      
+      <div class="profile-details">
+        <div class="detail-item" *ngIf="summary.education">
+          <span class="material-symbols-outlined detail-icon">school</span>
+          <span class="detail-text">{{ summary.education }}</span>
+        </div>
+        
+        <div class="detail-item" *ngIf="summary.lastWorkPlace">
+          <span class="material-symbols-outlined detail-icon">work</span>
+          <span class="detail-text">{{ summary.lastWorkPlace }}</span>
+        </div>
+        
+        <div class="detail-item" *ngIf="summary.city">
+          <span class="material-symbols-outlined detail-icon">location_on</span>
+          <span class="detail-text">{{ summary.city }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>
+

@@ -1,0 +1,44 @@
+<p-card class="profile-section-card">
+  <div class="card-header">
+    <h2 class="section-title">
+      <span class="material-symbols-outlined section-icon">verified</span>
+      Sertifikalar
+    </h2>
+  </div>
+  
+  <div class="card-content">
+    @if (certificates.length === 0) {
+      <p class="empty-message">Henüz sertifika eklenmemiş.</p>
+    } @else {
+      <div class="certificates-list">
+        @for (cert of certificates; track cert.id) {
+          <div class="certificate-item">
+            <div class="certificate-header">
+              <h3 class="certificate-name">{{ cert.name }}</h3>
+              <span class="certificate-organization">{{ cert.issuingOrganization }}</span>
+            </div>
+            <div class="certificate-details">
+              <div class="certificate-date">
+                <span class="material-symbols-outlined date-icon">calendar_today</span>
+                <span>{{ cert.issueDate }}</span>
+                @if (cert.expirationDate) {
+                  <span> - {{ cert.expirationDate }}</span>
+                }
+              </div>
+              @if (cert.credentialId) {
+                <div class="certificate-id">
+                  <span class="material-symbols-outlined id-icon">badge</span>
+                  <span>{{ cert.credentialId }}</span>
+                </div>
+              }
+            </div>
+            @if (cert !== certificates[certificates.length - 1]) {
+              <div class="certificate-divider"></div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</p-card>
+

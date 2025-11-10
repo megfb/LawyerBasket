@@ -17,7 +17,6 @@
 .navbar-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
   height: 64px;
@@ -80,6 +79,13 @@
   color: #20b2aa;
 }
 
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
 .navbar-menu {
   display: flex;
   align-items: center;
@@ -87,20 +93,34 @@
 }
 
 ::ng-deep .menu-button {
-  color: #333;
+  color: #20b2aa !important;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 500;
   padding: 8px 16px;
-  transition: color 0.3s;
+  transition: all 0.3s;
+}
+
+::ng-deep .menu-button .p-button-label {
+  color: #20b2aa !important;
 }
 
 ::ng-deep .menu-button:hover {
-  color: #20b2aa;
+  color: #1a9d96 !important;
+  background-color: rgba(32, 178, 170, 0.1);
+}
+
+::ng-deep .menu-button:hover .p-button-label {
+  color: #1a9d96 !important;
 }
 
 ::ng-deep .menu-button .p-button-icon {
   margin-right: 6px;
+  color: #20b2aa !important;
+}
+
+::ng-deep .menu-button:hover .p-button-icon {
+  color: #1a9d96 !important;
 }
 
 .navbar-profile {
@@ -109,14 +129,32 @@
 }
 
 ::ng-deep .profile-button {
-  color: #20b2aa;
+  color: #20b2aa !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   padding: 8px 16px;
+  transition: all 0.3s;
+}
+
+::ng-deep .profile-button .p-button-label {
+  color: #20b2aa !important;
 }
 
 ::ng-deep .profile-button:hover {
+  color: #1a9d96 !important;
   background-color: rgba(32, 178, 170, 0.1);
+}
+
+::ng-deep .profile-button:hover .p-button-label {
+  color: #1a9d96 !important;
+}
+
+::ng-deep .profile-button .p-button-icon {
+  color: #20b2aa !important;
+}
+
+::ng-deep .profile-button:hover .p-button-icon {
+  color: #1a9d96 !important;
 }
 
 .main-content {
@@ -165,6 +203,12 @@
     width: 100%;
     max-width: 100%;
     margin-top: 8px;
+  }
+
+  .navbar-actions {
+    flex: 1;
+    justify-content: center;
+    margin-left: 0;
   }
 
   .navbar-menu {

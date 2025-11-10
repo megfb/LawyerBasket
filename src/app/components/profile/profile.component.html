@@ -1,0 +1,34 @@
+<div class="profile-container">
+  <!-- Profile Summary -->
+  <app-profile-summary [summary]="profileData.summary"></app-profile-summary>
+
+  <!-- Profile Tabs (Posts, Comments, Likes) -->
+  <app-profile-tabs></app-profile-tabs>
+
+  <div class="profile-content-grid">
+    <!-- Left Column -->
+    <div class="profile-left-column">
+      <!-- Experiences -->
+      <app-profile-experiences [experiences]="profileData.experiences"></app-profile-experiences>
+
+      <!-- Education -->
+      <app-profile-education [education]="profileData.education"></app-profile-education>
+
+      <!-- Certificates -->
+      <app-profile-certificates [certificates]="profileData.certificates"></app-profile-certificates>
+    </div>
+
+    <!-- Right Column -->
+    <div class="profile-right-column">
+      <!-- Skills -->
+      <app-profile-skills [skills]="profileData.skills"></app-profile-skills>
+
+      <!-- Address -->
+      <app-profile-address [address]="profileData.address"></app-profile-address>
+
+      <!-- Contact Info -->
+      <app-profile-contact [contactInfo]="profileData.contactInfo"></app-profile-contact>
+    </div>
+  </div>
+</div>
+

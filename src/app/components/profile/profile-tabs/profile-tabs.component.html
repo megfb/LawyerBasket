@@ -1,0 +1,50 @@
+<p-card class="profile-tabs-card">
+  <div class="tabs-container">
+    <!-- Tab Headers -->
+    <div class="tabs-header">
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'posts'"
+        (click)="setActiveTab('posts')"
+      >
+        Gönderiler
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'comments'"
+        (click)="setActiveTab('comments')"
+      >
+        Yorumlar
+      </button>
+      <button 
+        class="tab-button" 
+        [class.active]="activeTab === 'likes'"
+        (click)="setActiveTab('likes')"
+      >
+        Beğeniler
+      </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tabs-content">
+      @if (activeTab === 'posts') {
+        <div class="tab-panel">
+          <p class="empty-message">Henüz gönderi yok.</p>
+        </div>
+      }
+      
+      @if (activeTab === 'comments') {
+        <div class="tab-panel">
+          <p class="empty-message">Henüz yorum yok.</p>
+        </div>
+      }
+      
+      @if (activeTab === 'likes') {
+        <div class="tab-panel">
+          <p class="empty-message">Henüz beğeni yok.</p>
+        </div>
+      }
+    </div>
+  </div>
+</p-card>
+

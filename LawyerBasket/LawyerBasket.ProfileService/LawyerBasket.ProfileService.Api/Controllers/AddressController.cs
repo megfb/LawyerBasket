@@ -32,10 +32,10 @@ namespace LawyerBasket.ProfileService.Api.Controllers
             return Ok(await _mediatr.Send(new RemoveAddressCommand { Id = id }));
         }
 
-        [HttpGet("GetAddress/{id}")]
-        public async Task<IActionResult> GetAddress(string id)
+        [HttpGet("GetAddress")]
+        public async Task<IActionResult> GetAddress()
         {
-            return Ok(await _mediatr.Send(new GetAddressQuery { Id = id }));
+            return Ok(await _mediatr.Send(new GetAddressQuery()));
         }
     }
 }

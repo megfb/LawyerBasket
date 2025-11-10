@@ -1,0 +1,38 @@
+<p-card class="profile-section-card">
+  <div class="card-header">
+    <h2 class="section-title">
+      <span class="material-symbols-outlined section-icon">school</span>
+      Eğitim Bilgileri
+    </h2>
+  </div>
+  
+  <div class="card-content">
+    @if (education.length === 0) {
+      <p class="empty-message">Henüz eğitim bilgisi eklenmemiş.</p>
+    } @else {
+      <div class="education-list">
+        @for (edu of education; track edu.id) {
+          <div class="education-item">
+            <div class="education-header">
+              <h3 class="education-school">{{ edu.schoolName }}</h3>
+              <span class="education-department">{{ edu.department }}</span>
+            </div>
+            @if (edu.graduationYear) {
+              <div class="education-year">
+                <span class="material-symbols-outlined year-icon">calendar_today</span>
+                <span>{{ edu.graduationYear }}</span>
+              </div>
+            }
+            @if (edu.degree) {
+              <span class="education-degree">{{ edu.degree }}</span>
+            }
+            @if (edu !== education[education.length - 1]) {
+              <div class="education-divider"></div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</p-card>
+

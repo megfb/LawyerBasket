@@ -1,0 +1,77 @@
+.profile-section-card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.section-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  font-size: 24px;
+  color: #20b2aa;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.empty-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-icon {
+  font-size: 20px;
+  color: #20b2aa;
+  flex-shrink: 0;
+}
+
+.contact-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #20b2aa;
+  text-decoration: none;
+  transition: color 0.3s;
+  word-break: break-all;
+}
+
+.contact-link:hover {
+  color: #1a9d96;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .card-header,
+  .card-content {
+    padding: 16px;
+  }
+}
+

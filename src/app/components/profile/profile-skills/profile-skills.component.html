@@ -1,0 +1,30 @@
+<p-card class="profile-section-card">
+  <div class="card-header">
+    <h2 class="section-title">
+      <span class="material-symbols-outlined section-icon">star</span>
+      Uzmanlıklar
+    </h2>
+  </div>
+  
+  <div class="card-content">
+    @if (skills.length === 0) {
+      <p class="empty-message">Henüz uzmanlık eklenmemiş.</p>
+    } @else {
+      <div class="skills-list">
+        @for (skill of skills; track skill.id) {
+          <div class="skill-item">
+            <span class="skill-name">{{ skill.name }}</span>
+            @if (skill.level) {
+              <p-tag 
+                [value]="skill.level" 
+                [severity]="getSeverity(skill.level)"
+                class="skill-tag"
+              ></p-tag>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</p-card>
+

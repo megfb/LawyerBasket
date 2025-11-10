@@ -1,0 +1,106 @@
+.profile-section-card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.section-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  font-size: 24px;
+  color: #20b2aa;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.empty-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.certificates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.certificate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.certificate-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.certificate-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.certificate-organization {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #20b2aa;
+}
+
+.certificate-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.certificate-date,
+.certificate-id {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #666;
+}
+
+.date-icon,
+.id-icon {
+  font-size: 16px;
+  color: #999;
+}
+
+.certificate-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .card-header,
+  .card-content {
+    padding: 16px;
+  }
+}
+
