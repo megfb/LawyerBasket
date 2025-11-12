@@ -1,0 +1,90 @@
+<div class="lawyer-profile-container">
+  <p-card class="lawyer-profile-card">
+    <div class="form-header">
+      <h2 class="form-title">Mesleki Bilgiler</h2>
+      <p class="form-subtitle">Lütfen mesleki bilgilerinizi doldurun. Bu adım zorunludur.</p>
+    </div>
+
+    <form [formGroup]="lawyerProfileForm" (ngSubmit)="onSubmit()" class="lawyer-profile-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-field">
+        <label for="barAssociation">Baro Adı *</label>
+        <input
+          id="barAssociation"
+          type="text"
+          pInputText
+          formControlName="barAssociation"
+          placeholder="Örn: İstanbul Barosu"
+          [class.ng-invalid]="isFieldInvalid('barAssociation')"
+        />
+        @if (isFieldInvalid('barAssociation')) {
+          <small class="error-text">{{ getFieldError('barAssociation') }}</small>
+        }
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="barNumber">Baro Kayıt No *</label>
+          <input
+            id="barNumber"
+            type="text"
+            pInputText
+            formControlName="barNumber"
+            placeholder="Baro kayıt numaranızı giriniz"
+            [class.ng-invalid]="isFieldInvalid('barNumber')"
+          />
+          @if (isFieldInvalid('barNumber')) {
+            <small class="error-text">{{ getFieldError('barNumber') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="licenseNumber">Ruhsat No *</label>
+          <input
+            id="licenseNumber"
+            type="text"
+            pInputText
+            formControlName="licenseNumber"
+            placeholder="Avukatlık ruhsat numaranızı giriniz"
+            [class.ng-invalid]="isFieldInvalid('licenseNumber')"
+          />
+          @if (isFieldInvalid('licenseNumber')) {
+            <small class="error-text">{{ getFieldError('licenseNumber') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="licenseDate">Ruhsat Tarihi *</label>
+        <p-datepicker
+          id="licenseDate"
+          formControlName="licenseDate"
+          [showIcon]="true"
+          [maxDate]="maxDate"
+          dateFormat="dd/mm/yy"
+          placeholder="Ruhsat tarihinizi seçiniz"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
+        @if (isFieldInvalid('licenseDate')) {
+          <small class="error-text">{{ getFieldError('licenseDate') }}</small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Sonraki"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+

@@ -4,11 +4,19 @@
       <span class="material-symbols-outlined section-icon">star</span>
       Uzmanlıklar
     </h2>
+    <p-button
+      label="Yeni Uzmanlık"
+      icon="pi pi-plus"
+      [outlined]="true"
+      size="small"
+      (onClick)="onAddSkill()"
+      class="add-button"
+    ></p-button>
   </div>
   
   <div class="card-content">
     @if (skills.length === 0) {
-      <p class="empty-message">Henüz uzmanlık eklenmemiş.</p>
+      <p class="empty-message">Henüz uzmanlık alanı eklenmemiş.</p>
     } @else {
       <div class="skills-list">
         @for (skill of skills; track skill.id) {
@@ -21,10 +29,62 @@
                 class="skill-tag"
               ></p-tag>
             }
+            <span 
+              class="material-symbols-outlined item-delete-icon"
+              (click)="onDeleteSkill($event, skill)"
+              title="Sil"
+            >delete</span>
           </div>
         }
       </div>
     }
   </div>
+  <p-confirmDialog></p-confirmDialog>
+  <p-toast></p-toast>
 </p-card>
+
+<p-dialog
+  [(visible)]="showAddModal"
+  [modal]="true"
+  [style]="{ width: '500px' }"
+  header="Yeni Uzmanlık Alanları Ekle"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="dialog-content">
+    <div class="form-field">
+      <label for="expertisements">Uzmanlık Alanları</label>
+      <p-multiSelect
+        id="expertisements"
+        [(ngModel)]="selectedExpertisementIds"
+        [options]="availableExpertisements"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Uzmanlık alanları seçiniz"
+        [style]="{ width: '100%' }"
+        [filter]="true"
+        filterPlaceholder="Ara..."
+        [showClear]="true"
+      ></p-multiSelect>
+      <small class="info-text">Birden fazla uzmanlık alanı seçebilirsiniz.</small>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      label="İptal"
+      icon="pi pi-times"
+      [outlined]="true"
+      (onClick)="onCancelAdd()"
+      [disabled]="isSubmitting"
+    ></p-button>
+    <p-button
+      label="Kaydet"
+      icon="pi pi-check"
+      (onClick)="onSaveExpertisements()"
+      [loading]="isSubmitting"
+      [disabled]="isSubmitting || !selectedExpertisementIds || selectedExpertisementIds.length === 0"
+    ></p-button>
+  </ng-template>
+</p-dialog>
 

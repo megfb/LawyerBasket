@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LawyerBasket.ProfileService.Application.CommandHandlers
 {
-    public class CreateLawyerExpertisementCommandHandler : IRequestHandler<CreateLawyerExpertisementCommand, ApiResult<LawyerExpertisementDto>>
+    public class CreateLawyerExpertisementCommandHandler : IRequestHandler<CreateLawyerExpertisementCommand, ApiResult<List<LawyerExpertisementDto>>>
     {
         private readonly ILawyerExpertisementRepository _lawyerExpertisementRepository;
         private readonly IMapper _mapper;
@@ -22,29 +22,44 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
             _mapper = mapper;
             _lawyerExpertisementRepository = lawyerExpertisementRepository;
         }
-        public async Task<ApiResult<LawyerExpertisementDto>> Handle(CreateLawyerExpertisementCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResult<List<LawyerExpertisementDto>>> Handle(CreateLawyerExpertisementCommand request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Handling CreateLawyerExpertisementCommand");
+            _logger.LogInformation("Handling CreateLawyerExpertisementCommand for LawyerProfileId: {LawyerProfileId} with {Count} expertisements", 
+                request.LawyerProfileId, request.ExpertisementIds?.Count ?? 0);
             try
             {
-                var entity = new Domain.Entities.LawyerExpertisement
+                if (request.ExpertisementIds == null || !request.ExpertisementIds.Any())
+                {
+                    _logger.LogWarning("No expertisement IDs provided for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
+                    return ApiResult<List<LawyerExpertisementDto>>.Fail("At least one expertisement ID must be provided");
+                }
+
+                var entities = request.ExpertisementIds.Select(expertisementId => new Domain.Entities.LawyerExpertisement
                 {
                     Id = Guid.NewGuid().ToString(),
                     LawyerProfileId = request.LawyerProfileId,
-                    ExpertisementId = request.ExpertisementId,
+                    ExpertisementId = expertisementId,
                     CreatedAt = DateTime.UtcNow,
-                };
-                _logger.LogInformation("Creating LawyerExpertisement entity for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
-                await _lawyerExpertisementRepository.CreateAsync(entity);
+                }).ToList();
+
+                _logger.LogInformation("Creating {Count} LawyerExpertisement entities for LawyerProfileId: {LawyerProfileId}", 
+                    entities.Count, request.LawyerProfileId);
+                
+                await _lawyerExpertisementRepository.CreateRangeAsync(entities);
+                
                 _logger.LogInformation("Saving changes to the database for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
                 await _unitOfwork.SaveChangesAsync(cancellationToken);
-                _logger.LogInformation("LawyerExpertisement created successfully with Id: {LawyerExpertisementId}", entity.Id);
-                return ApiResult<LawyerExpertisementDto>.Success(_mapper.Map<LawyerExpertisementDto>(entity));
+                
+                _logger.LogInformation("Successfully created {Count} LawyerExpertisement entities for LawyerProfileId: {LawyerProfileId}", 
+                    entities.Count, request.LawyerProfileId);
+                
+                var dtos = _mapper.Map<List<LawyerExpertisementDto>>(entities);
+                return ApiResult<List<LawyerExpertisementDto>>.Success(dtos);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error creating LawyerExpertisement for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
-                return ApiResult<LawyerExpertisementDto>.Fail("An unexpected error occurred");
+                _logger.LogError(ex, "Error creating LawyerExpertisements for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);
+                return ApiResult<List<LawyerExpertisementDto>>.Fail("An unexpected error occurred");
             }
         }
     }

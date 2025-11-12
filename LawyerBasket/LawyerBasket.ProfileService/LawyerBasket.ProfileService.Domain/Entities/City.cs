@@ -8,4 +8,5 @@ namespace LawyerBasket.ProfileService.Domain.Entities
         public string Name { get; set; } = default!;
         public List<Address>? Address { get; set; }
     }
+    
 }

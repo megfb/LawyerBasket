@@ -1,4 +1,9 @@
 <p-card class="profile-summary-card">
+  <!-- Edit Icon -->
+  <div class="edit-icon-container">
+    <span class="material-symbols-outlined edit-icon">edit</span>
+  </div>
+  
   <!-- Cover Image -->
   <div class="cover-image-container">
     <img 
@@ -22,23 +27,34 @@
 
     <!-- Profile Info -->
     <div class="profile-info">
-      <h1 class="profile-name">{{ summary.firstName }} {{ summary.lastName }}</h1>
-      <p class="profile-title">{{ summary.title }}</p>
+      <div class="profile-left">
+        <h1 class="profile-name">{{ summary.firstName }} {{ summary.lastName }}</h1>
+        <p class="profile-title">{{ summary.title }}</p>
+        
+        <div class="profile-details">
+          <div class="detail-item" *ngIf="summary.barAssociation && summary.barNumber">
+            <span class="material-symbols-outlined detail-icon">gavel</span>
+            <span class="detail-text">{{ summary.barAssociation }} - {{ summary.barNumber }}</span>
+          </div>
+        </div>
+      </div>
       
-      <div class="profile-details">
-        <div class="detail-item" *ngIf="summary.education">
-          <span class="material-symbols-outlined detail-icon">school</span>
-          <span class="detail-text">{{ summary.education }}</span>
-        </div>
-        
-        <div class="detail-item" *ngIf="summary.lastWorkPlace">
-          <span class="material-symbols-outlined detail-icon">work</span>
-          <span class="detail-text">{{ summary.lastWorkPlace }}</span>
-        </div>
-        
-        <div class="detail-item" *ngIf="summary.city">
-          <span class="material-symbols-outlined detail-icon">location_on</span>
-          <span class="detail-text">{{ summary.city }}</span>
+      <div class="profile-right">
+        <div class="profile-details">
+          <div class="detail-item" *ngIf="summary.education">
+            <span class="material-symbols-outlined detail-icon">school</span>
+            <span class="detail-text">{{ summary.education }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="summary.lastWorkPlace">
+            <span class="material-symbols-outlined detail-icon">work</span>
+            <span class="detail-text">{{ summary.lastWorkPlace }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="summary.city">
+            <span class="material-symbols-outlined detail-icon">location_on</span>
+            <span class="detail-text">{{ summary.city }}</span>
+          </div>
         </div>
       </div>
     </div>

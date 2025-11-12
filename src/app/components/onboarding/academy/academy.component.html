@@ -1,0 +1,106 @@
+<div class="academy-container">
+  <p-card class="academy-card">
+    <div class="form-header">
+      <h2 class="form-title">Eğitim Bilgileri</h2>
+      <p class="form-subtitle">Eğitim bilgilerinizi ekleyebilir veya bu adımı atlayabilirsiniz.</p>
+    </div>
+
+    <form [formGroup]="academyForm" (ngSubmit)="onSubmit()" class="academy-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-field">
+        <label for="university">Okul/Üniversite Adı *</label>
+        <input
+          id="university"
+          type="text"
+          pInputText
+          formControlName="university"
+          placeholder="Okul veya üniversite adını giriniz"
+          [class.ng-invalid]="isFieldInvalid('university')"
+        />
+        @if (isFieldInvalid('university')) {
+          <small class="error-text">{{ getFieldError('university') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="degree">Bölüm/Derece</label>
+        <input
+          id="degree"
+          type="text"
+          pInputText
+          formControlName="degree"
+          placeholder="Bölüm veya derece bilgisini giriniz (örn: Hukuk Fakültesi, Lisans)"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="startDate">Başlangıç Tarihi *</label>
+          <p-datepicker
+            id="startDate"
+            formControlName="startDate"
+            [showIcon]="true"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Başlangıç tarihini seçiniz"
+            [style]="{ width: '100%' }"
+          ></p-datepicker>
+          @if (isFieldInvalid('startDate')) {
+            <small class="error-text">{{ getFieldError('startDate') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="endDate">Bitiş Tarihi @if (!isCurrentlyStudying) { <span>*</span> }</label>
+          <p-datepicker
+            id="endDate"
+            formControlName="endDate"
+            [showIcon]="true"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Bitiş tarihini seçiniz"
+            [style]="{ width: '100%' }"
+          ></p-datepicker>
+          @if (isFieldInvalid('endDate')) {
+            <small class="error-text">{{ getFieldError('endDate') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-field checkbox-field">
+        <label for="isCurrentlyStudying" class="checkbox-label">
+          <span class="checkbox-label-text">Devam Ediyorum</span>
+          <p-checkbox
+            formControlName="isCurrentlyStudying"
+            inputId="isCurrentlyStudying"
+            [binary]="true"
+          ></p-checkbox>
+        </label>
+        <small class="info-text">Bu seçeneği işaretlerseniz bitiş tarihi alanı devre dışı kalacaktır.</small>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Atla"
+          icon="pi pi-forward"
+          [outlined]="true"
+          [text]="true"
+          (onClick)="onSkip()"
+          [style]="{ 'min-width': '120px' }"
+        ></p-button>
+        <p-button
+          label="Sonraki"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

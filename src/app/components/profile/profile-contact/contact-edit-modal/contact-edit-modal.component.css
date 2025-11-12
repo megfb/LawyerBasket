@@ -1,0 +1,64 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.required {
+  color: #e74c3c;
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.footer-right {
+  display: flex;
+  gap: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+

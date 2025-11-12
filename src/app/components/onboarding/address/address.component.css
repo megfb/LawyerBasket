@@ -1,0 +1,98 @@
+.address-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.address-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+::ng-deep .address-card .p-card-body {
+  padding: 40px;
+}
+
+::ng-deep .address-card .p-card-content {
+  padding: 0;
+}
+
+.form-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.form-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.form-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.error-message {
+  margin-bottom: 8px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-field textarea.ng-invalid,
+::ng-deep .form-field .p-select.ng-invalid {
+  border-color: #e24c4c;
+}
+
+.error-text {
+  color: #e24c4c;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  ::ng-deep .address-card .p-card-body {
+    padding: 24px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .form-actions p-button {
+    width: 100%;
+  }
+}
+

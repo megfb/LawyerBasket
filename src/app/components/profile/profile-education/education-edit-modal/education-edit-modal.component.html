@@ -1,0 +1,134 @@
+<p-dialog
+  [(visible)]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3 class="dialog-title">{{ isEditMode ? 'Eğitim Bilgisi Düzenle' : 'Yeni Eğitim Bilgisi Ekle' }}</h3>
+  </ng-template>
+  <form [formGroup]="educationForm" class="education-form">
+    @if (errorMessage) {
+      <p-message severity="error" [text]="errorMessage" styleClass="w-full mb-3"></p-message>
+    }
+
+    <div class="form-field">
+      <label for="university" class="form-label">
+        Üniversite <span class="required">*</span>
+      </label>
+      <input
+        id="university"
+        type="text"
+        pInputText
+        formControlName="university"
+        class="w-full"
+        [class.ng-invalid]="educationForm.get('university')?.invalid && educationForm.get('university')?.touched"
+      />
+      @if (getErrorMessage('university')) {
+        <small class="error-text">{{ getErrorMessage('university') }}</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="degree" class="form-label">
+        Derece
+      </label>
+      <input
+        id="degree"
+        type="text"
+        pInputText
+        formControlName="degree"
+        placeholder="Örn: Lisans, Yüksek Lisans, Doktora"
+        class="w-full"
+      />
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="startDate" class="form-label">
+          Başlangıç Tarihi <span class="required">*</span>
+        </label>
+        <p-datepicker
+          id="startDate"
+          formControlName="startDate"
+          [showIcon]="true"
+          dateFormat="mm/yy"
+          view="month"
+          [maxDate]="today"
+          class="w-full"
+          [class.ng-invalid]="educationForm.get('startDate')?.invalid && educationForm.get('startDate')?.touched"
+        ></p-datepicker>
+        @if (getErrorMessage('startDate')) {
+          <small class="error-text">{{ getErrorMessage('startDate') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="endDate" class="form-label">
+          Mezuniyet Tarihi
+        </label>
+        <p-datepicker
+          id="endDate"
+          formControlName="endDate"
+          [showIcon]="true"
+          dateFormat="mm/yy"
+          view="month"
+          [maxDate]="today"
+          class="w-full"
+          [class.ng-invalid]="educationForm.get('endDate')?.invalid && educationForm.get('endDate')?.touched"
+        ></p-datepicker>
+        @if (getErrorMessage('endDate')) {
+          <small class="error-text">{{ getErrorMessage('endDate') }}</small>
+        }
+      </div>
+    </div>
+
+    <div class="form-field checkbox-field">
+      <label for="isCurrentlyStudying" class="checkbox-label">
+        <span class="checkbox-text">Hâlâ okuyorum</span>
+      </label>
+      <p-checkbox
+        formControlName="isCurrentlyStudying"
+        inputId="isCurrentlyStudying"
+        [binary]="true"
+      ></p-checkbox>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <div class="footer-left">
+        @if (isEditMode) {
+          <p-button
+            label="Sil"
+            icon="pi pi-trash"
+            severity="danger"
+            [outlined]="true"
+            (onClick)="onDelete()"
+            [disabled]="isSubmitting"
+          ></p-button>
+        }
+      </div>
+      <div class="footer-right">
+        <p-button
+          label="İptal"
+          icon="pi pi-times"
+          [outlined]="true"
+          (onClick)="onClose()"
+          [disabled]="isSubmitting"
+        ></p-button>
+        <p-button
+          [label]="isEditMode ? 'Kaydet' : 'Ekle'"
+          icon="pi pi-check"
+          (onClick)="onSave()"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting || educationForm.invalid"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+

@@ -1,0 +1,68 @@
+<div class="address-container">
+  <p-card class="address-card">
+    <div class="form-header">
+      <h2 class="form-title">Adres Bilgileri</h2>
+      <p class="form-subtitle">Adres bilgilerinizi ekleyebilir veya bu adımı atlayabilirsiniz.</p>
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="address-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-field">
+        <label for="cityId">Şehir *</label>
+        <p-select
+          id="cityId"
+          formControlName="cityId"
+          [options]="cities"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Şehir seçiniz"
+          [class.ng-invalid]="isFieldInvalid('cityId')"
+          [style]="{ width: '100%' }"
+        ></p-select>
+        @if (isFieldInvalid('cityId')) {
+          <small class="error-text">{{ getFieldError('cityId') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="addressLine">Adres Satırı *</label>
+        <textarea
+          id="addressLine"
+          pInputTextarea
+          formControlName="addressLine"
+          placeholder="Adres bilgilerinizi giriniz"
+          rows="4"
+          [class.ng-invalid]="isFieldInvalid('addressLine')"
+          style="width: 100%; resize: vertical;"
+        ></textarea>
+        @if (isFieldInvalid('addressLine')) {
+          <small class="error-text">{{ getFieldError('addressLine') }}</small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Atla"
+          icon="pi pi-forward"
+          [outlined]="true"
+          [text]="true"
+          (onClick)="onSkip()"
+          [style]="{ 'min-width': '120px' }"
+        ></p-button>
+        <p-button
+          label="Sonraki"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+

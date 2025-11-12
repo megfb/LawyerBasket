@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { AuthService } from '../../services/auth.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-auth',
@@ -24,6 +25,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthComponent {
   private authService = inject(AuthService);
+  private profileService = inject(ProfileService);
   private router = inject(Router);
 
   email: string = '';
@@ -43,20 +45,48 @@ export class AuthComponent {
 
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (response) => {
-        this.isLoading = false;
         if (response.isSuccess && response.data) {
           // Token'ı localStorage'a kaydet
           localStorage.setItem('accessToken', response.data.accessToken);
           console.log('Giriş başarılı!', response.data);
-          // Dashboard'a yönlendir
-          this.router.navigate(['/dashboard']);
+          
+          // Onboarding kontrolü yap
+          this.checkOnboardingStatus();
         } else {
+          this.isLoading = false;
           this.errorMessage = response.errorMessage?.join(', ') || 'Giriş başarısız.';
         }
       },
       error: (error) => {
         this.isLoading = false;
         this.errorMessage = error.error?.errorMessage?.join(', ') || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+      }
+    });
+  }
+
+  private checkOnboardingStatus(): void {
+    this.profileService.getUserProfileFull().subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        if (response.isSuccess && response.data) {
+          const hasUserProfile = !!response.data.id;
+          const hasLawyerProfile = !!response.data.lawyerProfile?.id;
+
+          // Eğer UserProfile ve LawyerProfile varsa dashboard'a, yoksa onboarding'e yönlendir
+          if (hasUserProfile && hasLawyerProfile) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['/onboarding/welcome']);
+          }
+        } else {
+          // Profil yoksa onboarding'e yönlendir
+          this.router.navigate(['/onboarding/welcome']);
+        }
+      },
+      error: () => {
+        // Hata durumunda onboarding'e yönlendir (profil henüz oluşturulmamış olabilir)
+        this.isLoading = false;
+        this.router.navigate(['/onboarding/welcome']);
       }
     });
   }

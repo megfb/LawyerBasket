@@ -7,6 +7,8 @@ export interface ProfileSummary {
   city: string;
   profileImage?: string;
   coverImage?: string;
+  barAssociation?: string;
+  barNumber?: string;
 }
 
 export interface Experience {
@@ -31,6 +33,8 @@ export interface Education {
   department: string;
   graduationYear?: number;
   degree?: string; // Bachelor, Master, PhD
+  startDate?: string; // Format: "YYYY-MM"
+  endDate?: string; // Format: "YYYY-MM" or null if still studying
 }
 
 export interface Certificate {
@@ -44,18 +48,26 @@ export interface Certificate {
 }
 
 export interface Address {
+  id?: string;
+  userProfileId?: string;
   city: string;
+  cityId?: string;
   district?: string;
   fullAddress?: string;
+  addressLine?: string;
   postalCode?: string;
 }
 
 export interface ContactInfo {
+  id?: string;
+  lawyerProfileId?: string;
   phoneNumber?: string;
+  alternatePhoneNumber?: string;
   email: string;
+  alternateEmail?: string;
   website?: string;
-  linkedin?: string;
-  github?: string;
+  linkedin?: string; // Frontend only
+  github?: string; // Frontend only
 }
 
 export interface ProfileData {

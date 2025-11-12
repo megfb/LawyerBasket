@@ -1,0 +1,87 @@
+.onboarding-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.onboarding-header {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  color: #20b2aa;
+}
+
+.logo-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #20b2aa;
+}
+
+.progress-section {
+  flex: 1;
+  max-width: 500px;
+  margin-left: 40px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.step-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+}
+
+::ng-deep .progress-bar {
+  height: 8px;
+}
+
+::ng-deep .progress-bar .p-progressbar-value {
+  background: #20b2aa;
+}
+
+.onboarding-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .onboarding-header {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .progress-section {
+    max-width: 100%;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .onboarding-content {
+    padding: 20px;
+  }
+}
+

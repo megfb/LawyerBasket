@@ -9,5 +9,10 @@ namespace LawyerBasket.ProfileService.Data.LawyerExpertisement
         {
             return await appDbContext.LawyerExpertisement.Where(x => x.LawyerProfileId == id).ToListAsync();
         }
+
+        public async Task CreateRangeAsync(IEnumerable<Domain.Entities.LawyerExpertisement> entities)
+        {
+            await appDbContext.LawyerExpertisement.AddRangeAsync(entities);
+        }
     }
 }

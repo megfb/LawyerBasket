@@ -1,4 +1,15 @@
 <div class="profile-container">
+  @if (isLoading) {
+    <div class="loading-container">
+      <p-progressSpinner></p-progressSpinner>
+      <p>Profil verileri yükleniyor...</p>
+    </div>
+  } @else if (errorMessage) {
+    <div class="error-container">
+      <p-message severity="error" [text]="errorMessage"></p-message>
+      <p-button label="Yeniden Deneyin" (onClick)="loadProfileData()"></p-button>
+    </div>
+  } @else {
   <!-- Profile Summary -->
   <app-profile-summary [summary]="profileData.summary"></app-profile-summary>
 
@@ -9,26 +20,54 @@
     <!-- Left Column -->
     <div class="profile-left-column">
       <!-- Experiences -->
-      <app-profile-experiences [experiences]="profileData.experiences"></app-profile-experiences>
+        <app-profile-experiences 
+          [experiences]="profileData.experiences"
+          [lawyerProfileId]="lawyerProfileId"
+          (experienceUpdated)="refreshExperiences()"
+          (experienceDeleted)="refreshExperiences()"
+        ></app-profile-experiences>
 
       <!-- Education -->
-      <app-profile-education [education]="profileData.education"></app-profile-education>
+        <app-profile-education 
+          [education]="profileData.education"
+          [lawyerProfileId]="lawyerProfileId"
+          (educationUpdated)="refreshEducation()"
+          (educationDeleted)="refreshEducation()"
+        ></app-profile-education>
 
-      <!-- Certificates -->
-      <app-profile-certificates [certificates]="profileData.certificates"></app-profile-certificates>
+        <!-- Certificates -->
+        <app-profile-certificates 
+          [certificates]="profileData.certificates"
+          [lawyerProfileId]="lawyerProfileId"
+          (certificateUpdated)="refreshCertificates()"
+          (certificateDeleted)="refreshCertificates()"
+        ></app-profile-certificates>
     </div>
 
     <!-- Right Column -->
     <div class="profile-right-column">
       <!-- Skills -->
-      <app-profile-skills [skills]="profileData.skills"></app-profile-skills>
+      <app-profile-skills 
+        [skills]="profileData.skills"
+        [lawyerProfileId]="lawyerProfileId"
+        (skillDeleted)="refreshSkills()"
+      ></app-profile-skills>
 
       <!-- Address -->
-      <app-profile-address [address]="profileData.address"></app-profile-address>
+        <app-profile-address 
+          [address]="profileData.address"
+          [userProfileId]="profileData.address.userProfileId || null"
+          (addressUpdated)="refreshAddress()"
+        ></app-profile-address>
 
-      <!-- Contact Info -->
-      <app-profile-contact [contactInfo]="profileData.contactInfo"></app-profile-contact>
+        <!-- Contact Info -->
+        <app-profile-contact 
+          [contactInfo]="profileData.contactInfo"
+          [lawyerProfileId]="lawyerProfileId"
+          (contactUpdated)="refreshContact()"
+        ></app-profile-contact>
     </div>
   </div>
+  }
 </div>
 

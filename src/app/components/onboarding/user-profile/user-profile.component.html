@@ -1,0 +1,138 @@
+<div class="user-profile-container">
+  <p-card class="user-profile-card">
+    <div class="form-header">
+      <h2 class="form-title">Temel Bilgiler</h2>
+      <p class="form-subtitle">Lütfen temel bilgilerinizi doldurun. Bu adım zorunludur.</p>
+    </div>
+
+    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()" class="user-profile-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="firstName">Ad *</label>
+          <input
+            id="firstName"
+            type="text"
+            pInputText
+            formControlName="firstName"
+            placeholder="Adınızı giriniz"
+            [class.ng-invalid]="isFieldInvalid('firstName')"
+          />
+          @if (isFieldInvalid('firstName')) {
+            <small class="error-text">{{ getFieldError('firstName') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="lastName">Soyad *</label>
+          <input
+            id="lastName"
+            type="text"
+            pInputText
+            formControlName="lastName"
+            placeholder="Soyadınızı giriniz"
+            [class.ng-invalid]="isFieldInvalid('lastName')"
+          />
+          @if (isFieldInvalid('lastName')) {
+            <small class="error-text">{{ getFieldError('lastName') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="email">E-posta *</label>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            formControlName="email"
+            placeholder="E-posta adresinizi giriniz"
+            [class.ng-invalid]="isFieldInvalid('email')"
+          />
+          @if (isFieldInvalid('email')) {
+            <small class="error-text">{{ getFieldError('email') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="phoneNumber">Telefon</label>
+          <input
+            id="phoneNumber"
+            type="tel"
+            pInputText
+            formControlName="phoneNumber"
+            placeholder="Telefon numaranızı giriniz"
+            [class.ng-invalid]="isFieldInvalid('phoneNumber')"
+          />
+          @if (isFieldInvalid('phoneNumber')) {
+            <small class="error-text">{{ getFieldError('phoneNumber') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="genderId">Cinsiyet *</label>
+          <p-select
+            id="genderId"
+            formControlName="genderId"
+            [options]="genders"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Cinsiyet seçiniz"
+            [class.ng-invalid]="isFieldInvalid('genderId')"
+            [style]="{ width: '100%' }"
+          ></p-select>
+          @if (isFieldInvalid('genderId')) {
+            <small class="error-text">{{ getFieldError('genderId') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="birthDate">Doğum Tarihi</label>
+          <p-datepicker
+            id="birthDate"
+            formControlName="birthDate"
+            [showIcon]="true"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Doğum tarihinizi seçiniz"
+            [style]="{ width: '100%' }"
+          ></p-datepicker>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="nationalId">TC Kimlik No</label>
+        <input
+          id="nationalId"
+          type="text"
+          pInputText
+          formControlName="nationalId"
+          placeholder="TC Kimlik numaranızı giriniz"
+          [class.ng-invalid]="isFieldInvalid('nationalId')"
+        />
+        @if (isFieldInvalid('nationalId')) {
+          <small class="error-text">{{ getFieldError('nationalId') }}</small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Sonraki"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+

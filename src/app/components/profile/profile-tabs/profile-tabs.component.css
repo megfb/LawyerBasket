@@ -55,9 +55,10 @@
 .tab-panel {
   padding: 20px;
   min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.tab-panel-posts {
+  position: relative;
 }
 
 .empty-message {
@@ -66,6 +67,344 @@
   color: #999;
   text-align: center;
   margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px;
+}
+
+.loading-container p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.error-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.error-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #dc3545;
+  margin: 0;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-item {
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.post-item:hover {
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.15);
+  border-color: #20b2aa;
+}
+
+.post-delete-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 18px;
+  color: #dc3545;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.2s;
+  z-index: 1;
+}
+
+.post-delete-icon:hover {
+  color: #c82333;
+  transform: scale(1.1);
+}
+
+.post-content {
+  margin-bottom: 12px;
+}
+
+.post-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0 0 8px 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-date {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #999;
+}
+
+.post-stats {
+  display: flex;
+  gap: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-item-clickable {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.stat-item-clickable:hover {
+  opacity: 0.7;
+}
+
+.stat-icon {
+  font-size: 18px;
+  color: #20b2aa;
+}
+
+.stat-count {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.show-more-button {
+  font-family: 'Roboto', sans-serif;
+}
+
+::ng-deep .show-more-button .p-button {
+  color: #20b2aa;
+  border-color: #20b2aa;
+}
+
+::ng-deep .show-more-button .p-button:hover {
+  background: #20b2aa;
+  color: white;
+  border-color: #20b2aa;
+}
+
+.comments-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.comment-form-container {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+::ng-deep .comment-input-wrapper textarea {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+::ng-deep .comment-input-wrapper .p-button {
+  align-self: flex-end;
+  background: #20b2aa;
+  border-color: #20b2aa;
+}
+
+::ng-deep .comment-input-wrapper .p-button:hover:not(:disabled) {
+  background: #1a9d96;
+  border-color: #1a9d96;
+}
+
+::ng-deep .comment-input-wrapper .p-button:disabled {
+  opacity: 0.6;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.comment-item {
+  position: relative;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #20b2aa;
+  transition: all 0.2s;
+}
+
+.comment-item:hover {
+  border-color: #20b2aa;
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.1);
+}
+
+.comment-delete-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.comment-delete-icon:hover {
+  color: #e74c3c;
+  transform: scale(1.1);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+  padding-right: 30px;
+}
+
+.comment-user-id {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #20b2aa;
+}
+
+.comment-date {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.comment-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.empty-comments-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+}
+
+.new-post-button-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #20b2aa;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.4);
+  z-index: 1000;
+}
+
+.new-post-button-fab:hover {
+  background: #1a9d96;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(32, 178, 170, 0.5);
+}
+
+.new-post-button-fab .material-symbols-outlined {
+  font-size: 28px;
+}
+
+@media screen and (max-width: 768px) {
+  .new-post-button-fab {
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .new-post-button-fab .material-symbols-outlined {
+    font-size: 24px;
+  }
+}
+
+.create-post-form {
+  padding: 8px 0;
+}
+
+.create-post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.error-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #dc3545;
 }
 
 @media screen and (max-width: 768px) {

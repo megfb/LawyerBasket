@@ -4,15 +4,26 @@
       <span class="material-symbols-outlined section-icon">verified</span>
       Sertifikalar
     </h2>
+    <p-button
+      label="Yeni Sertifika"
+      icon="pi pi-plus"
+      [outlined]="true"
+      size="small"
+      (onClick)="onAddNew()"
+    ></p-button>
   </div>
   
   <div class="card-content">
     @if (certificates.length === 0) {
-      <p class="empty-message">Henüz sertifika eklenmemiş.</p>
+      <p class="empty-message">Henüz sertifika bilgisi eklenmemiş.</p>
     } @else {
       <div class="certificates-list">
-        @for (cert of certificates; track cert.id) {
+        @for (cert of initialCertificates; track cert.id) {
           <div class="certificate-item">
+            <span 
+              class="material-symbols-outlined item-edit-icon"
+              (click)="onEditClick(cert)"
+            >edit</span>
             <div class="certificate-header">
               <h3 class="certificate-name">{{ cert.name }}</h3>
               <span class="certificate-organization">{{ cert.issuingOrganization }}</span>
@@ -32,13 +43,73 @@
                 </div>
               }
             </div>
-            @if (cert !== certificates[certificates.length - 1]) {
+            @if (hasMoreCertificates || cert !== initialCertificates[initialCertificates.length - 1]) {
               <div class="certificate-divider"></div>
             }
           </div>
         }
+        
+        @if (hasMoreCertificates) {
+          <div 
+            class="additional-certificates-wrapper"
+            [@slideAnimation]="showAllCertificates ? 'expanded' : 'collapsed'"
+          >
+            @for (cert of additionalCertificates; track cert.id) {
+              <div class="certificate-item">
+                <span 
+                  class="material-symbols-outlined item-edit-icon"
+                  (click)="onEditClick(cert)"
+                >edit</span>
+                <div class="certificate-header">
+                  <h3 class="certificate-name">{{ cert.name }}</h3>
+                  <span class="certificate-organization">{{ cert.issuingOrganization }}</span>
+                </div>
+                <div class="certificate-details">
+                  <div class="certificate-date">
+                    <span class="material-symbols-outlined date-icon">calendar_today</span>
+                    <span>{{ cert.issueDate }}</span>
+                    @if (cert.expirationDate) {
+                      <span> - {{ cert.expirationDate }}</span>
+                    }
+                  </div>
+                  @if (cert.credentialId) {
+                    <div class="certificate-id">
+                      <span class="material-symbols-outlined id-icon">badge</span>
+                      <span>{{ cert.credentialId }}</span>
+                    </div>
+                  }
+                </div>
+                @if (cert !== additionalCertificates[additionalCertificates.length - 1]) {
+                  <div class="certificate-divider"></div>
+                }
+              </div>
+            }
+          </div>
+        }
       </div>
+      
+      @if (hasMoreCertificates) {
+        <div class="show-more-container">
+          <p-button
+            [label]="showAllCertificates ? 'Daha Az Göster' : 'Daha Fazla Göster'"
+            [icon]="showAllCertificates ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            (onClick)="toggleShowAll()"
+            class="show-more-button"
+          ></p-button>
+        </div>
+      }
     }
   </div>
 </p-card>
+
+<app-certificate-edit-modal
+  [(visible)]="showEditModal"
+  [certificate]="selectedCertificate"
+  [lawyerProfileId]="lawyerProfileId"
+  (saved)="onCertificateSaved()"
+  (deleted)="onCertificateDeleted($event)"
+></app-certificate-edit-modal>
 

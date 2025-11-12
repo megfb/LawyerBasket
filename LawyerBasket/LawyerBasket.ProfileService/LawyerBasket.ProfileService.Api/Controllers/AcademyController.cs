@@ -14,7 +14,7 @@ namespace LawyerBasket.ProfileService.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
+        [HttpPost("CreateAcademy")]
         public async Task<IActionResult> CreateAcademy(CreateAcademyCommand command)
         {
             return Ok(await _mediator.Send(command));

@@ -1,0 +1,128 @@
+<div class="experience-container">
+  <p-card class="experience-card">
+    <div class="form-header">
+      <h2 class="form-title">Deneyim Bilgileri</h2>
+      <p class="form-subtitle">Deneyim bilgilerinizi ekleyebilir veya bu adımı atlayabilirsiniz.</p>
+    </div>
+
+    <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()" class="experience-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="companyName">Kurum/Şirket Adı *</label>
+          <input
+            id="companyName"
+            type="text"
+            pInputText
+            formControlName="companyName"
+            placeholder="Kurum veya şirket adını giriniz"
+            [class.ng-invalid]="isFieldInvalid('companyName')"
+          />
+          @if (isFieldInvalid('companyName')) {
+            <small class="error-text">{{ getFieldError('companyName') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="position">Pozisyon *</label>
+          <input
+            id="position"
+            type="text"
+            pInputText
+            formControlName="position"
+            placeholder="Pozisyonunuzu giriniz"
+            [class.ng-invalid]="isFieldInvalid('position')"
+          />
+          @if (isFieldInvalid('position')) {
+            <small class="error-text">{{ getFieldError('position') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="startDate">Başlangıç Tarihi *</label>
+          <p-datepicker
+            id="startDate"
+            formControlName="startDate"
+            [showIcon]="true"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Başlangıç tarihini seçiniz"
+            [style]="{ width: '100%' }"
+          ></p-datepicker>
+          @if (isFieldInvalid('startDate')) {
+            <small class="error-text">{{ getFieldError('startDate') }}</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="endDate">Bitiş Tarihi @if (!isCurrentJob) { <span>*</span> }</label>
+          <p-datepicker
+            id="endDate"
+            formControlName="endDate"
+            [showIcon]="true"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Bitiş tarihini seçiniz"
+            [style]="{ width: '100%' }"
+          ></p-datepicker>
+          @if (isFieldInvalid('endDate')) {
+            <small class="error-text">{{ getFieldError('endDate') }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-field checkbox-field">
+        <label for="isCurrentJob" class="checkbox-label">
+          <span class="checkbox-label-text">Hâlâ Çalışıyorum</span>
+          <p-checkbox
+            formControlName="isCurrentJob"
+            inputId="isCurrentJob"
+            [binary]="true"
+          ></p-checkbox>
+        </label>
+        <small class="info-text">Bu seçeneği işaretlerseniz bitiş tarihi alanı devre dışı kalacaktır.</small>
+      </div>
+
+      <div class="form-field">
+        <label for="description">Açıklama *</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          placeholder="İş tanımınızı ve sorumluluklarınızı açıklayınız"
+          rows="4"
+          [class.ng-invalid]="isFieldInvalid('description')"
+          style="width: 100%; resize: vertical;"
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+          <small class="error-text">{{ getFieldError('description') }}</small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Atla"
+          icon="pi pi-forward"
+          [outlined]="true"
+          [text]="true"
+          (onClick)="onSkip()"
+          [style]="{ 'min-width': '120px' }"
+        ></p-button>
+        <p-button
+          label="Sonraki"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

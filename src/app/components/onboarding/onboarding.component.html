@@ -1,0 +1,18 @@
+<div class="onboarding-container">
+  <div class="onboarding-header">
+    <div class="logo-section">
+      <span class="material-symbols-outlined logo-icon">balance</span>
+      <span class="logo-text">Lawyer Basket</span>
+    </div>
+    <div class="progress-section">
+      <div class="progress-info">
+        <span class="step-text">Adım {{ getCurrentStepIndex() + 1 }} / {{ totalSteps }}</span>
+      </div>
+      <p-progressBar [value]="progress" [showValue]="false" class="progress-bar"></p-progressBar>
+    </div>
+  </div>
+
+  <div class="onboarding-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

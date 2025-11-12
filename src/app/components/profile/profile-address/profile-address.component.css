@@ -5,6 +5,9 @@
 .card-header {
   padding: 20px;
   border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .section-title {
@@ -61,6 +64,17 @@
   color: #666;
   line-height: 1.5;
   flex: 1;
+}
+
+.edit-icon {
+  font-size: 20px;
+  color: #20b2aa;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.edit-icon:hover {
+  color: #1a9d96;
 }
 
 @media screen and (max-width: 768px) {

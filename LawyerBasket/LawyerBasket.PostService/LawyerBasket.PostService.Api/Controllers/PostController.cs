@@ -28,10 +28,10 @@ namespace LawyerBasket.PostService.Api.Controllers
         {
             return Ok(await _mediator.Send(new GetPostQuery { Id = id }));
         }
-        [HttpGet("GetPosts/{id}")]
-        public async Task<IActionResult> GetPosts(string id)
+        [HttpGet("GetPosts")]
+        public async Task<IActionResult> GetPosts()
         {
-            return Ok(await _mediator.Send(new GetPostsQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetPostsQuery ()));
         }
         [HttpDelete("RemovePost/{id}")]
         public async Task<IActionResult> RemovePost(string id)

@@ -5,6 +5,9 @@
 .card-header {
   padding: 20px;
   border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .section-title {
@@ -42,10 +45,18 @@
   gap: 20px;
 }
 
+.additional-certificates-wrapper {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .certificate-item {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .certificate-header {
@@ -95,6 +106,34 @@
   height: 1px;
   background: #e0e0e0;
   margin-top: 20px;
+}
+
+.item-edit-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  color: #20b2aa;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 1;
+}
+
+.item-edit-icon:hover {
+  color: #1a9d96;
+  transform: scale(1.1);
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.show-more-button {
+  font-family: 'Roboto', sans-serif;
 }
 
 @media screen and (max-width: 768px) {

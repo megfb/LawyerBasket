@@ -1,0 +1,126 @@
+<p-dialog
+  [(visible)]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3 class="dialog-title">{{ isEditMode ? 'İletişim Bilgileri Düzenle' : 'Yeni İletişim Bilgileri Ekle' }}</h3>
+  </ng-template>
+  <form [formGroup]="contactForm" class="contact-form">
+    @if (errorMessage) {
+      <p-message severity="error" [text]="errorMessage" styleClass="w-full mb-3"></p-message>
+    }
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="phoneNumber" class="form-label">
+          Telefon Numarası <span class="required">*</span>
+        </label>
+        <input
+          id="phoneNumber"
+          type="tel"
+          pInputText
+          formControlName="phoneNumber"
+          placeholder="Örn: +90 555 123 45 67"
+          class="w-full"
+          [class.ng-invalid]="contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched"
+        />
+        @if (getErrorMessage('phoneNumber')) {
+          <small class="error-text">{{ getErrorMessage('phoneNumber') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="alternatePhoneNumber" class="form-label">
+          Alternatif Telefon
+        </label>
+        <input
+          id="alternatePhoneNumber"
+          type="tel"
+          pInputText
+          formControlName="alternatePhoneNumber"
+          placeholder="Örn: +90 555 123 45 68"
+          class="w-full"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="email" class="form-label">
+          E-posta <span class="required">*</span>
+        </label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          placeholder="Örn: example@email.com"
+          class="w-full"
+          [class.ng-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+        />
+        @if (getErrorMessage('email')) {
+          <small class="error-text">{{ getErrorMessage('email') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="alternateEmail" class="form-label">
+          Alternatif E-posta
+        </label>
+        <input
+          id="alternateEmail"
+          type="email"
+          pInputText
+          formControlName="alternateEmail"
+          placeholder="Örn: alternate@email.com"
+          class="w-full"
+          [class.ng-invalid]="contactForm.get('alternateEmail')?.invalid && contactForm.get('alternateEmail')?.touched"
+        />
+        @if (getErrorMessage('alternateEmail')) {
+          <small class="error-text">{{ getErrorMessage('alternateEmail') }}</small>
+        }
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="website" class="form-label">
+        Web Sitesi
+      </label>
+      <input
+        id="website"
+        type="url"
+        pInputText
+        formControlName="website"
+        placeholder="Örn: https://www.example.com"
+        class="w-full"
+      />
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <div class="footer-right">
+        <p-button
+          label="İptal"
+          icon="pi pi-times"
+          [outlined]="true"
+          (onClick)="onClose()"
+          [disabled]="isSubmitting"
+        ></p-button>
+        <p-button
+          [label]="isEditMode ? 'Kaydet' : 'Ekle'"
+          icon="pi pi-check"
+          (onClick)="onSave()"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting || contactForm.invalid"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+

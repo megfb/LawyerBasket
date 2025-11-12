@@ -1,0 +1,80 @@
+<div class="certificates-container">
+  <p-card class="certificates-card">
+    <div class="form-header">
+      <h2 class="form-title">Sertifikalar</h2>
+      <p class="form-subtitle">Sertifika bilgilerinizi ekleyebilir veya bu adımı atlayabilirsiniz.</p>
+    </div>
+
+    <form [formGroup]="certificateForm" (ngSubmit)="onSubmit()" class="certificates-form">
+      @if (errorMessage) {
+        <p-message severity="error" [text]="errorMessage" class="error-message"></p-message>
+      }
+
+      <div class="form-field">
+        <label for="name">Sertifika Adı *</label>
+        <input
+          id="name"
+          type="text"
+          pInputText
+          formControlName="name"
+          placeholder="Sertifika adını giriniz"
+          [class.ng-invalid]="isFieldInvalid('name')"
+        />
+        @if (isFieldInvalid('name')) {
+          <small class="error-text">{{ getFieldError('name') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="institution">Kurum/Organizasyon *</label>
+        <input
+          id="institution"
+          type="text"
+          pInputText
+          formControlName="institution"
+          placeholder="Sertifikayı veren kurumu giriniz"
+          [class.ng-invalid]="isFieldInvalid('institution')"
+        />
+        @if (isFieldInvalid('institution')) {
+          <small class="error-text">{{ getFieldError('institution') }}</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="dateReceived">Alınma Tarihi *</label>
+        <p-datepicker
+          id="dateReceived"
+          formControlName="dateReceived"
+          [showIcon]="true"
+          [maxDate]="maxDate"
+          dateFormat="dd/mm/yy"
+          placeholder="Sertifika alınma tarihini seçiniz"
+          [style]="{ width: '100%' }"
+        ></p-datepicker>
+        @if (isFieldInvalid('dateReceived')) {
+          <small class="error-text">{{ getFieldError('dateReceived') }}</small>
+        }
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          label="Atla"
+          icon="pi pi-forward"
+          [outlined]="true"
+          [text]="true"
+          (onClick)="onSkip()"
+          [style]="{ 'min-width': '120px' }"
+        ></p-button>
+        <p-button
+          label="Tamamla"
+          icon="pi pi-check"
+          iconPos="right"
+          type="submit"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+          [style]="{ 'min-width': '150px' }"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

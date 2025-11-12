@@ -1,13 +1,13 @@
 namespace LawyerBasket.ProfileService.Application.Dtos
 {
-    public class CertificatesDto
-    {
-        public string Id { get; set; } = default!;
-        public string LawyerProfileId { get; set; } = default!;
-        public string Name { get; set; } = default!;
-        public string Institution { get; set; } = default!;
-        public DateTime DateReceived { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-    }
+  public class CertificatesDto
+  {
+    public string Id { get; set; } = default!;
+    public string LawyerProfileId { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Institution { get; set; } = default!;
+    public DateTime DateReceived { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+  }
 }

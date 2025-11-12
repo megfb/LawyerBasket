@@ -1,0 +1,77 @@
+<p-dialog
+  [(visible)]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3 class="dialog-title">{{ isEditMode ? 'Adres Düzenle' : 'Yeni Adres Ekle' }}</h3>
+  </ng-template>
+  <form [formGroup]="addressForm" class="address-form">
+    @if (errorMessage) {
+      <p-message severity="error" [text]="errorMessage" styleClass="w-full mb-3"></p-message>
+    }
+
+    <div class="form-field">
+      <label for="cityId" class="form-label">
+        Şehir <span class="required">*</span>
+      </label>
+      <p-select
+        id="cityId"
+        formControlName="cityId"
+        [options]="cities"
+        optionLabel="name"
+        placeholder="Şehir seçiniz"
+        [appendTo]="'body'"
+        class="w-full"
+        [class.ng-invalid]="addressForm.get('cityId')?.invalid && addressForm.get('cityId')?.touched"
+      ></p-select>
+      @if (getErrorMessage('cityId')) {
+        <small class="error-text">{{ getErrorMessage('cityId') }}</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="addressLine" class="form-label">
+        Adres Satırı <span class="required">*</span>
+      </label>
+      <input
+        id="addressLine"
+        type="text"
+        pInputText
+        formControlName="addressLine"
+        placeholder="Örn: Atatürk Bulvarı No: 123, Çankaya"
+        class="w-full"
+        [class.ng-invalid]="addressForm.get('addressLine')?.invalid && addressForm.get('addressLine')?.touched"
+      />
+      @if (getErrorMessage('addressLine')) {
+        <small class="error-text">{{ getErrorMessage('addressLine') }}</small>
+      }
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <div class="footer-right">
+        <p-button
+          label="İptal"
+          icon="pi pi-times"
+          [outlined]="true"
+          (onClick)="onClose()"
+          [disabled]="isSubmitting"
+        ></p-button>
+        <p-button
+          [label]="isEditMode ? 'Kaydet' : 'Ekle'"
+          icon="pi pi-check"
+          (onClick)="onSave()"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting || addressForm.invalid"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+

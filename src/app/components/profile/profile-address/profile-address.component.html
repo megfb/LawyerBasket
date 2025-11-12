@@ -4,6 +4,10 @@
       <span class="material-symbols-outlined section-icon">location_on</span>
       Adres
     </h2>
+    <span 
+      class="material-symbols-outlined edit-icon"
+      (click)="onEditClick()"
+    >edit</span>
   </div>
   
   <div class="card-content">
@@ -15,31 +19,24 @@
         </div>
       }
       
-      @if (address.district) {
-        <div class="address-item">
-          <span class="material-symbols-outlined address-icon">place</span>
-          <span class="address-text">{{ address.district }}</span>
-        </div>
-      }
-      
-      @if (address.fullAddress) {
+      @if (address.addressLine || address.fullAddress) {
         <div class="address-item">
           <span class="material-symbols-outlined address-icon">home</span>
-          <span class="address-text">{{ address.fullAddress }}</span>
+          <span class="address-text">{{ address.addressLine || address.fullAddress }}</span>
         </div>
       }
       
-      @if (address.postalCode) {
-        <div class="address-item">
-          <span class="material-symbols-outlined address-icon">markunread_mailbox</span>
-          <span class="address-text">{{ address.postalCode }}</span>
-        </div>
-      }
-      
-      @if (!address.city && !address.district && !address.fullAddress && !address.postalCode) {
+      @if (!address.city && !address.addressLine && !address.fullAddress) {
         <p class="empty-message">Adres bilgisi eklenmemiş.</p>
       }
     </div>
   </div>
 </p-card>
+
+<app-address-edit-modal
+  [(visible)]="showEditModal"
+  [address]="address"
+  [userProfileId]="userProfileId"
+  (saved)="onAddressSaved()"
+></app-address-edit-modal>
 

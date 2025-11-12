@@ -4,6 +4,13 @@
       <span class="material-symbols-outlined section-icon">school</span>
       Eğitim Bilgileri
     </h2>
+    <p-button
+      label="Yeni Eğitim"
+      icon="pi pi-plus"
+      [outlined]="true"
+      size="small"
+      (onClick)="onAddNew()"
+    ></p-button>
   </div>
   
   <div class="card-content">
@@ -11,28 +18,102 @@
       <p class="empty-message">Henüz eğitim bilgisi eklenmemiş.</p>
     } @else {
       <div class="education-list">
-        @for (edu of education; track edu.id) {
+        @for (edu of initialEducation; track edu.id) {
           <div class="education-item">
+            <span 
+              class="material-symbols-outlined item-edit-icon"
+              (click)="onEditClick(edu)"
+            >edit</span>
             <div class="education-header">
               <h3 class="education-school">{{ edu.schoolName }}</h3>
-              <span class="education-department">{{ edu.department }}</span>
             </div>
-            @if (edu.graduationYear) {
-              <div class="education-year">
-                <span class="material-symbols-outlined year-icon">calendar_today</span>
-                <span>{{ edu.graduationYear }}</span>
+            @if (edu.degree) {
+              <div class="education-degree">
+                {{ edu.degree }}
               </div>
             }
-            @if (edu.degree) {
-              <span class="education-degree">{{ edu.degree }}</span>
+            @if (edu.startDate) {
+              <div class="education-duration">
+                <span class="material-symbols-outlined duration-icon">calendar_today</span>
+                <span>
+                  {{ edu.startDate }}
+                  @if (edu.endDate) {
+                    <span> - {{ edu.endDate }}</span>
+                  } @else {
+                    <span> - Devam ediyor</span>
+                  }
+                </span>
+              </div>
             }
-            @if (edu !== education[education.length - 1]) {
+            @if (hasMoreEducation || edu !== initialEducation[initialEducation.length - 1]) {
               <div class="education-divider"></div>
             }
           </div>
         }
+        
+        @if (hasMoreEducation) {
+          <div 
+            class="additional-education-wrapper"
+            [@slideAnimation]="showAllEducation ? 'expanded' : 'collapsed'"
+          >
+            @for (edu of additionalEducation; track edu.id) {
+              <div class="education-item">
+                <span 
+                  class="material-symbols-outlined item-edit-icon"
+                  (click)="onEditClick(edu)"
+                >edit</span>
+                <div class="education-header">
+                  <h3 class="education-school">{{ edu.schoolName }}</h3>
+                </div>
+                @if (edu.degree) {
+                  <div class="education-degree">
+                    {{ edu.degree }}
+                  </div>
+                }
+                @if (edu.startDate) {
+                  <div class="education-duration">
+                    <span class="material-symbols-outlined duration-icon">calendar_today</span>
+                    <span>
+                      {{ edu.startDate }}
+                      @if (edu.endDate) {
+                        <span> - {{ edu.endDate }}</span>
+                      } @else {
+                        <span> - Devam ediyor</span>
+                      }
+                    </span>
+                  </div>
+                }
+                @if (edu !== additionalEducation[additionalEducation.length - 1]) {
+                  <div class="education-divider"></div>
+                }
+              </div>
+            }
+          </div>
+        }
       </div>
+      
+      @if (hasMoreEducation) {
+        <div class="show-more-container">
+          <p-button
+            [label]="showAllEducation ? 'Daha Az Göster' : 'Daha Fazla Göster'"
+            [icon]="showAllEducation ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+            [outlined]="true"
+            [text]="true"
+            size="small"
+            (onClick)="toggleShowAll()"
+            class="show-more-button"
+          ></p-button>
+        </div>
+      }
     }
   </div>
 </p-card>
+
+<app-education-edit-modal
+  [(visible)]="showEditModal"
+  [education]="selectedEducation"
+  [lawyerProfileId]="lawyerProfileId"
+  (saved)="onEducationSaved()"
+  (deleted)="onEducationDeleted($event)"
+></app-education-edit-modal>
 

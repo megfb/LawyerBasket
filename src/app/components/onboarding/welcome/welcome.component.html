@@ -1,0 +1,26 @@
+<div class="welcome-container">
+  <p-card class="welcome-card">
+    <div class="welcome-content">
+      <div class="welcome-icon">
+        <span class="material-symbols-outlined">celebration</span>
+      </div>
+      <h1 class="welcome-title">Hoş Geldiniz!</h1>
+      <p class="welcome-description">
+        Lawyer Basket'e üye olduğunuz için teşekkür ederiz. Profilinizi tamamlamak için birkaç adım kaldı.
+        Bu süreçte temel bilgilerinizi ve mesleki bilgilerinizi paylaşmanız gerekecek.
+      </p>
+      <p class="welcome-info">
+        Bazı adımlar zorunlu, bazıları ise opsiyoneldir. İstediğiniz zaman atlayabilirsiniz.
+      </p>
+      <div class="welcome-actions">
+        <p-button
+          label="Devam Et"
+          icon="pi pi-arrow-right"
+          (onClick)="onContinue()"
+          [style]="{ 'width': '200px' }"
+        ></p-button>
+      </div>
+    </div>
+  </p-card>
+</div>
+

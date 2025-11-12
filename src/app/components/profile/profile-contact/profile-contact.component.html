@@ -4,6 +4,10 @@
       <span class="material-symbols-outlined section-icon">contact_mail</span>
       İletişim Bilgileri
     </h2>
+    <span 
+      class="material-symbols-outlined edit-icon"
+      (click)="onEditClick()"
+    >edit</span>
   </div>
   
   <div class="card-content">
@@ -15,10 +19,24 @@
         </div>
       }
       
+      @if (contactInfo.alternateEmail) {
+        <div class="contact-item">
+          <span class="material-symbols-outlined contact-icon">email</span>
+          <a [href]="'mailto:' + contactInfo.alternateEmail" class="contact-link">{{ contactInfo.alternateEmail }}</a>
+        </div>
+      }
+      
       @if (contactInfo.phoneNumber) {
         <div class="contact-item">
           <span class="material-symbols-outlined contact-icon">phone</span>
           <a [href]="'tel:' + contactInfo.phoneNumber" class="contact-link">{{ contactInfo.phoneNumber }}</a>
+        </div>
+      }
+      
+      @if (contactInfo.alternatePhoneNumber) {
+        <div class="contact-item">
+          <span class="material-symbols-outlined contact-icon">phone</span>
+          <a [href]="'tel:' + contactInfo.alternatePhoneNumber" class="contact-link">{{ contactInfo.alternatePhoneNumber }}</a>
         </div>
       }
       
@@ -44,9 +62,16 @@
       }
       
       @if (!contactInfo.email && !contactInfo.phoneNumber && !contactInfo.website && !contactInfo.linkedin && !contactInfo.github) {
-        <p class="empty-message">İletişim bilgisi eklenmemiş.</p>
+        <p class="empty-message">İletişim bilgileri eklenmemiş.</p>
       }
     </div>
   </div>
 </p-card>
+
+<app-contact-edit-modal
+  [(visible)]="showEditModal"
+  [contactInfo]="contactInfo"
+  [lawyerProfileId]="lawyerProfileId"
+  (saved)="onContactSaved()"
+></app-contact-edit-modal>
 
