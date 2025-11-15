@@ -45,7 +45,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 32px;
   font-weight: 600;
-  color: #333;
+  color: #20b2aa;
   margin: 0;
 }
 
@@ -69,6 +69,27 @@
 
 .welcome-actions {
   margin-top: 16px;
+}
+
+::ng-deep .welcome-actions .p-button {
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+::ng-deep .welcome-actions .p-button:not(.p-button-outlined):not(.p-button-text) {
+  background: #20b2aa;
+  border: none;
+}
+
+::ng-deep .welcome-actions .p-button:not(.p-button-outlined):not(.p-button-text):hover {
+  background: #1a9d96;
+  border: none;
+  box-shadow: none;
+}
+
+::ng-deep .welcome-actions .p-button:not(.p-button-outlined):not(.p-button-text):focus {
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.3);
+  border: none;
 }
 
 @media screen and (max-width: 768px) {

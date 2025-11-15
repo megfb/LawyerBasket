@@ -26,7 +26,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
   font-weight: 600;
-  color: #333;
+  color: #20b2aa;
   margin: 0 0 8px 0;
 }
 
@@ -69,6 +69,14 @@
 .form-field input.ng-invalid,
 .form-field textarea.ng-invalid {
   border-color: #e24c4c;
+}
+
+::ng-deep .form-field input:focus,
+::ng-deep .form-field textarea:focus,
+::ng-deep .form-field .p-datepicker input:focus {
+  outline: none;
+  border-color: #20b2aa;
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.1);
 }
 
 ::ng-deep .form-field .p-datepicker:has(input:disabled),
@@ -116,6 +124,41 @@
   display: flex;
   justify-content: space-between;
   margin-top: 8px;
+}
+
+::ng-deep .form-actions .p-button {
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+::ng-deep .form-actions .p-button:not(.p-button-outlined):not(.p-button-text) {
+  background: #20b2aa;
+  border: none;
+}
+
+::ng-deep .form-actions .p-button:not(.p-button-outlined):not(.p-button-text):hover {
+  background: #1a9d96;
+}
+
+::ng-deep .form-actions .p-button:not(.p-button-outlined):not(.p-button-text):focus {
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.3);
+}
+
+::ng-deep .form-actions .p-button-outlined,
+::ng-deep .form-actions .p-button-text {
+  color: #20b2aa;
+  border-color: #20b2aa;
+}
+
+::ng-deep .form-actions .p-button-outlined:hover,
+::ng-deep .form-actions .p-button-text:hover {
+  background: #20b2aa;
+  color: white;
+}
+
+::ng-deep .form-actions .p-button-outlined:focus,
+::ng-deep .form-actions .p-button-text:focus {
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.3);
 }
 
 @media screen and (max-width: 768px) {

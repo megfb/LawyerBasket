@@ -1,6 +1,6 @@
 <p-card class="profile-summary-card">
   <!-- Edit Icon -->
-  <div class="edit-icon-container">
+  <div class="edit-icon-container" (click)="onEditClick()">
     <span class="material-symbols-outlined edit-icon">edit</span>
   </div>
   
@@ -58,6 +58,21 @@
         </div>
       </div>
     </div>
+    
+    <!-- About Section -->
+    @if (summary.about) {
+      <div class="profile-about">
+        <p class="about-text">{{ summary.about }}</p>
+      </div>
+    }
   </div>
 </p-card>
+
+<app-summary-edit-modal
+  [(visible)]="showEditModal"
+  [summary]="summary"
+  [lawyerProfileId]="lawyerProfileId"
+  [userProfileId]="userProfileId"
+  (saved)="onSummarySaved()"
+></app-summary-edit-modal>
 

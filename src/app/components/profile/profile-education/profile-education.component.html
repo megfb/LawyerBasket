@@ -32,6 +32,11 @@
                 {{ edu.degree }}
               </div>
             }
+            @if (edu.department) {
+              <div class="education-department">
+                {{ edu.department }}
+              </div>
+            }
             @if (edu.startDate) {
               <div class="education-duration">
                 <span class="material-symbols-outlined duration-icon">calendar_today</span>
@@ -68,6 +73,11 @@
                 @if (edu.degree) {
                   <div class="education-degree">
                     {{ edu.degree }}
+                  </div>
+                }
+                @if (edu.department) {
+                  <div class="education-department">
+                    {{ edu.department }}
                   </div>
                 }
                 @if (edu.startDate) {

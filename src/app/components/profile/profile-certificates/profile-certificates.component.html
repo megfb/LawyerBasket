@@ -43,6 +43,11 @@
                 </div>
               }
             </div>
+            @if (cert.description) {
+              <div class="certificate-description">
+                <p>{{ cert.description }}</p>
+              </div>
+            }
             @if (hasMoreCertificates || cert !== initialCertificates[initialCertificates.length - 1]) {
               <div class="certificate-divider"></div>
             }
@@ -79,6 +84,11 @@
                     </div>
                   }
                 </div>
+                @if (cert.description) {
+                  <div class="certificate-description">
+                    <p>{{ cert.description }}</p>
+                  </div>
+                }
                 @if (cert !== additionalCertificates[additionalCertificates.length - 1]) {
                   <div class="certificate-divider"></div>
                 }

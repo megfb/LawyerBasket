@@ -18,9 +18,13 @@
           [options]="cities"
           optionLabel="name"
           optionValue="id"
-          placeholder="Şehir seçiniz"
+          placeholder="Şehir seçiniz veya arayın"
           [class.ng-invalid]="isFieldInvalid('cityId')"
           [style]="{ width: '100%' }"
+          [filter]="true"
+          filterPlaceholder="Şehir ara..."
+          [loading]="isLoadingCities"
+          [showClear]="true"
         ></p-select>
         @if (isFieldInvalid('cityId')) {
           <small class="error-text">{{ getFieldError('cityId') }}</small>

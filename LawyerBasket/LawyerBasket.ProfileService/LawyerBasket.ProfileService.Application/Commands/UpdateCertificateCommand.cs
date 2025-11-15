@@ -10,5 +10,6 @@ namespace LawyerBasket.ProfileService.Application.Commands
         public string Name { get; set; } = default!;
         public string Institution { get; set; } = default!;
         public DateTime DateReceived { get; set; }
+        public string? Description { get; set; }
     }
 }

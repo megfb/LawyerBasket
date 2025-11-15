@@ -1,0 +1,60 @@
+<p-dialog
+  [(visible)]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3 class="dialog-title">Hakkında Düzenle</h3>
+  </ng-template>
+  <form [formGroup]="summaryForm" class="summary-form">
+    @if (errorMessage) {
+      <p-message severity="error" [text]="errorMessage" styleClass="w-full mb-3"></p-message>
+    }
+
+    <div class="form-field">
+      <label for="about" class="form-label">
+        Hakkında
+      </label>
+      <textarea
+        id="about"
+        pInputTextarea
+        formControlName="about"
+        placeholder="Kendiniz hakkında kısa bir bilgi yazabilirsiniz (opsiyonel)"
+        [rows]="5"
+        [style]="{ width: '100%', resize: 'vertical' }"
+        [class.ng-invalid]="summaryForm.get('about')?.invalid && summaryForm.get('about')?.touched"
+      ></textarea>
+      @if (getErrorMessage('about')) {
+        <small class="error-text">{{ getErrorMessage('about') }}</small>
+      }
+      <small class="helper-text">Maksimum 2000 karakter</small>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <div class="footer-right">
+        <p-button
+          label="İptal"
+          icon="pi pi-times"
+          [outlined]="true"
+          (onClick)="onClose()"
+          [disabled]="isSubmitting"
+        ></p-button>
+        <p-button
+          label="Kaydet"
+          icon="pi pi-check"
+          (onClick)="onSave()"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>
+

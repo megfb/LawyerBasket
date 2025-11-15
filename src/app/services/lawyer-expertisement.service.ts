@@ -13,7 +13,7 @@ export interface CreateLawyerExpertisementRequest {
 })
 export class LawyerExpertisementService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/LawyerExpertisement';
+  private apiUrl = 'https://localhost:7001/api/lawyerexpertisement'; // Gateway API URL
 
   createLawyerExpertisement(request: CreateLawyerExpertisementRequest): Observable<ApiResult<LawyerExpertisementDto[]>> {
     return this.http.post<ApiResult<LawyerExpertisementDto[]>>(`${this.apiUrl}/CreateLawyerExpertisement`, request);

@@ -7,7 +7,10 @@ namespace LawyerBasket.ProfileService.Data.LawyerExpertisement
     {
         public async Task<IEnumerable<Domain.Entities.LawyerExpertisement>> GetAllByLawyerProfileIdAsync(string id)
         {
-            return await appDbContext.LawyerExpertisement.Where(x => x.LawyerProfileId == id).ToListAsync();
+            return await appDbContext.LawyerExpertisement
+                .Include(x => x.Expertisement)
+                .Where(x => x.LawyerProfileId == id)
+                .ToListAsync();
         }
 
         public async Task CreateRangeAsync(IEnumerable<Domain.Entities.LawyerExpertisement> entities)

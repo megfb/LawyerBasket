@@ -32,18 +32,38 @@
       }
     </div>
 
-    <div class="form-field">
-      <label for="degree" class="form-label">
-        Derece
-      </label>
-      <input
-        id="degree"
-        type="text"
-        pInputText
-        formControlName="degree"
-        placeholder="Örn: Lisans, Yüksek Lisans, Doktora"
-        class="w-full"
-      />
+    <div class="form-row">
+      <div class="form-field">
+        <label for="degree" class="form-label">
+          Derece
+        </label>
+        <input
+          id="degree"
+          type="text"
+          pInputText
+          formControlName="degree"
+          placeholder="Örn: Lisans, Yüksek Lisans, Doktora"
+          class="w-full"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="department" class="form-label">
+          Bölüm
+        </label>
+        <input
+          id="department"
+          type="text"
+          pInputText
+          formControlName="department"
+          placeholder="Örn: Hukuk Fakültesi"
+          class="w-full"
+          [class.ng-invalid]="educationForm.get('department')?.invalid && educationForm.get('department')?.touched"
+        />
+        @if (getErrorMessage('department')) {
+          <small class="error-text">{{ getErrorMessage('department') }}</small>
+        }
+      </div>
     </div>
 
     <div class="form-row">

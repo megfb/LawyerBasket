@@ -27,6 +27,24 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.helper-text {
+  color: #666;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+::ng-deep .form-field input.ng-invalid,
+::ng-deep .form-field textarea.ng-invalid {
+  border-color: #e74c3c;
+}
+
+::ng-deep .form-field input:focus,
+::ng-deep .form-field textarea:focus {
+  outline: none;
+  border-color: #20b2aa;
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.1);
+}
+
 .dialog-footer {
   display: flex;
   justify-content: space-between;

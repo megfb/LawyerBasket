@@ -34,6 +34,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                     LawyerProfileId = request.LawyerProfileId,
                     University = request.University,
                     Degree = request.Degree,
+                    Department = request.Department,
                     StartDate = request.StartDate,
                     EndDate = request.EndDate,
                     CreatedAt = DateTime.UtcNow,

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -19,6 +20,7 @@ import { OnboardingService, OnboardingStep } from '../../../services/onboarding.
     ReactiveFormsModule,
     CardModule,
     InputTextModule,
+    TextareaModule,
     ButtonModule,
     MessageModule,
     DatePickerModule
@@ -47,7 +49,8 @@ export class LawyerProfileComponent implements OnInit {
       barAssociation: ['', [Validators.required, Validators.maxLength(200)]],
       barNumber: ['', [Validators.required, Validators.maxLength(50)]],
       licenseNumber: ['', [Validators.required, Validators.maxLength(50)]],
-      licenseDate: [null, [Validators.required]]
+      licenseDate: [null, [Validators.required]],
+      about: ['', [Validators.maxLength(2000)]]
     });
   }
 
@@ -72,7 +75,8 @@ export class LawyerProfileComponent implements OnInit {
       barAssociation: formValue.barAssociation,
       barNumber: formValue.barNumber,
       licenseNumber: formValue.licenseNumber,
-      licenseDate: new Date(formValue.licenseDate).toISOString()
+      licenseDate: new Date(formValue.licenseDate).toISOString(),
+      about: formValue.about || undefined
     };
 
     this.lawyerProfileService.createLawyerProfile(request).subscribe({

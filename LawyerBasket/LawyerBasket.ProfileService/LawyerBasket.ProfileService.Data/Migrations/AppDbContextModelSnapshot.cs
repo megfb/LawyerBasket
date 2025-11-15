@@ -31,7 +31,12 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Degree")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Department")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
@@ -103,6 +108,10 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                     b.Property<DateTime>("DateReceived")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
                     b.Property<string>("Institution")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -152,31 +161,487 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         {
                             Id = "b1e2c3d4-0001-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "İstanbul"
+                            Name = "Adana"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0002-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Ankara"
+                            Name = "Adıyaman"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0003-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "İzmir"
+                            Name = "Afyonkarahisar"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0004-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "Bursa"
+                            Name = "Ağrı"
                         },
                         new
                         {
                             Id = "b1e2c3d4-0005-4f5a-8c9b-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Amasya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0006-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Ankara"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0007-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Antalya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0008-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Artvin"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0009-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Aydın"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0010-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Balıkesir"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0011-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bilecik"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0012-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bingöl"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0013-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bitlis"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0014-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bolu"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0015-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Burdur"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0016-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bursa"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0017-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Çanakkale"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0018-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Çankırı"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0019-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Çorum"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0020-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Denizli"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0021-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Diyarbakır"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0022-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Edirne"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0023-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Elazığ"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0024-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Erzincan"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0025-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Erzurum"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0026-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Eskişehir"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0027-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Gaziantep"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0028-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Giresun"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0029-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Gümüşhane"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0030-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Hakkari"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0031-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Hatay"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0032-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Isparta"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0033-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Mersin"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0034-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "İstanbul"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0035-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "İzmir"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0036-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kars"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0037-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kastamonu"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0038-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kayseri"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0039-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kırklareli"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0040-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kırşehir"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0041-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kocaeli"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0042-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Konya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0043-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kütahya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0044-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Malatya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0045-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Manisa"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0046-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kahramanmaraş"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0047-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Mardin"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0048-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Muğla"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0049-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Muş"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0050-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Nevşehir"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0051-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Niğde"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0052-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Ordu"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0053-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Rize"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0054-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Sakarya"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0055-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Samsun"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0056-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Siirt"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0057-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Sinop"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0058-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Sivas"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0059-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Tekirdağ"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0060-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Tokat"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0061-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Trabzon"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0062-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Tunceli"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0063-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Şanlıurfa"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0064-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Uşak"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0065-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Van"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0066-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Yozgat"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0067-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Zonguldak"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0068-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Aksaray"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0069-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bayburt"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0070-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Karaman"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0071-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kırıkkale"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0072-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Batman"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0073-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Şırnak"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0074-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Bartın"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0075-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Ardahan"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0076-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Iğdır"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0077-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Yalova"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0078-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Karabük"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0079-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Kilis"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0080-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Osmaniye"
+                        },
+                        new
+                        {
+                            Id = "b1e2c3d4-0081-4f5a-8c9b-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Düzce"
                         });
                 });
 
@@ -396,15 +861,22 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                         {
                             Id = "c1d2e3f4-0001-4a5b-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Male",
-                            Name = "Male"
+                            Description = "Erkek",
+                            Name = "Erkek"
                         },
                         new
                         {
                             Id = "c1d2e3f4-0002-4a5b-8c9d-1a2b3c4d5e6f",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Female",
-                            Name = "Female"
+                            Description = "Kadın",
+                            Name = "Kadın"
+                        },
+                        new
+                        {
+                            Id = "c1d2e3f4-0003-4a5b-8c9d-1a2b3c4d5e6f",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Belirtmek İstemiyorum",
+                            Name = "Belirtmek İstemiyorum"
                         });
                 });
 
@@ -440,6 +912,10 @@ namespace LawyerBasket.ProfileService.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
+
+                    b.Property<string>("About")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
 
                     b.Property<string>("BarAssociation")
                         .IsRequired()

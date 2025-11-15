@@ -1,4 +1,5 @@
 using LawyerBasket.PostService.Application.Commands;
+using LawyerBasket.PostService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,12 @@ namespace LawyerBasket.PostService.Api.Controllers
         public async Task<IActionResult> RemoveLike(RemoveLikesCommand removeLikesCommand)
         {
             return Ok(await _mediator.Send(removeLikesCommand));
+        }
+
+        [HttpGet("GetPostsLikedByUser")]
+        public async Task<IActionResult> GetPostsLikedByUser()
+        {
+            return Ok(await _mediator.Send(new GetPostsLikedByUserQuery()));
         }
     }
 }

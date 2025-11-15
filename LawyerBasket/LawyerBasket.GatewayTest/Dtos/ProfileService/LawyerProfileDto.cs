@@ -9,6 +9,7 @@ namespace LawyerBasket.GatewayTest.Dtos.ProfileService
         public string BarNumber { get; set; } = default!;        // Baro kayıt numarası
         public string LicenseNumber { get; set; } = default!;    // Avukatlık ruhsat numarası
         public DateTime LicenseDate { get; set; }                // Ruhsat tarihi
+        public string? About { get; set; }                       // Avukat hakkında yazısı
         public List<LawyerExpertisementDto>? LawyerExpertisementsDto { get; set; }
         public List<ExperienceDto>? ExperienceDto { get; set; }
         public List<AcademyDto>? AcademyDto { get; set; }

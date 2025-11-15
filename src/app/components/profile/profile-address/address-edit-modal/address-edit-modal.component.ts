@@ -8,6 +8,7 @@ import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { Address } from '../../../../models/profile.models';
 import { AddressService } from '../../../../services/address.service';
+import { CityService } from '../../../../services/city.service';
 
 interface CityOption {
   id: string;
@@ -33,6 +34,7 @@ interface CityOption {
 export class AddressEditModalComponent implements OnInit, OnChanges, OnDestroy {
   private fb = inject(FormBuilder);
   private addressService = inject(AddressService);
+  private cityService = inject(CityService);
   private mutationObserver?: MutationObserver;
 
   @Input() visible: boolean = false;
@@ -44,26 +46,23 @@ export class AddressEditModalComponent implements OnInit, OnChanges, OnDestroy {
   addressForm!: FormGroup;
   isSubmitting = false;
   errorMessage: string | null = null;
-
-  // Şehir listesi - backend'den gelecek veya hardcode edilebilir
-  cities: CityOption[] = [
-    { id: 'b1e2c3d4-0001-4f5a-8c9b-1a2b3c4d5e6f', name: 'İstanbul' },
-    { id: 'b1e2c3d4-0002-4f5a-8c9b-1a2b3c4d5e6f', name: 'Ankara' },
-    { id: 'b1e2c3d4-0003-4f5a-8c9b-1a2b3c4d5e6f', name: 'İzmir' },
-    { id: 'b1e2c3d4-0004-4f5a-8c9b-1a2b3c4d5e6f', name: 'Bursa' },
-    { id: 'b1e2c3d4-0005-4f5a-8c9b-1a2b3c4d5e6f', name: 'Antalya' }
-  ];
+  cities: CityOption[] = [];
+  isLoadingCities = false;
 
   get isEditMode(): boolean {
     return !!this.address?.id;
   }
 
   ngOnInit(): void {
+    this.loadCities();
     this.initializeForm();
   }
 
   ngOnChanges(): void {
     if (this.visible) {
+      if (this.cities.length === 0) {
+        this.loadCities();
+      }
       this.initializeForm();
       // Select açıkken scroll'u engelle
       setTimeout(() => {
@@ -72,6 +71,28 @@ export class AddressEditModalComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.removeScrollPrevention();
     }
+  }
+
+  private loadCities(): void {
+    this.isLoadingCities = true;
+    this.cityService.getCities().subscribe({
+      next: (response) => {
+        this.isLoadingCities = false;
+        if (response.isSuccess && response.data) {
+          this.cities = response.data.map(city => ({
+            id: city.id,
+            name: city.name
+          }));
+        } else {
+          this.errorMessage = response.errorMessage?.join(', ') || 'Şehirler yüklenirken bir hata oluştu.';
+        }
+      },
+      error: (error) => {
+        this.isLoadingCities = false;
+        console.error('Şehirler yüklenirken hata oluştu:', error);
+        this.errorMessage = 'Şehirler yüklenirken bir hata oluştu.';
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -121,11 +142,9 @@ export class AddressEditModalComponent implements OnInit, OnChanges, OnDestroy {
   private initializeForm(): void {
     if (this.address) {
       // Edit mode
-      const selectedCity = this.cities.find(c => c.id === this.address?.cityId);
-      
       this.addressForm = this.fb.group({
         addressLine: [this.address.addressLine || this.address.fullAddress || '', [Validators.required, Validators.minLength(5)]],
-        cityId: [selectedCity || null, [Validators.required]]
+        cityId: [this.address.cityId || null, [Validators.required]]
       });
     } else {
       // Create mode
@@ -160,7 +179,7 @@ export class AddressEditModalComponent implements OnInit, OnChanges, OnDestroy {
 
     const formValue = this.addressForm.value;
     const addressLine = formValue.addressLine.trim();
-    const cityId = formValue.cityId?.id || formValue.cityId;
+    const cityId = formValue.cityId; // Artık doğrudan id geliyor (optionValue="id" kullandığımız için)
 
     if (this.isEditMode) {
       // Update mode

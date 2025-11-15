@@ -12,6 +12,7 @@ namespace LawyerBasket.ProfileService.Data.LawyerProfile
             builder.Property(x => x.BarNumber).IsRequired().HasMaxLength(50);
             builder.Property(x => x.LicenseNumber).IsRequired().HasMaxLength(50);
             builder.Property(x => x.LicenseDate).IsRequired();
+            builder.Property(x => x.About).IsRequired(false).HasMaxLength(2000);
 
             builder.HasOne(x => x.UserProfile)
                    .WithOne(x => x.LawyerProfile)

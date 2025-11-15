@@ -35,6 +35,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                 }
                 academy.University = request.University;
                 academy.Degree = request.Degree;
+                academy.Department = request.Department;
                 academy.StartDate = request.StartDate;
                 academy.EndDate = request.EndDate;
                 academy.UpdatedAt = request.UpdatedAt;

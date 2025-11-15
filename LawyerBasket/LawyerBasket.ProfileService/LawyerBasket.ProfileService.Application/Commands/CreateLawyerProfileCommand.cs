@@ -11,6 +11,7 @@ namespace LawyerBasket.ProfileService.Application.Commands
         public string BarNumber { get; set; } = default!;
         public string LicenseNumber { get; set; } = default!;
         public DateTime LicenseDate { get; set; }
+        public string? About { get; set; }
     }
 }
 

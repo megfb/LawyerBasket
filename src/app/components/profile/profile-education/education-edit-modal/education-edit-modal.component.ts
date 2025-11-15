@@ -73,6 +73,7 @@ export class EducationEditModalComponent implements OnInit, OnChanges {
       this.educationForm = this.fb.group({
         university: [this.education.schoolName || '', [Validators.required, Validators.minLength(2)]],
         degree: [this.education.degree || ''],
+        department: [this.education.department || '', [Validators.maxLength(200)]],
         startDate: [startDate, [Validators.required]],
         endDate: [endDate],
         isCurrentlyStudying: [this.isCurrentlyStudying]
@@ -94,6 +95,7 @@ export class EducationEditModalComponent implements OnInit, OnChanges {
       this.educationForm = this.fb.group({
         university: ['', [Validators.required, Validators.minLength(2)]],
         degree: [''],
+        department: ['', [Validators.maxLength(200)]],
         startDate: [null, [Validators.required]],
         endDate: [null, [Validators.required]],
         isCurrentlyStudying: [false]
@@ -167,6 +169,9 @@ export class EducationEditModalComponent implements OnInit, OnChanges {
       if (control.hasError('minlength')) {
         return `En az ${control.errors?.['minlength'].requiredLength} karakter olmalıdır.`;
       }
+      if (control.hasError('maxlength')) {
+        return `Maksimum ${control.errors?.['maxlength'].requiredLength} karakter olabilir.`;
+      }
       if (control.hasError('dateRange')) {
         return 'Bitiş tarihi başlangıç tarihinden önce olamaz.';
       }
@@ -208,6 +213,7 @@ export class EducationEditModalComponent implements OnInit, OnChanges {
         id: this.education!.id,
         university: formValue.university.trim(),
         degree: formValue.degree?.trim() || undefined,
+        department: formValue.department?.trim() || undefined,
         startDate: startDate,
         endDate: endDate
       };
@@ -234,6 +240,7 @@ export class EducationEditModalComponent implements OnInit, OnChanges {
         lawyerProfileId: this.lawyerProfileId!,
         university: formValue.university.trim(),
         degree: formValue.degree?.trim() || undefined,
+        department: formValue.department?.trim() || undefined,
         startDate: startDate,
         endDate: endDate
       };

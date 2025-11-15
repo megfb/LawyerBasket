@@ -15,6 +15,10 @@ namespace LawyerBasket.ProfileService.Application.Validators
                 .MaximumLength(100).WithMessage("Derece bilgisi en fazla 100 karakter olabilir.")
                 .When(x => !string.IsNullOrEmpty(x.Degree));
 
+            RuleFor(x => x.Department)
+                .MaximumLength(200).WithMessage("Bölüm bilgisi en fazla 200 karakter olabilir.")
+                .When(x => !string.IsNullOrEmpty(x.Department));
+
             RuleFor(x => x.StartDate)
                 .NotEmpty().WithMessage("Başlangıç tarihi zorunludur.")
                 .LessThanOrEqualTo(DateTime.Now).WithMessage("Başlangıç tarihi gelecekte olamaz.");

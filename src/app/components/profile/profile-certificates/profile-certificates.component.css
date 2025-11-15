@@ -102,6 +102,22 @@
   color: #999;
 }
 
+.certificate-description {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.certificate-description p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
 .certificate-divider {
   height: 1px;
   background: #e0e0e0;

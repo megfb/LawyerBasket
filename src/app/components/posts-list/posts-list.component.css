@@ -177,6 +177,11 @@
   color: #20b2aa;
 }
 
+.stat-icon.liked {
+  color: #e74c3c;
+  font-variation-settings: 'FILL' 1;
+}
+
 .stat-count {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;

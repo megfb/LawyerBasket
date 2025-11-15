@@ -1,0 +1,66 @@
+.dialog-title {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.summary-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.required {
+  color: #e24c4c;
+}
+
+.error-text {
+  color: #e24c4c;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.helper-text {
+  color: #666;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+::ng-deep .form-field input.ng-invalid,
+::ng-deep .form-field textarea.ng-invalid {
+  border-color: #e24c4c;
+}
+
+::ng-deep .form-field input:focus,
+::ng-deep .form-field textarea:focus {
+  outline: none;
+  border-color: #20b2aa;
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.1);
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.footer-right {
+  display: flex;
+  gap: 10px;
+}
+

@@ -35,6 +35,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                     Name = request.Name,
                     Institution = request.Institution,
                     DateReceived = request.DateReceived,
+                    Description = request.Description,
                     CreatedAt = DateTime.UtcNow,
                 };
                 _logger.LogInformation("Creating certificate entity for LawyerProfileId: {LawyerProfileId}", request.LawyerProfileId);

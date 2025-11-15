@@ -11,6 +11,7 @@ namespace LawyerBasket.ProfileService.Domain.Entities
         public string BarNumber { get; set; } = default!;        // Baro kayıt numarası
         public string LicenseNumber { get; set; } = default!;    // Avukatlık ruhsat numarası
         public DateTime LicenseDate { get; set; }                // Ruhsat tarihi
+        public string? About { get; set; }                       // Avukat hakkında yazısı
 
         // Uzmanlık alanları
         public List<LawyerExpertisement>? LawyerExpertisements { get; set; }

@@ -11,7 +11,12 @@
     </div>
   } @else {
   <!-- Profile Summary -->
-  <app-profile-summary [summary]="profileData.summary"></app-profile-summary>
+  <app-profile-summary 
+    [summary]="profileData.summary"
+    [lawyerProfileId]="lawyerProfileId"
+    [userProfileId]="userProfileId"
+    (summaryUpdated)="refreshSummary()"
+  ></app-profile-summary>
 
   <!-- Profile Tabs (Posts, Comments, Likes) -->
   <app-profile-tabs></app-profile-tabs>
@@ -46,9 +51,18 @@
 
     <!-- Right Column -->
     <div class="profile-right-column">
+      <!-- Lawyer Info -->
+      @if (profileData.lawyerInfo) {
+        <app-profile-lawyer-info 
+          [lawyerInfo]="profileData.lawyerInfo"
+          [lawyerProfileId]="lawyerProfileId"
+          [userProfileId]="userProfileId"
+          (lawyerInfoUpdated)="refreshLawyerInfo()"
+        ></app-profile-lawyer-info>
+      }
+
       <!-- Skills -->
       <app-profile-skills 
-        [skills]="profileData.skills"
         [lawyerProfileId]="lawyerProfileId"
         (skillDeleted)="refreshSkills()"
       ></app-profile-skills>

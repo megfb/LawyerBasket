@@ -10,14 +10,14 @@ import { LoginRequest, RegisterRequest, ApiResult, TokenDto, AppUserDto } from '
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'https://localhost:7299/api/Auth'; // AuthService API URL
+  private apiUrl = 'https://localhost:7001/api/auth'; // Gateway API URL
 
   login(loginRequest: LoginRequest): Observable<ApiResult<TokenDto>> {
-    return this.http.post<ApiResult<TokenDto>>(`${this.apiUrl}/Login`, loginRequest);
+    return this.http.post<ApiResult<TokenDto>>(`${this.apiUrl}/login`, loginRequest);
   }
 
   register(registerRequest: RegisterRequest): Observable<ApiResult<AppUserDto>> {
-    return this.http.post<ApiResult<AppUserDto>>(`${this.apiUrl}/Register`, registerRequest);
+    return this.http.post<ApiResult<AppUserDto>>(`${this.apiUrl}/register`, registerRequest);
   }
 
   logout(): void {

@@ -9,10 +9,10 @@ namespace LawyerBasket.ProfileService.Data.Academy
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.University).IsRequired().HasMaxLength(200);
-            builder.Property(a => a.Degree).IsRequired(false);
+            builder.Property(a => a.Degree).IsRequired(false).HasMaxLength(100);
+            builder.Property(a => a.Department).IsRequired(false).HasMaxLength(200);
             builder.Property(a => a.StartDate).IsRequired();
             builder.Property(a => a.EndDate).IsRequired(false);
-            builder.HasKey(a => a.Id);
 
             builder.HasOne(a => a.LawyerProfile).WithMany(a => a.Academy).HasForeignKey(a => a.LawyerProfileId);
 

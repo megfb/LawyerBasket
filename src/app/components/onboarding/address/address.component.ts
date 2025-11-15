@@ -9,12 +9,9 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { AddressService } from '../../../services/address.service';
+import { CityService } from '../../../services/city.service';
+import { CityDto } from '../../../models/profile-api.models';
 import { OnboardingService, OnboardingStep } from '../../../services/onboarding.service';
-
-interface CityOption {
-  id: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-address',
@@ -36,24 +33,39 @@ interface CityOption {
 export class AddressComponent implements OnInit {
   private fb = inject(FormBuilder);
   private addressService = inject(AddressService);
+  private cityService = inject(CityService);
   private onboardingService = inject(OnboardingService);
   private router = inject(Router);
 
   addressForm!: FormGroup;
   isSubmitting = false;
   errorMessage: string | null = null;
-
-  cities: CityOption[] = [
-    { id: 'b1e2c3d4-0001-4f5a-8c9b-1a2b3c4d5e6f', name: 'İstanbul' },
-    { id: 'b1e2c3d4-0002-4f5a-8c9b-1a2b3c4d5e6f', name: 'Ankara' },
-    { id: 'b1e2c3d4-0003-4f5a-8c9b-1a2b3c4d5e6f', name: 'İzmir' },
-    { id: 'b1e2c3d4-0004-4f5a-8c9b-1a2b3c4d5e6f', name: 'Bursa' },
-    { id: 'b1e2c3d4-0005-4f5a-8c9b-1a2b3c4d5e6f', name: 'Antalya' }
-  ];
+  isLoadingCities = false;
+  cities: CityDto[] = [];
 
   ngOnInit(): void {
     this.onboardingService.setCurrentStep(OnboardingStep.Address);
     this.initializeForm();
+    this.loadCities();
+  }
+
+  loadCities(): void {
+    this.isLoadingCities = true;
+    this.cityService.getCities().subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.data) {
+          this.cities = response.data;
+        } else {
+          this.errorMessage = 'Şehirler yüklenirken bir hata oluştu.';
+        }
+        this.isLoadingCities = false;
+      },
+      error: (error) => {
+        this.isLoadingCities = false;
+        this.errorMessage = 'Şehirler yüklenirken bir hata oluştu. Lütfen tekrar deneyin.';
+        console.error('Error loading cities:', error);
+      }
+    });
   }
 
   initializeForm(): void {

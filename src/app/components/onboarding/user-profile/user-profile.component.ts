@@ -9,14 +9,10 @@ import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { UserProfileService } from '../../../services/user-profile.service';
+import { GenderService, GenderDto } from '../../../services/gender.service';
 import { OnboardingService, OnboardingStep } from '../../../services/onboarding.service';
 import { AuthService } from '../../../services/auth.service';
 import { UserType } from '../../../models/profile-api.models';
-
-interface GenderOption {
-  id: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-user-profile',
@@ -38,6 +34,7 @@ interface GenderOption {
 export class UserProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
   private userProfileService = inject(UserProfileService);
+  private genderService = inject(GenderService);
   private onboardingService = inject(OnboardingService);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -46,16 +43,32 @@ export class UserProfileComponent implements OnInit {
   isSubmitting = false;
   errorMessage: string | null = null;
   maxDate = new Date();
-
-  // Gender listesi - backend'den gelecek veya hardcode edilebilir
-  genders: GenderOption[] = [
-    { id: 'c1d2e3f4-0001-4a5b-8c9d-1a2b3c4d5e6f', name: 'Erkek' },
-    { id: 'c1d2e3f4-0002-4a5b-8c9d-1a2b3c4d5e6f', name: 'Kadın' }
-  ];
+  isLoadingGenders = false;
+  genders: GenderDto[] = [];
 
   ngOnInit(): void {
     this.onboardingService.setCurrentStep(OnboardingStep.UserProfile);
     this.initializeForm();
+    this.loadGenders();
+  }
+
+  loadGenders(): void {
+    this.isLoadingGenders = true;
+    this.genderService.getGenders().subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.data) {
+          this.genders = response.data;
+        } else {
+          this.errorMessage = 'Cinsiyet bilgileri yüklenirken bir hata oluştu.';
+        }
+        this.isLoadingGenders = false;
+      },
+      error: (error) => {
+        this.isLoadingGenders = false;
+        this.errorMessage = 'Cinsiyet bilgileri yüklenirken bir hata oluştu. Lütfen tekrar deneyin.';
+        console.error('Error loading genders:', error);
+      }
+    });
   }
 
   initializeForm(): void {

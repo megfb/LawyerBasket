@@ -1,17 +1,40 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResult, UserProfileWDetailsDto } from '../models/profile-api.models';
+import { map } from 'rxjs/operators';
+import { ApiResult, ProfileDto, UserProfileWDetailsDto } from '../models/profile-api.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/UserProfile'; // ProfileService API URL
+  private apiUrl = 'https://localhost:7001/api/Profile'; // Gateway API URL
 
   getUserProfileFull(): Observable<ApiResult<UserProfileWDetailsDto>> {
-    return this.http.get<ApiResult<UserProfileWDetailsDto>>(`${this.apiUrl}/GetUserProfileFull`);
+    // Use GetUserProfileFull endpoint through gateway
+    // Gateway returns ProfileDto, extract userProfile from it
+    return this.http.get<ApiResult<ProfileDto>>(`${this.apiUrl}/GetUserProfileFull`).pipe(
+      map(response => {
+        console.log('Gateway response:', response); // Debug log
+        if (response && response.isSuccess && response.data?.userProfile) {
+          return {
+            ...response,
+            data: response.data.userProfile
+          } as ApiResult<UserProfileWDetailsDto>;
+        }
+        console.warn('Response mapping failed:', { response, hasData: !!response?.data, hasUserProfile: !!response?.data?.userProfile }); // Debug log
+        return {
+          ...response,
+          data: undefined
+        } as ApiResult<UserProfileWDetailsDto>;
+      })
+    );
+  }
+
+  getProfileFull(): Observable<ApiResult<ProfileDto>> {
+    // Get full profile with posts and commented posts
+    return this.http.get<ApiResult<ProfileDto>>(`${this.apiUrl}/GetUserProfileFull`);
   }
 }
 

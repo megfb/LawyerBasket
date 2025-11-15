@@ -11,6 +11,7 @@ namespace LawyerBasket.ProfileService.Data.Certificates
             builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Institution).IsRequired().HasMaxLength(200);
             builder.Property(x => x.DateReceived).IsRequired();
+            builder.Property(x => x.Description).IsRequired(false).HasMaxLength(2000);
 
             builder.HasOne(x => x.LawyerProfile).WithMany(x => x.Certificates).HasForeignKey(x => x.LawyerProfileId);
         }

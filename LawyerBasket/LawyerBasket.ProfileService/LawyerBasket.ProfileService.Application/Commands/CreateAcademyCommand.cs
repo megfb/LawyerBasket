@@ -9,6 +9,7 @@ namespace LawyerBasket.ProfileService.Application.Commands
         public string LawyerProfileId { get; set; } = default!;
         public string University { get; set; } = default!;
         public string? Degree { get; set; }
+        public string? Department { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }

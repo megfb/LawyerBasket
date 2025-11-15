@@ -22,6 +22,10 @@ namespace LawyerBasket.ProfileService.Application.Validators
             RuleFor(x => x.LicenseDate)
                 .NotEmpty().WithMessage("LicenseDate boş olamaz.")
                 .LessThanOrEqualTo(DateTime.Today).WithMessage("LicenseDate bugünden büyük olamaz.");
+
+            RuleFor(x => x.About)
+                .MaximumLength(2000).WithMessage("Hakkında yazısı en fazla 2000 karakter olabilir.")
+                .When(x => !string.IsNullOrEmpty(x.About));
         }
     }
 }

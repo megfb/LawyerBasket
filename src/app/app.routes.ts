@@ -40,6 +40,8 @@ export const routes: Routes = [
       { path: 'notifications', component: DashboardComponent }, // Placeholder
       { path: 'profile', component: ProfileComponent },
       { path: 'posts', loadComponent: () => import('./components/posts-list/posts-list.component').then(m => m.PostsListComponent) },
+      { path: 'commented-posts', loadComponent: () => import('./components/commented-posts-list/commented-posts-list.component').then(m => m.CommentedPostsListComponent) },
+      { path: 'liked-posts', loadComponent: () => import('./components/liked-posts-list/liked-posts-list.component').then(m => m.LikedPostsListComponent) },
       { path: 'settings', component: DashboardComponent } // Placeholder
     ]
   },

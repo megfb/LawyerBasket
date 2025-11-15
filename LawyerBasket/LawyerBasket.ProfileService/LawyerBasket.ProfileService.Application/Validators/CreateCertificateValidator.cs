@@ -20,6 +20,10 @@ namespace LawyerBasket.ProfileService.Application.Validators
                 .NotEmpty().WithMessage("Sertifika alınma tarihi boş olamaz.")
                 .LessThanOrEqualTo(DateTime.UtcNow).WithMessage("Sertifika tarihi bugünden ileri olamaz.");
 
+            RuleFor(x => x.Description)
+                .MaximumLength(2000).WithMessage("Sertifika eğitim içeriği en fazla 2000 karakter olabilir.")
+                .When(x => !string.IsNullOrEmpty(x.Description));
+
         }
     }
 }

@@ -20,7 +20,7 @@ export interface UpdateAddressRequest {
 })
 export class AddressService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/Address'; // Address API URL
+  private apiUrl = 'https://localhost:7001/api/address'; // Gateway API URL
 
   createAddress(request: CreateAddressRequest): Observable<ApiResult<AddressDto>> {
     return this.http.post<ApiResult<AddressDto>>(`${this.apiUrl}/CreateAddress`, request);

@@ -27,7 +27,7 @@ export interface UpdateContactRequest {
 })
 export class ContactService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/Contact'; // Contact API URL
+  private apiUrl = 'https://localhost:7001/api/contact'; // Gateway API URL
 
   createContact(request: CreateContactRequest): Observable<ApiResult<ContactDto>> {
     return this.http.post<ApiResult<ContactDto>>(`${this.apiUrl}/CreateContact`, request);

@@ -86,6 +86,7 @@
             placeholder="Cinsiyet seçiniz"
             [class.ng-invalid]="isFieldInvalid('genderId')"
             [style]="{ width: '100%' }"
+            [loading]="isLoadingGenders"
           ></p-select>
           @if (isFieldInvalid('genderId')) {
             <small class="error-text">{{ getFieldError('genderId') }}</small>

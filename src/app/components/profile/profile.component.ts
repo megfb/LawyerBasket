@@ -12,6 +12,7 @@ import { ProfileEducationComponent } from './profile-education/profile-education
 import { ProfileCertificatesComponent } from './profile-certificates/profile-certificates.component';
 import { ProfileAddressComponent } from './profile-address/profile-address.component';
 import { ProfileContactComponent } from './profile-contact/profile-contact.component';
+import { ProfileLawyerInfoComponent } from './profile-lawyer-info/profile-lawyer-info.component';
 import { ProfileData, ProfileSummary, Experience, Education, Certificate, Skill, Address, ContactInfo } from '../../models/profile.models';
 import { ProfileService } from '../../services/profile.service';
 import { UserProfileWDetailsDto } from '../../models/profile-api.models';
@@ -32,7 +33,8 @@ import { UserProfileWDetailsDto } from '../../models/profile-api.models';
     ProfileEducationComponent,
     ProfileCertificatesComponent,
     ProfileAddressComponent,
-    ProfileContactComponent
+    ProfileContactComponent,
+    ProfileLawyerInfoComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -58,10 +60,12 @@ export class ProfileComponent implements OnInit {
     },
     contactInfo: {
       email: ''
-    }
+    },
+    lawyerInfo: undefined
   };
 
   lawyerProfileId: string | null = null;
+  userProfileId: string | null = null;
   isLoading = true;
   errorMessage: string | null = null;
 
@@ -78,6 +82,7 @@ export class ProfileComponent implements OnInit {
         if (response.isSuccess && response.data) {
           this.profileData = this.mapToProfileData(response.data);
           this.lawyerProfileId = response.data.lawyerProfile?.id || null;
+          this.userProfileId = response.data.id || null;
         } else {
           this.errorMessage = response.errorMessage?.join(', ') || 'Profil verileri yüklenemedi.';
         }
@@ -253,6 +258,60 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  refreshSummary(): void {
+    // Scroll pozisyonunu koru
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    
+    // Sadece summary'yi yeniden yükle (loading state olmadan)
+    this.profileService.getUserProfileFull().subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.data) {
+          const newProfileData = this.mapToProfileData(response.data);
+          // Sadece summary'yi güncelle
+          this.profileData.summary = newProfileData.summary;
+          // Scroll pozisyonunu geri yükle
+          requestAnimationFrame(() => {
+            window.scrollTo(0, scrollPosition);
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Profil özeti yenilenirken hata oluştu:', error);
+        // Hata durumunda da scroll pozisyonunu koru
+        requestAnimationFrame(() => {
+          window.scrollTo(0, scrollPosition);
+        });
+      }
+    });
+  }
+
+  refreshLawyerInfo(): void {
+    // Scroll pozisyonunu koru
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    
+    // Sadece lawyer info'yu yeniden yükle (loading state olmadan)
+    this.profileService.getUserProfileFull().subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.data) {
+          const newProfileData = this.mapToProfileData(response.data);
+          // Sadece lawyerInfo'yu güncelle
+          this.profileData.lawyerInfo = newProfileData.lawyerInfo;
+          // Scroll pozisyonunu geri yükle
+          requestAnimationFrame(() => {
+            window.scrollTo(0, scrollPosition);
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Mesleki bilgiler yenilenirken hata oluştu:', error);
+        // Hata durumunda da scroll pozisyonunu koru
+        requestAnimationFrame(() => {
+          window.scrollTo(0, scrollPosition);
+        });
+      }
+    });
+  }
+
   private mapToProfileData(apiData: UserProfileWDetailsDto): ProfileData {
     const lawyerProfile = apiData.lawyerProfile;
 
@@ -265,7 +324,8 @@ export class ProfileComponent implements OnInit {
       lastWorkPlace: this.getLatestWorkPlace(lawyerProfile?.experience) ? this.capitalizeWords(this.getLatestWorkPlace(lawyerProfile?.experience)) : '',
       city: apiData.address?.city?.name ? this.capitalizeWords(apiData.address.city.name) : '',
       barAssociation: lawyerProfile?.barAssociation ? this.capitalizeWords(lawyerProfile.barAssociation) : undefined,
-      barNumber: lawyerProfile?.barNumber
+      barNumber: lawyerProfile?.barNumber,
+      about: lawyerProfile?.about ? this.capitalizeFirst(lawyerProfile.about) : undefined
     };
 
     // Experiences mapping and sorting by start date (newest first)
@@ -299,7 +359,7 @@ export class ProfileComponent implements OnInit {
       .map(acad => ({
         id: acad.id,
         schoolName: this.capitalizeWords(acad.university),
-        department: '',
+        department: acad.department ? this.capitalizeWords(acad.department) : '',
         graduationYear: acad.endDate ? new Date(acad.endDate).getFullYear() : undefined,
         degree: acad.degree ? this.capitalizeWords(acad.degree) : undefined,
         startDate: this.formatDate(acad.startDate),
@@ -311,7 +371,8 @@ export class ProfileComponent implements OnInit {
       id: cert.id,
       name: this.capitalizeWords(cert.name),
       issuingOrganization: this.capitalizeWords(cert.institution),
-      issueDate: this.formatDate(cert.dateReceived)
+      issueDate: this.formatDate(cert.dateReceived),
+      description: cert.description ? this.capitalizeFirst(cert.description) : undefined
     }));
 
     // Skills mapping (from LawyerExpertisements)
@@ -343,6 +404,14 @@ export class ProfileComponent implements OnInit {
       github: undefined // Frontend only
     };
 
+    // LawyerInfo mapping (About excluded)
+    const lawyerInfo = lawyerProfile ? {
+      barAssociation: lawyerProfile.barAssociation ? this.capitalizeWords(lawyerProfile.barAssociation) : undefined,
+      barNumber: lawyerProfile.barNumber,
+      licenseNumber: lawyerProfile.licenseNumber,
+      licenseDate: lawyerProfile.licenseDate
+    } : undefined;
+
     return {
       summary,
       experiences,
@@ -350,7 +419,8 @@ export class ProfileComponent implements OnInit {
       education,
       certificates,
       address,
-      contactInfo
+      contactInfo,
+      lawyerInfo
     };
   }
 

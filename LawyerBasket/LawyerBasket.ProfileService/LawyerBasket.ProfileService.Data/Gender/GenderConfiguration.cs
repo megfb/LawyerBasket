@@ -16,15 +16,22 @@ namespace LawyerBasket.ProfileService.Data.Gender
                 new Domain.Entities.Gender
                 {
                     Id = "c1d2e3f4-0001-4a5b-8c9d-1a2b3c4d5e6f",
-                    Name = "Male",
-                    Description = "Male",
+                    Name = "Erkek",
+                    Description = "Erkek",
                     CreatedAt = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc),
                 },
                 new Domain.Entities.Gender
                 {
                     Id = "c1d2e3f4-0002-4a5b-8c9d-1a2b3c4d5e6f",
-                    Name = "Female",
-                    Description = "Female",
+                    Name = "Kadın",
+                    Description = "Kadın",
+                    CreatedAt = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc),
+                },
+                new Domain.Entities.Gender
+                {
+                    Id = "c1d2e3f4-0003-4a5b-8c9d-1a2b3c4d5e6f",
+                    Name = "Belirtmek İstemiyorum",
+                    Description = "Belirtmek İstemiyorum",
                     CreatedAt = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc),
                 }
             );

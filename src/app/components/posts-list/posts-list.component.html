@@ -48,10 +48,12 @@
               </div>
             </div>
             <div class="post-stats">
-              <div class="stat-item">
-                <span class="material-symbols-outlined stat-icon">favorite</span>
-                <span class="stat-count">{{ getLikesCount(post) }}</span>
-              </div>
+                <div class="stat-item stat-item-clickable" (click)="onToggleLike($event, post)">
+                  <span class="material-symbols-outlined stat-icon" [class.liked]="isLiked(post)">
+                    {{ isLiked(post) ? 'favorite' : 'favorite_border' }}
+                  </span>
+                  <span class="stat-count">{{ getLikesCount(post) }}</span>
+                </div>
               <div class="stat-item stat-item-clickable" (click)="onToggleComments($event, post)">
                 <span class="material-symbols-outlined stat-icon">comment</span>
                 <span class="stat-count">{{ getCommentsCount(post) }}</span>

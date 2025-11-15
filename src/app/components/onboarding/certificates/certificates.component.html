@@ -56,6 +56,22 @@
         }
       </div>
 
+      <div class="form-field">
+        <label for="description">Eğitim İçeriği</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          formControlName="description"
+          placeholder="Sertifika eğitiminin içeriğini açıklayabilirsiniz (opsiyonel)"
+          [rows]="5"
+          [class.ng-invalid]="isFieldInvalid('description')"
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+          <small class="error-text">{{ getFieldError('description') }}</small>
+        }
+        <small class="helper-text">Maksimum 2000 karakter</small>
+      </div>
+
       <div class="form-actions">
         <p-button
           label="Atla"

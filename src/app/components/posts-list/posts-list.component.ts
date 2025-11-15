@@ -11,6 +11,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostService } from '../../services/post.service';
+import { AuthService } from '../../services/auth.service';
 import { PostDto, CommentDto } from '../../models/post.models';
 
 @Component({
@@ -34,6 +35,7 @@ import { PostDto, CommentDto } from '../../models/post.models';
 })
 export class PostsListComponent implements OnInit {
   private postService = inject(PostService);
+  private authService = inject(AuthService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
   private router = inject(Router);
@@ -83,6 +85,87 @@ export class PostsListComponent implements OnInit {
 
   getLikesCount(post: PostDto): number {
     return post.likes?.length || 0;
+  }
+
+  isLiked(post: PostDto): boolean {
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId || !post.likes) return false;
+    return post.likes.some(like => like.userId === userId);
+  }
+
+  getLikeId(post: PostDto): string | null {
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId || !post.likes) return null;
+    const like = post.likes.find(like => like.userId === userId);
+    return like?.id || null;
+  }
+
+  onToggleLike(event: Event, post: PostDto): void {
+    event.stopPropagation();
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Uyarı',
+        detail: 'Beğenmek için giriş yapmanız gerekiyor.'
+      });
+      return;
+    }
+
+    const isLiked = this.isLiked(post);
+    const likeId = this.getLikeId(post);
+
+    if (isLiked && likeId) {
+      // Unlike
+      this.postService.removeLike(post.id, likeId).subscribe({
+        next: (response) => {
+          if (response && (response.isSuccess === true || response.isSuccess === undefined)) {
+            this.loadPosts();
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: response?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Beğeni kaldırılırken hata oluştu:', error);
+          if (error.status === 200 || error.status === 204) {
+            this.loadPosts();
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: error.error?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
+            });
+          }
+        }
+      });
+    } else {
+      // Like
+      this.postService.createLike(post.id, userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess && response.data) {
+            this.loadPosts();
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: response.errorMessage?.join(', ') || 'Beğeni eklenirken bir hata oluştu.'
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Beğeni ekleme hatası:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hata',
+            detail: error.error?.errorMessage?.join(', ') || error.error?.message || 'Beğeni eklenirken bir hata oluştu.'
+          });
+        }
+      });
+    }
   }
 
   getCommentsCount(post: PostDto): number {

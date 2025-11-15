@@ -9,6 +9,7 @@ export interface ProfileSummary {
   coverImage?: string;
   barAssociation?: string;
   barNumber?: string;
+  about?: string;
 }
 
 export interface Experience {
@@ -42,6 +43,7 @@ export interface Certificate {
   name: string;
   issuingOrganization: string;
   issueDate: string;
+  description?: string;
   expirationDate?: string;
   credentialId?: string;
   credentialUrl?: string;
@@ -70,6 +72,13 @@ export interface ContactInfo {
   github?: string; // Frontend only
 }
 
+export interface LawyerInfo {
+  barAssociation?: string;
+  barNumber?: string;
+  licenseNumber?: string;
+  licenseDate?: string;
+}
+
 export interface ProfileData {
   summary: ProfileSummary;
   experiences: Experience[];
@@ -78,5 +87,6 @@ export interface ProfileData {
   certificates: Certificate[];
   address: Address;
   contactInfo: ContactInfo;
+  lawyerInfo?: LawyerInfo;
 }
 

@@ -1,4 +1,5 @@
 using LawyerBasket.PostService.Application.Commands;
+using LawyerBasket.PostService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +24,13 @@ namespace LawyerBasket.PostService.Api.Controllers
         [HttpDelete("RemoveComment/{id}")]
         public async Task<IActionResult> RemoveComment(RemoveCommentCommand removeCommentCommand)
         {
-
             return Ok(await _mediator.Send(removeCommentCommand));
+        }
+
+        [HttpGet("GetPostsCommentedByUser")]
+        public async Task<IActionResult> GetPostsCommentedByUser()
+        {
+            return Ok(await _mediator.Send(new GetPostsCommentedByUserQuery()));
         }
     }
 }

@@ -11,6 +11,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PostService } from '../../../services/post.service';
+import { ProfileService } from '../../../services/profile.service';
+import { AuthService } from '../../../services/auth.service';
 import { PostDto, CommentDto } from '../../../models/post.models';
 
 @Component({
@@ -34,6 +36,8 @@ import { PostDto, CommentDto } from '../../../models/post.models';
 })
 export class ProfileTabsComponent implements OnInit {
   private postService = inject(PostService);
+  private profileService = inject(ProfileService);
+  private authService = inject(AuthService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
   private router = inject(Router);
@@ -41,8 +45,14 @@ export class ProfileTabsComponent implements OnInit {
 
   activeTab: string = 'posts';
   posts: PostDto[] = [];
+  commentedPosts: PostDto[] = [];
+  likedPosts: PostDto[] = [];
   isLoadingPosts = false;
+  isLoadingCommentedPosts = false;
+  isLoadingLikedPosts = false;
   postsError: string | null = null;
+  commentedPostsError: string | null = null;
+  likedPostsError: string | null = null;
   expandedComments: Set<string> = new Set();
   showCreatePostModal = false;
   createPostForm!: FormGroup;
@@ -56,6 +66,22 @@ export class ProfileTabsComponent implements OnInit {
 
   get hasMorePosts(): boolean {
     return this.posts.length > 2;
+  }
+
+  get displayedCommentedPosts(): PostDto[] {
+    return this.commentedPosts.slice(0, 2);
+  }
+
+  get hasMoreCommentedPosts(): boolean {
+    return this.commentedPosts.length > 2;
+  }
+
+  get displayedLikedPosts(): PostDto[] {
+    return this.likedPosts.slice(0, 2);
+  }
+
+  get hasMoreLikedPosts(): boolean {
+    return this.likedPosts.length > 2;
   }
 
   ngOnInit(): void {
@@ -73,6 +99,10 @@ export class ProfileTabsComponent implements OnInit {
     this.activeTab = tab;
     if (tab === 'posts' && this.posts.length === 0 && !this.isLoadingPosts) {
       this.loadPosts();
+    } else if (tab === 'comments' && this.commentedPosts.length === 0 && !this.isLoadingCommentedPosts) {
+      this.loadCommentedPosts();
+    } else if (tab === 'likes' && this.likedPosts.length === 0 && !this.isLoadingLikedPosts) {
+      this.loadLikedPosts();
     }
   }
 
@@ -97,8 +127,151 @@ export class ProfileTabsComponent implements OnInit {
     });
   }
 
+  private loadCommentedPosts(): void {
+    this.isLoadingCommentedPosts = true;
+    this.commentedPostsError = null;
+
+    this.profileService.getProfileFull().subscribe({
+      next: (response) => {
+        this.isLoadingCommentedPosts = false;
+        if (response.isSuccess && response.data?.commentedPosts) {
+          this.commentedPosts = response.data.commentedPosts;
+        } else {
+          this.commentedPostsError = response.errorMessage?.join(', ') || 'Yorum yaptığınız gönderiler yüklenirken bir hata oluştu.';
+        }
+      },
+      error: (error) => {
+        this.isLoadingCommentedPosts = false;
+        console.error('Yorum yaptığınız gönderiler yüklenirken hata oluştu:', error);
+        this.commentedPostsError = error.error?.errorMessage?.join(', ') || 'Yorum yaptığınız gönderiler yüklenirken bir hata oluştu.';
+      }
+    });
+  }
+
+  private loadLikedPosts(): void {
+    this.isLoadingLikedPosts = true;
+    this.likedPostsError = null;
+
+    this.profileService.getProfileFull().subscribe({
+      next: (response) => {
+        this.isLoadingLikedPosts = false;
+        if (response.isSuccess && response.data?.likedPosts) {
+          this.likedPosts = response.data.likedPosts;
+        } else {
+          this.likedPostsError = response.errorMessage?.join(', ') || 'Beğendiğiniz gönderiler yüklenirken bir hata oluştu.';
+        }
+      },
+      error: (error) => {
+        this.isLoadingLikedPosts = false;
+        console.error('Beğendiğiniz gönderiler yüklenirken hata oluştu:', error);
+        this.likedPostsError = error.error?.errorMessage?.join(', ') || 'Beğendiğiniz gönderiler yüklenirken bir hata oluştu.';
+      }
+    });
+  }
+
   getLikesCount(post: PostDto): number {
     return post.likes?.length || 0;
+  }
+
+  isLiked(post: PostDto): boolean {
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId || !post.likes) return false;
+    return post.likes.some(like => like.userId === userId);
+  }
+
+  getLikeId(post: PostDto): string | null {
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId || !post.likes) return null;
+    const like = post.likes.find(like => like.userId === userId);
+    return like?.id || null;
+  }
+
+  onToggleLike(event: Event, post: PostDto): void {
+    event.stopPropagation();
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Uyarı',
+        detail: 'Beğenmek için giriş yapmanız gerekiyor.'
+      });
+      return;
+    }
+
+    const isLiked = this.isLiked(post);
+    const likeId = this.getLikeId(post);
+
+    if (isLiked && likeId) {
+      // Unlike
+      this.postService.removeLike(post.id, likeId).subscribe({
+        next: (response) => {
+          if (response && (response.isSuccess === true || response.isSuccess === undefined)) {
+            // Postları yeniden yükle
+            this.loadPosts();
+            if (this.activeTab === 'comments') {
+              this.loadCommentedPosts();
+            }
+            if (this.activeTab === 'likes') {
+              this.loadLikedPosts();
+            }
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: response?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Beğeni kaldırılırken hata oluştu:', error);
+          if (error.status === 200 || error.status === 204) {
+            this.loadPosts();
+            if (this.activeTab === 'comments') {
+              this.loadCommentedPosts();
+            }
+            if (this.activeTab === 'likes') {
+              this.loadLikedPosts();
+            }
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: error.error?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
+            });
+          }
+        }
+      });
+    } else {
+      // Like
+      this.postService.createLike(post.id, userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess && response.data) {
+            // Postları yeniden yükle
+            this.loadPosts();
+            if (this.activeTab === 'comments') {
+              this.loadCommentedPosts();
+            }
+            if (this.activeTab === 'likes') {
+              this.loadLikedPosts();
+            }
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Hata',
+              detail: response.errorMessage?.join(', ') || 'Beğeni eklenirken bir hata oluştu.'
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Beğeni ekleme hatası:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hata',
+            detail: error.error?.errorMessage?.join(', ') || error.error?.message || 'Beğeni eklenirken bir hata oluştu.'
+          });
+        }
+      });
+    }
   }
 
   getCommentsCount(post: PostDto): number {
@@ -190,6 +363,14 @@ export class ProfileTabsComponent implements OnInit {
     this.router.navigate(['/posts']);
   }
 
+  onShowMoreCommentedPosts(): void {
+    this.router.navigate(['/commented-posts']);
+  }
+
+  onShowMoreLikedPosts(): void {
+    this.router.navigate(['/liked-posts']);
+  }
+
   onToggleComments(event: Event, post: PostDto): void {
     event.stopPropagation();
     if (this.expandedComments.has(post.id)) {
@@ -250,6 +431,14 @@ export class ProfileTabsComponent implements OnInit {
           });
           // Postları yeniden yükle
           this.loadPosts();
+                // Eğer comments tab'ı aktifse, commentedPosts'u da yenile
+                if (this.activeTab === 'comments') {
+                  this.loadCommentedPosts();
+                }
+                // Eğer likes tab'ı aktifse, likedPosts'u da yenile
+                if (this.activeTab === 'likes') {
+                  this.loadLikedPosts();
+                }
         } else {
           this.messageService.add({
             severity: 'error',
@@ -268,6 +457,14 @@ export class ProfileTabsComponent implements OnInit {
             detail: 'Yorum başarıyla silindi.'
           });
           this.loadPosts();
+                // Eğer comments tab'ı aktifse, commentedPosts'u da yenile
+                if (this.activeTab === 'comments') {
+                  this.loadCommentedPosts();
+                }
+                // Eğer likes tab'ı aktifse, likedPosts'u da yenile
+                if (this.activeTab === 'likes') {
+                  this.loadLikedPosts();
+                }
         } else {
           this.messageService.add({
             severity: 'error',
@@ -310,6 +507,14 @@ export class ProfileTabsComponent implements OnInit {
           });
           form.reset();
           this.loadPosts(); // Postları yeniden yükle
+                // Eğer comments tab'ı aktifse, commentedPosts'u da yenile
+                if (this.activeTab === 'comments') {
+                  this.loadCommentedPosts();
+                }
+                // Eğer likes tab'ı aktifse, likedPosts'u da yenile
+                if (this.activeTab === 'likes') {
+                  this.loadLikedPosts();
+                }
         } else {
           this.messageService.add({
             severity: 'error',

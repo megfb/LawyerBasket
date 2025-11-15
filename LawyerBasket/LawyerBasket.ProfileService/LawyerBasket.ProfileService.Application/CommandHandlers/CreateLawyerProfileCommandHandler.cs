@@ -48,6 +48,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                     BarNumber = request.BarNumber,
                     LicenseNumber = request.LicenseNumber,
                     LicenseDate = request.LicenseDate,
+                    About = request.About,
                     CreatedAt = DateTime.UtcNow,
                 };
 

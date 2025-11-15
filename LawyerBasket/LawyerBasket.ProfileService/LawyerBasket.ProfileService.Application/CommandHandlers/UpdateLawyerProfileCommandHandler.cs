@@ -36,13 +36,13 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                     return ApiResult<LawyerProfileDto>.Fail("Lawyer profile not found.");
                 }
 
-                if (await _lawyerProfileRepository.LicenseNumberAny(request.LicenseNumber))
+                if (await _lawyerProfileRepository.LicenseNumberAny(request.LicenseNumber, request.Id))
                 {
                     _logger.LogError("LicenseNumber: {LicenseNumber} already exists", request.LicenseNumber);
                     return ApiResult<LawyerProfileDto>.Fail("License number already exists.");
                 }
 
-                if (await _lawyerProfileRepository.BarNumberAny(request.BarNumber))
+                if (await _lawyerProfileRepository.BarNumberAny(request.BarNumber, request.Id))
                 {
                     _logger.LogError("BarNumber: {BarNumber} already exists", request.BarNumber);
                     return ApiResult<LawyerProfileDto>.Fail("Bar number already exists.");
@@ -52,6 +52,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                 lawyerProfile.BarNumber = request.BarNumber;
                 lawyerProfile.LicenseNumber = request.LicenseNumber;
                 lawyerProfile.LicenseDate = request.LicenseDate;
+                lawyerProfile.About = request.About;
                 lawyerProfile.UpdatedAt = DateTime.UtcNow;
 
                 _logger.LogInformation("Updating LawyerProfile with Id: {Id}", request.Id);

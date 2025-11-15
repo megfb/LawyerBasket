@@ -73,6 +73,22 @@
         }
       </div>
 
+      <div class="form-field">
+        <label for="about">Hakkında</label>
+        <textarea
+          id="about"
+          pInputTextarea
+          formControlName="about"
+          placeholder="Kendiniz hakkında kısa bir bilgi yazabilirsiniz (opsiyonel)"
+          [rows]="5"
+          [class.ng-invalid]="isFieldInvalid('about')"
+        ></textarea>
+        @if (isFieldInvalid('about')) {
+          <small class="error-text">{{ getFieldError('about') }}</small>
+        }
+        <small class="helper-text">Maksimum 2000 karakter</small>
+      </div>
+
       <div class="form-actions">
         <p-button
           label="Sonraki"

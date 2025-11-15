@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
@@ -8,6 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Skill } from '../../../models/profile.models';
 import { LawyerExpertisementService } from '../../../services/lawyer-expertisement.service';
@@ -30,16 +31,19 @@ interface ExpertisementOption {
     DialogModule,
     MultiSelectModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    ProgressSpinnerModule
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './profile-skills.component.html',
   styleUrl: './profile-skills.component.css'
 })
-export class ProfileSkillsComponent {
-  @Input() skills: Skill[] = [];
+export class ProfileSkillsComponent implements OnInit, OnChanges {
   @Input() lawyerProfileId: string | null = null;
   @Output() skillDeleted = new EventEmitter<void>();
+
+  skills: Skill[] = [];
+  isLoadingSkills = false;
 
   private lawyerExpertisementService = inject(LawyerExpertisementService);
   private expertisementService = inject(ExpertisementService);
@@ -50,6 +54,58 @@ export class ProfileSkillsComponent {
   availableExpertisements: ExpertisementOption[] = [];
   selectedExpertisementIds: string[] = [];
   isSubmitting = false;
+
+  ngOnInit(): void {
+    if (this.lawyerProfileId) {
+      this.loadSkills();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['lawyerProfileId'] && !changes['lawyerProfileId'].firstChange) {
+      if (this.lawyerProfileId) {
+        this.loadSkills();
+      } else {
+        this.skills = [];
+      }
+    }
+  }
+
+  private loadSkills(): void {
+    if (!this.lawyerProfileId) {
+      return;
+    }
+
+    this.isLoadingSkills = true;
+    this.lawyerExpertisementService.getLawyerExpertisements(this.lawyerProfileId).subscribe({
+      next: (response) => {
+        this.isLoadingSkills = false;
+        if (response.isSuccess && response.data) {
+          this.skills = response.data
+            .filter(exp => exp.expertisement != null) // Null check
+            .map(exp => ({
+              id: exp.id,
+              name: exp.expertisement!.name
+            }));
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hata',
+            detail: response.errorMessage?.join(', ') || 'Uzmanlıklar yüklenirken bir hata oluştu.'
+          });
+        }
+      },
+      error: (error) => {
+        this.isLoadingSkills = false;
+        console.error('Uzmanlıklar yüklenirken hata oluştu:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hata',
+          detail: 'Uzmanlıklar yüklenirken bir hata oluştu.'
+        });
+      }
+    });
+  }
 
   getSeverity(level?: string): 'success' | 'info' | 'warn' | 'secondary' | 'contrast' | 'danger' | null {
     if (!level) return 'info';
@@ -160,6 +216,7 @@ export class ProfileSkillsComponent {
           });
           this.showAddModal = false;
           this.selectedExpertisementIds = [];
+          this.loadSkills(); // Backend'den yeniden yükle
           this.skillDeleted.emit();
         } else {
           this.messageService.add({
@@ -196,6 +253,7 @@ export class ProfileSkillsComponent {
             summary: 'Başarılı',
             detail: 'Uzmanlık alanı başarıyla silindi.'
           });
+          this.loadSkills(); // Backend'den yeniden yükle
           this.skillDeleted.emit();
         } else {
           // Backend'den hata mesajı geldi
@@ -217,6 +275,7 @@ export class ProfileSkillsComponent {
             summary: 'Başarılı',
             detail: 'Uzmanlık alanı başarıyla silindi.'
           });
+          this.loadSkills(); // Backend'den yeniden yükle
           this.skillDeleted.emit();
         } else {
           // Gerçek bir hata durumu

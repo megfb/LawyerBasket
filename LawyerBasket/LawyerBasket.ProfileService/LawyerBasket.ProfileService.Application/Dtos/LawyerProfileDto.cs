@@ -11,6 +11,7 @@ namespace LawyerBasket.ProfileService.Application.Dtos
         public string BarNumber { get; set; } = default!;        // Baro kayıt numarası
         public string LicenseNumber { get; set; } = default!;    // Avukatlık ruhsat numarası
         public DateTime LicenseDate { get; set; }                // Ruhsat tarihi
+        public string? About { get; set; }                       // Avukat hakkında yazısı
         public List<LawyerExpertisementDto>? LawyerExpertisements { get; set; }
         public List<ExperienceDto>? Experience { get; set; }
         public List<AcademyDto>? Academy { get; set; }

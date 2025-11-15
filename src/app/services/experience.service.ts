@@ -26,7 +26,7 @@ export interface UpdateExperienceRequest {
 })
 export class ExperienceService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/Experience'; // Experience API URL
+  private apiUrl = 'https://localhost:7001/api/experience'; // Gateway API URL
 
   updateExperience(id: string, request: UpdateExperienceRequest): Observable<ApiResult<ExperienceDto>> {
     return this.http.put<ApiResult<ExperienceDto>>(`${this.apiUrl}/UpdateExperience/${id}`, request);

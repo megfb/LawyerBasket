@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
@@ -18,6 +19,7 @@ import { CertificateService } from '../../../../services/certificate.service';
     ReactiveFormsModule,
     DialogModule,
     InputTextModule,
+    TextareaModule,
     DatePickerModule,
     ButtonModule,
     MessageModule
@@ -65,14 +67,16 @@ export class CertificateEditModalComponent implements OnInit, OnChanges {
       this.certificateForm = this.fb.group({
         name: [this.certificate.name || '', [Validators.required, Validators.minLength(2)]],
         institution: [this.certificate.issuingOrganization || '', [Validators.required, Validators.minLength(2)]],
-        dateReceived: [dateReceived, [Validators.required]]
+        dateReceived: [dateReceived, [Validators.required]],
+        description: [this.certificate.description || '', [Validators.maxLength(2000)]]
       });
     } else {
       // Create mode
       this.certificateForm = this.fb.group({
         name: ['', [Validators.required, Validators.minLength(2)]],
         institution: ['', [Validators.required, Validators.minLength(2)]],
-        dateReceived: [null, [Validators.required]]
+        dateReceived: [null, [Validators.required]],
+        description: ['', [Validators.maxLength(2000)]]
       });
     }
   }
@@ -124,6 +128,7 @@ export class CertificateEditModalComponent implements OnInit, OnChanges {
     const name = formValue.name.trim();
     const institution = formValue.institution.trim();
     const dateReceived = this.formatDateForApi(formValue.dateReceived);
+    const description = formValue.description?.trim() || undefined;
 
     if (this.isEditMode) {
       // Update mode
@@ -131,7 +136,8 @@ export class CertificateEditModalComponent implements OnInit, OnChanges {
         id: this.certificate!.id,
         name: name,
         institution: institution,
-        dateReceived: dateReceived
+        dateReceived: dateReceived,
+        description: description
       };
 
       this.certificateService.updateCertificate(this.certificate!.id, updateRequest).subscribe({
@@ -156,7 +162,8 @@ export class CertificateEditModalComponent implements OnInit, OnChanges {
         lawyerProfileId: this.lawyerProfileId!,
         name: name,
         institution: institution,
-        dateReceived: dateReceived
+        dateReceived: dateReceived,
+        description: description
       };
 
       this.certificateService.createCertificate(createRequest).subscribe({
@@ -238,6 +245,9 @@ export class CertificateEditModalComponent implements OnInit, OnChanges {
       }
       if (control.errors?.['minlength']) {
         return `En az ${control.errors['minlength'].requiredLength} karakter olmalıdır.`;
+      }
+      if (control.errors?.['maxlength']) {
+        return `Maksimum ${control.errors['maxlength'].requiredLength} karakter olabilir.`;
       }
     }
     return null;

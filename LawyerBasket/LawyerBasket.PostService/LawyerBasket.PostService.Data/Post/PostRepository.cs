@@ -9,5 +9,19 @@ namespace LawyerBasket.PostService.Data.Post
         {
             return await appDbContext.Post.Where(x => x.UserId == id).ToListAsync();
         }
+
+        public async Task<IEnumerable<Domain.Entities.Post>> GetPostsCommentedByUserIdAsync(string userId)
+        {
+            return await appDbContext.Post
+                .Where(p => p.Comments != null && p.Comments.Any(c => c.UserId == userId))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Domain.Entities.Post>> GetPostsLikedByUserIdAsync(string userId)
+        {
+            return await appDbContext.Post
+                .Where(p => p.Likes != null && p.Likes.Any(l => l.UserId == userId))
+                .ToListAsync();
+        }
     }
 }

@@ -1,0 +1,110 @@
+.profile-section-card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  font-size: 24px;
+  color: #20b2aa;
+}
+
+.edit-icon {
+  font-size: 20px;
+  color: #20b2aa;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.edit-icon:hover {
+  color: #1a9d96;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.empty-message {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.lawyer-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lawyer-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.lawyer-info-icon {
+  font-size: 20px;
+  color: #20b2aa;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.lawyer-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.lawyer-info-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.lawyer-info-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .card-header,
+  .card-content {
+    padding: 16px;
+  }
+
+  .lawyer-info-item {
+    gap: 10px;
+  }
+
+  .lawyer-info-icon {
+    font-size: 20px;
+  }
+}
+

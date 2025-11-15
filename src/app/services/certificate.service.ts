@@ -8,6 +8,7 @@ export interface CreateCertificateRequest {
   name: string;
   institution: string;
   dateReceived: string; // ISO string format
+  description?: string;
 }
 
 export interface UpdateCertificateRequest {
@@ -15,6 +16,7 @@ export interface UpdateCertificateRequest {
   name: string;
   institution: string;
   dateReceived: string; // ISO string format
+  description?: string;
 }
 
 @Injectable({
@@ -22,7 +24,7 @@ export interface UpdateCertificateRequest {
 })
 export class CertificateService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/Certificate'; // Certificate API URL
+  private apiUrl = 'https://localhost:7001/api/certificate'; // Gateway API URL
 
   createCertificate(request: CreateCertificateRequest): Observable<ApiResult<CertificatesDto>> {
     return this.http.post<ApiResult<CertificatesDto>>(`${this.apiUrl}/CreateCertificate`, request);

@@ -25,15 +25,32 @@
         }
       </div>
 
-      <div class="form-field">
-        <label for="degree">Bölüm/Derece</label>
-        <input
-          id="degree"
-          type="text"
-          pInputText
-          formControlName="degree"
-          placeholder="Bölüm veya derece bilgisini giriniz (örn: Hukuk Fakültesi, Lisans)"
-        />
+      <div class="form-row">
+        <div class="form-field">
+          <label for="degree">Derece</label>
+          <input
+            id="degree"
+            type="text"
+            pInputText
+            formControlName="degree"
+            placeholder="Derece bilgisini giriniz (örn: Lisans, Yüksek Lisans)"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="department">Bölüm</label>
+          <input
+            id="department"
+            type="text"
+            pInputText
+            formControlName="department"
+            placeholder="Bölüm bilgisini giriniz (örn: Hukuk Fakültesi)"
+            [class.ng-invalid]="isFieldInvalid('department')"
+          />
+          @if (isFieldInvalid('department')) {
+            <small class="error-text">{{ getFieldError('department') }}</small>
+          }
+        </div>
       </div>
 
       <div class="form-row">

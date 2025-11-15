@@ -15,7 +15,12 @@
   </div>
   
   <div class="card-content">
-    @if (skills.length === 0) {
+    @if (isLoadingSkills) {
+      <div class="loading-container">
+        <p-progressSpinner></p-progressSpinner>
+        <p>Uzmanlıklar yükleniyor...</p>
+      </div>
+    } @else if (skills.length === 0) {
       <p class="empty-message">Henüz uzmanlık alanı eklenmemiş.</p>
     } @else {
       <div class="skills-list">

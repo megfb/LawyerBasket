@@ -13,10 +13,12 @@ export interface CreateLawyerProfileRequest {
 
 export interface UpdateLawyerProfileRequest {
   id: string;
+  userProfileId: string;
   barAssociation: string;
   barNumber: string;
   licenseNumber: string;
   licenseDate: string; // ISO string format
+  about?: string;
 }
 
 @Injectable({
@@ -24,7 +26,7 @@ export interface UpdateLawyerProfileRequest {
 })
 export class LawyerProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/LawyerProfile';
+  private apiUrl = 'https://localhost:7001/api/lawyerprofile'; // Gateway API URL
 
   createLawyerProfile(request: CreateLawyerProfileRequest): Observable<ApiResult<LawyerProfileDto>> {
     return this.http.post<ApiResult<LawyerProfileDto>>(`${this.apiUrl}/CreateLawyerProfile`, request);

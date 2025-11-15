@@ -68,6 +68,25 @@
         <small class="error-text">{{ getErrorMessage('dateReceived') }}</small>
       }
     </div>
+
+    <div class="form-field">
+      <label for="description" class="form-label">
+        Eğitim İçeriği
+      </label>
+      <textarea
+        id="description"
+        pInputTextarea
+        formControlName="description"
+        placeholder="Sertifika eğitiminin içeriğini açıklayabilirsiniz (opsiyonel)"
+        [rows]="5"
+        [style]="{ width: '100%', resize: 'vertical' }"
+        [class.ng-invalid]="certificateForm.get('description')?.invalid && certificateForm.get('description')?.touched"
+      ></textarea>
+      @if (getErrorMessage('description')) {
+        <small class="error-text">{{ getErrorMessage('description') }}</small>
+      }
+      <small class="helper-text">Maksimum 2000 karakter</small>
+    </div>
   </form>
 
   <ng-template pTemplate="footer">

@@ -50,6 +50,7 @@ export class AcademyComponent implements OnInit {
     this.academyForm = this.fb.group({
       university: ['', [Validators.required, Validators.minLength(2)]],
       degree: [''],
+      department: ['', [Validators.maxLength(200)]],
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
       isCurrentlyStudying: [false]
@@ -99,6 +100,7 @@ export class AcademyComponent implements OnInit {
       lawyerProfileId: lawyerProfileId,
       university: formValue.university,
       degree: formValue.degree || undefined,
+      department: formValue.department || undefined,
       startDate: new Date(formValue.startDate).toISOString(),
       endDate: this.isCurrentlyStudying ? null : new Date(formValue.endDate).toISOString()
     };
@@ -153,6 +155,9 @@ export class AcademyComponent implements OnInit {
     }
     if (field?.hasError('minlength')) {
       return `Minimum ${field.errors?.['minlength'].requiredLength} karakter olmalıdır.`;
+    }
+    if (field?.hasError('maxlength')) {
+      return `Maksimum ${field.errors?.['maxlength'].requiredLength} karakter olabilir.`;
     }
     return '';
   }

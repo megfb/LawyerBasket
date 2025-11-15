@@ -1,0 +1,113 @@
+<p-dialog
+  [(visible)]="visible"
+  (visibleChange)="visibleChange.emit($event)"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+>
+  <ng-template pTemplate="header">
+    <h3 class="dialog-title">Mesleki Bilgileri Düzenle</h3>
+  </ng-template>
+  <form [formGroup]="lawyerInfoForm" class="lawyer-info-form">
+    @if (errorMessage) {
+      <p-message severity="error" [text]="errorMessage" styleClass="w-full mb-3"></p-message>
+    }
+
+    <div class="form-field">
+      <label for="barAssociation" class="form-label">
+        Baro <span class="required">*</span>
+      </label>
+      <input
+        id="barAssociation"
+        type="text"
+        pInputText
+        formControlName="barAssociation"
+        placeholder="Örn: İstanbul Barosu"
+        [style]="{ width: '100%' }"
+        [class.ng-invalid]="lawyerInfoForm.get('barAssociation')?.invalid && lawyerInfoForm.get('barAssociation')?.touched"
+      />
+      @if (getErrorMessage('barAssociation')) {
+        <small class="error-text">{{ getErrorMessage('barAssociation') }}</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="barNumber" class="form-label">
+        Baro kayıt no <span class="required">*</span>
+      </label>
+      <input
+        id="barNumber"
+        type="text"
+        pInputText
+        formControlName="barNumber"
+        placeholder="Baro kayıt numaranızı giriniz"
+        [style]="{ width: '100%' }"
+        [class.ng-invalid]="lawyerInfoForm.get('barNumber')?.invalid && lawyerInfoForm.get('barNumber')?.touched"
+      />
+      @if (getErrorMessage('barNumber')) {
+        <small class="error-text">{{ getErrorMessage('barNumber') }}</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="licenseNumber" class="form-label">
+        Ruhsat no <span class="required">*</span>
+      </label>
+      <input
+        id="licenseNumber"
+        type="text"
+        pInputText
+        formControlName="licenseNumber"
+        placeholder="Avukatlık ruhsat numaranızı giriniz"
+        [style]="{ width: '100%' }"
+        [class.ng-invalid]="lawyerInfoForm.get('licenseNumber')?.invalid && lawyerInfoForm.get('licenseNumber')?.touched"
+      />
+      @if (getErrorMessage('licenseNumber')) {
+        <small class="error-text">{{ getErrorMessage('licenseNumber') }}</small>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="licenseDate" class="form-label">
+        Ruhsat tarihi <span class="required">*</span>
+      </label>
+      <p-datepicker
+        id="licenseDate"
+        formControlName="licenseDate"
+        [showIcon]="true"
+        dateFormat="dd/mm/yy"
+        [maxDate]="today"
+        [style]="{ width: '100%' }"
+        [class.ng-invalid]="lawyerInfoForm.get('licenseDate')?.invalid && lawyerInfoForm.get('licenseDate')?.touched"
+      ></p-datepicker>
+      @if (getErrorMessage('licenseDate')) {
+        <small class="error-text">{{ getErrorMessage('licenseDate') }}</small>
+      }
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <div class="footer-right">
+        <p-button
+          label="İptal"
+          icon="pi pi-times"
+          [outlined]="true"
+          (onClick)="onClose()"
+          [disabled]="isSubmitting"
+        ></p-button>
+        <p-button
+          label="Kaydet"
+          icon="pi pi-check"
+          (onClick)="onSave()"
+          [loading]="isSubmitting"
+          [disabled]="isSubmitting || lawyerInfoForm.invalid"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>
+

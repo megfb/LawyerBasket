@@ -39,6 +39,7 @@ export class LawyerExpertisementComponent implements OnInit {
   selectedExpertisementIds: string[] = [];
   isSubmitting = false;
   errorMessage: string | null = null;
+  isLoadingExpertisements = false;
 
   ngOnInit(): void {
     this.onboardingService.setCurrentStep(OnboardingStep.LawyerExpertisement);
@@ -46,17 +47,23 @@ export class LawyerExpertisementComponent implements OnInit {
   }
 
   private loadExpertisements(): void {
+    this.isLoadingExpertisements = true;
     this.expertisementService.getExpertisements().subscribe({
       next: (response) => {
+        this.isLoadingExpertisements = false;
         if (response.isSuccess && response.data) {
           this.availableExpertisements = response.data.map(exp => ({
             id: exp.id,
             name: exp.name
           }));
+        } else {
+          this.errorMessage = 'Uzmanlık alanları yüklenirken bir hata oluştu.';
         }
       },
-      error: () => {
-        this.errorMessage = 'Uzmanlık alanları yüklenirken bir hata oluştu.';
+      error: (error) => {
+        this.isLoadingExpertisements = false;
+        this.errorMessage = 'Uzmanlık alanları yüklenirken bir hata oluştu. Lütfen tekrar deneyin.';
+        console.error('Error loading expertisements:', error);
       }
     });
   }

@@ -36,6 +36,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
                 certificateEntity.Name = request.Name;
                 certificateEntity.Institution = request.Institution;
                 certificateEntity.DateReceived = request.DateReceived;
+                certificateEntity.Description = request.Description;
                 certificateEntity.UpdatedAt = DateTime.UtcNow;
 
                 _logger.LogInformation("Updating Certificate with Id: {CertificateId}", request.Id);

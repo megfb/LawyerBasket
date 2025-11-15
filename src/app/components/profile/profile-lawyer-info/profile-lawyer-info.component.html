@@ -1,0 +1,69 @@
+<p-card class="profile-section-card">
+  <div class="card-header">
+    <h2 class="section-title">
+      <span class="material-symbols-outlined section-icon">gavel</span>
+      Mesleki Bilgiler
+    </h2>
+    <span 
+      class="material-symbols-outlined edit-icon"
+      (click)="onEditClick()"
+    >edit</span>
+  </div>
+  
+  <div class="card-content">
+    <div class="lawyer-info-details">
+      @if (lawyerInfo.barAssociation) {
+        <div class="lawyer-info-item">
+          <span class="material-symbols-outlined lawyer-info-icon">account_balance</span>
+          <div class="lawyer-info-content">
+            <span class="lawyer-info-label">Baro</span>
+            <span class="lawyer-info-text">{{ lawyerInfo.barAssociation }}</span>
+          </div>
+        </div>
+      }
+      
+      @if (lawyerInfo.barNumber) {
+        <div class="lawyer-info-item">
+          <span class="material-symbols-outlined lawyer-info-icon">badge</span>
+          <div class="lawyer-info-content">
+            <span class="lawyer-info-label">Baro kayıt no</span>
+            <span class="lawyer-info-text">{{ lawyerInfo.barNumber }}</span>
+          </div>
+        </div>
+      }
+      
+      @if (lawyerInfo.licenseNumber) {
+        <div class="lawyer-info-item">
+          <span class="material-symbols-outlined lawyer-info-icon">verified</span>
+          <div class="lawyer-info-content">
+            <span class="lawyer-info-label">Ruhsat no</span>
+            <span class="lawyer-info-text">{{ lawyerInfo.licenseNumber }}</span>
+          </div>
+        </div>
+      }
+      
+      @if (lawyerInfo.licenseDate) {
+        <div class="lawyer-info-item">
+          <span class="material-symbols-outlined lawyer-info-icon">calendar_today</span>
+          <div class="lawyer-info-content">
+            <span class="lawyer-info-label">Ruhsat tarihi</span>
+            <span class="lawyer-info-text">{{ formatDate(lawyerInfo.licenseDate) }}</span>
+          </div>
+        </div>
+      }
+      
+      @if (!lawyerInfo.barAssociation && !lawyerInfo.barNumber && !lawyerInfo.licenseNumber && !lawyerInfo.licenseDate) {
+        <p class="empty-message">Mesleki bilgi eklenmemiş.</p>
+      }
+    </div>
+  </div>
+</p-card>
+
+<app-lawyer-info-edit-modal
+  [(visible)]="showEditModal"
+  [lawyerInfo]="lawyerInfo"
+  [lawyerProfileId]="lawyerProfileId"
+  [userProfileId]="userProfileId"
+  (saved)="onLawyerInfoSaved()"
+></app-lawyer-info-edit-modal>
+

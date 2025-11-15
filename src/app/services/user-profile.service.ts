@@ -30,7 +30,7 @@ export interface UpdateUserProfileRequest {
 })
 export class UserProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/UserProfile';
+  private apiUrl = 'https://localhost:7001/api/userprofile'; // Gateway API URL
 
   createUserProfile(request: CreateUserProfileRequest): Observable<ApiResult<UserProfileDto>> {
     return this.http.post<ApiResult<UserProfileDto>>(`${this.apiUrl}/CreateUserProfile`, request);

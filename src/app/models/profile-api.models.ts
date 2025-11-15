@@ -1,4 +1,5 @@
 // Backend API Response Models
+import { PostDto } from './post.models';
 
 export interface ApiResult<T> {
   data?: T;
@@ -23,7 +24,10 @@ export interface GenderDto {
 }
 
 export interface CityDto {
+  id: string;
   name: string;
+  createdAt: string;
+  updatedAt?: string;
 }
 
 export interface AddressDto {
@@ -70,6 +74,7 @@ export interface AcademyDto {
   lawyerProfileId: string;
   university: string;
   degree?: string;
+  department?: string;
   startDate: string;
   endDate?: string;
   createdAt: string;
@@ -82,6 +87,7 @@ export interface CertificatesDto {
   name: string;
   institution: string;
   dateReceived: string;
+  description?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -119,6 +125,7 @@ export interface LawyerProfileDto {
   barNumber: string;
   licenseNumber: string;
   licenseDate: string;
+  about?: string;
   lawyerExpertisements?: LawyerExpertisementDto[];
   experience?: ExperienceDto[];
   academy?: AcademyDto[];
@@ -143,5 +150,13 @@ export interface UserProfileWDetailsDto {
   lawyerProfile?: LawyerProfileDto;
   createdAt: string;
   updatedAt?: string;
+}
+
+// Gateway ProfileDto (aggregation)
+export interface ProfileDto {
+  userProfile?: UserProfileWDetailsDto;
+  posts?: PostDto[];
+  commentedPosts?: PostDto[];
+  likedPosts?: PostDto[];
 }
 

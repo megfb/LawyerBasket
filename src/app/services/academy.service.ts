@@ -7,6 +7,7 @@ export interface CreateAcademyRequest {
   lawyerProfileId: string;
   university: string;
   degree?: string;
+  department?: string;
   startDate: string; // ISO string format
   endDate?: string | null; // ISO string format
 }
@@ -15,6 +16,7 @@ export interface UpdateAcademyRequest {
   id: string;
   university: string;
   degree?: string;
+  department?: string;
   startDate: string; // ISO string format
   endDate?: string | null; // ISO string format
 }
@@ -24,7 +26,7 @@ export interface UpdateAcademyRequest {
 })
 export class AcademyService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7141/api/Academy'; // Academy API URL
+  private apiUrl = 'https://localhost:7001/api/academy'; // Gateway API URL
 
   createAcademy(request: CreateAcademyRequest): Observable<ApiResult<AcademyDto>> {
     return this.http.post<ApiResult<AcademyDto>>(`${this.apiUrl}/CreateAcademy`, request);

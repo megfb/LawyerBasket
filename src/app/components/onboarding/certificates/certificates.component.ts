@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -19,6 +20,7 @@ import { OnboardingService, OnboardingStep } from '../../../services/onboarding.
     ReactiveFormsModule,
     CardModule,
     InputTextModule,
+    TextareaModule,
     ButtonModule,
     MessageModule,
     DatePickerModule
@@ -46,7 +48,8 @@ export class CertificatesComponent implements OnInit {
     this.certificateForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       institution: ['', [Validators.required, Validators.minLength(2)]],
-      dateReceived: [null, [Validators.required]]
+      dateReceived: [null, [Validators.required]],
+      description: ['', [Validators.maxLength(2000)]]
     });
   }
 
@@ -70,7 +73,8 @@ export class CertificatesComponent implements OnInit {
       lawyerProfileId: lawyerProfileId,
       name: formValue.name,
       institution: formValue.institution,
-      dateReceived: new Date(formValue.dateReceived).toISOString()
+      dateReceived: new Date(formValue.dateReceived).toISOString(),
+      description: formValue.description || undefined
     };
 
     this.certificateService.createCertificate(request).subscribe({
@@ -114,6 +118,9 @@ export class CertificatesComponent implements OnInit {
     }
     if (field?.hasError('minlength')) {
       return `Minimum ${field.errors?.['minlength'].requiredLength} karakter olmalıdır.`;
+    }
+    if (field?.hasError('maxlength')) {
+      return `Maksimum ${field.errors?.['maxlength'].requiredLength} karakter olabilir.`;
     }
     return '';
   }
