@@ -1,4 +1,4 @@
-﻿using LawyerBasket.AuthService.Api.Extensions;
+using LawyerBasket.AuthService.Api.Extensions;
 using LawyerBasket.AuthService.Application.Extensions;
 using LawyerBasket.AuthService.Data.Extensions;
 using LawyerBasket.AuthService.Infrastructure.Extensions;

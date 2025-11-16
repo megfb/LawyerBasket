@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Common\LawyerBasket.Shared.Common.csproj" />
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Messaging\LawyerBasket.Shared.Messaging.csproj" />
     <ProjectReference Include="..\LawyerBasket.AuthService.Domain\LawyerBasket.AuthService.Domain.csproj" />
   </ItemGroup>
 
