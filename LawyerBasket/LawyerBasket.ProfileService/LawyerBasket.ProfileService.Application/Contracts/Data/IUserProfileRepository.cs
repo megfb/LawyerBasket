@@ -6,5 +6,6 @@ namespace LawyerBasket.ProfileService.Application.Contracts.Data
   {
     Task<bool> AnyByEmail(string email);
     Task<UserProfile?> GetFullProfile(string id);
+    Task<IEnumerable<UserProfile>> GetByIdsAsync(IEnumerable<string> ids);
   }
 }

@@ -5,5 +5,7 @@ namespace LawyerBasket.SocialService.Api.Domain.Contracts.Data
 {
     public interface IFriendshipRepository : IGenericRepository<Friendship>
     {
+        Task<List<Friendship>> GetActiveFriendshipsByUserIdAsync(string userId);
+        Task<Friendship?> GetFriendshipByIdAsync(string friendshipId);
     }
 }

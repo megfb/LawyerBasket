@@ -7,6 +7,7 @@ namespace LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbC
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
         public DbSet<FriendConnection> FriendConnection { get; set; }
+        public DbSet<Friendship> Friendship { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

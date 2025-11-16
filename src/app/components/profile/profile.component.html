@@ -15,7 +15,9 @@
     [summary]="profileData.summary"
     [lawyerProfileId]="lawyerProfileId"
     [userProfileId]="userProfileId"
+    [friendsCount]="friendsCount"
     (summaryUpdated)="refreshSummary()"
+    (showFriends)="onShowFriends()"
   ></app-profile-summary>
 
   <!-- Profile Tabs (Posts, Comments, Likes) -->
@@ -83,5 +85,63 @@
     </div>
   </div>
   }
+
+  <!-- Friends Modal -->
+  <p-dialog
+    [(visible)]="showFriendsModal"
+    [modal]="true"
+    [style]="{ width: '600px', maxWidth: '90vw' }"
+    [header]="'Arkadaşlar (' + friendsCount + ')'"
+    [closable]="true"
+    [draggable]="false"
+    [resizable]="false"
+    (onHide)="onCloseFriendsModal()"
+    styleClass="friends-modal"
+  >
+    @if (friends.length === 0) {
+      <div class="empty-container">
+        <div class="empty-icon">
+          <span class="material-symbols-outlined">people</span>
+        </div>
+        <p class="empty-message">Henüz arkadaş yok.</p>
+        <p class="empty-submessage">Arkadaş ekledikçe burada görünecekler.</p>
+      </div>
+    } @else {
+      <div class="friends-list">
+        @for (friend of friends; track friend.friendshipId) {
+          <div class="friend-card" *ngIf="friend.profile">
+            <div class="friend-card-content">
+              <div class="user-avatar-container">
+                <img
+                  [src]="'/img/profilephoto.jpg?userId=' + friend.friendUserId"
+                  [alt]="friend.profile.firstName + ' ' + friend.profile.lastName"
+                  class="user-avatar-image"
+                  (error)="onUserImageError($event, friend)"
+                />
+                <div class="avatar-border"></div>
+              </div>
+              <div class="user-info">
+                <p class="user-name">{{ friend.profile.firstName }} {{ friend.profile.lastName }}</p>
+                <p class="user-email" *ngIf="friend.profile.email">{{ friend.profile.email }}</p>
+              </div>
+              <div class="friend-actions">
+                <button
+                  pButton
+                  type="button"
+                  icon="pi pi-trash"
+                  class="p-button-text p-button-danger delete-friend-button"
+                  (click)="onDeleteFriend($event, friend)"
+                  [title]="'Arkadaşlıktan çıkar'"
+                ></button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </p-dialog>
+
+  <p-confirmDialog></p-confirmDialog>
+  <p-toast></p-toast>
 </div>
 

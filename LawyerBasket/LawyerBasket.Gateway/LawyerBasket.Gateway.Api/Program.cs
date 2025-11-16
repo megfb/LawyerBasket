@@ -1,3 +1,4 @@
+using LawyerBasket.Gateway.Api.Contracts;
 using LawyerBasket.Gateway.Api.Services;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -29,6 +30,7 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ILikesService, LikesService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<ISocialService, SocialService>();
 
 // Add Ocelot
 builder.Services.AddOcelot(builder.Configuration);
@@ -70,7 +72,8 @@ app.UseCors("AllowAngularApp");
 
 // Map aggregation controllers before Ocelot (these routes bypass Ocelot)
 app.MapWhen(context => 
-    context.Request.Path.StartsWithSegments("/api/Profile"),
+    context.Request.Path.StartsWithSegments("/api/Profile") ||
+    context.Request.Path.StartsWithSegments("/api/Likes/GetPostLikesWithUsers"),
     appBuilder =>
     {
         appBuilder.UseRouting();

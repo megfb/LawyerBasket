@@ -303,6 +303,19 @@
       "Priority": 0
     },
     {
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamPathTemplate": "/api/likes/GetPostLikes/{postId}",
+      "DownstreamPathTemplate": "/api/Likes/GetPostLikes/{postId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7254
+        }
+      ],
+      "Priority": 0
+    },
+    {
       "UpstreamHttpMethod": [ "POST" ],
       "UpstreamPathTemplate": "/api/likes/CreateLike",
       "DownstreamPathTemplate": "/api/Likes/CreateLike",

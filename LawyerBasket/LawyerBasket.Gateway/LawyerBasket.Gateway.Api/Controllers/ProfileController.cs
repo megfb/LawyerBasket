@@ -1,5 +1,6 @@
+using LawyerBasket.Gateway.Api.Contracts;
 using LawyerBasket.Gateway.Api.Dtos;
-using LawyerBasket.Gateway.Api.Services;
+using LawyerBasket.Shared.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawyerBasket.Gateway.Api.Controllers
@@ -9,10 +10,17 @@ namespace LawyerBasket.Gateway.Api.Controllers
   public class ProfileController : ControllerBase
   {
     private readonly IProfileService _profileService;
+    private readonly IUserProfileService _userProfileService;
+    private readonly ISocialService _socialService;
 
-    public ProfileController(IProfileService profileService)
+    public ProfileController(
+      IProfileService profileService, 
+      IUserProfileService userProfileService,
+      ISocialService socialService)
     {
       _profileService = profileService;
+      _userProfileService = userProfileService;
+      _socialService = socialService;
     }
 
     /// <summary>
@@ -21,28 +29,28 @@ namespace LawyerBasket.Gateway.Api.Controllers
     [HttpGet("GetUserProfileFull")]
     public async Task<IActionResult> GetUserProfileFull()
     {
-      try
-      {
-        var result = await _profileService.GetUserProfileFullAsync();
-        return Ok(new ApiResult<ProfileDto>
-        {
-          Data = result,
-          IsSuccess = true,
-          IsFail = false,
-          Status = 200
-        });
-      }
-      catch (Exception ex)
-      {
-        return Ok(new ApiResult<ProfileDto>
-        {
-          Data = null,
-          ErrorMessage = new[] { ex.Message },
-          IsSuccess = false,
-          IsFail = true,
-          Status = 500
-        });
-      }
+      var result = await _profileService.GetUserProfileFullAsync();
+      return Ok(result);
+    }
+
+    /// <summary>
+    /// Gets user profiles by their IDs
+    /// </summary>
+    [HttpPost("GetUserProfilesByIds")]
+    public async Task<IActionResult> GetUserProfilesByIds([FromBody] List<string> ids)
+    {
+      var result = await _userProfileService.GetUserProfilesByIdsAsync(ids);
+      return Ok(result);
+    }
+
+    /// <summary>
+    /// Deletes a friendship
+    /// </summary>
+    [HttpDelete("DeleteFriendship/{friendshipId}")]
+    public async Task<IActionResult> DeleteFriendship(string friendshipId)
+    {
+      var result = await _socialService.DeleteFriendshipAsync(friendshipId);
+      return Ok(result);
     }
   }
 }

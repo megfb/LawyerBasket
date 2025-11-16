@@ -32,6 +32,13 @@ namespace LawyerBasket.ProfileService.Api.Controllers
     {
       return Ok(await _mediator.Send(new GetUserProfileQuery { Id = id }));
     }
+
+    [HttpPost("GetUserProfilesByIds")]
+    public async Task<IActionResult> GetUserProfilesByIds(GetUserProfilesByIdsQuery query)
+    {
+      return Ok(await _mediator.Send(query));
+    }
+
     [HttpGet("GetUserProfileFull")]
     public async Task<IActionResult> GetUserProfileFull()
     {

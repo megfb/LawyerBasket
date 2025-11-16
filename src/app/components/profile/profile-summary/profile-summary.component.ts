@@ -15,7 +15,9 @@ export class ProfileSummaryComponent {
   @Input() summary!: ProfileSummary;
   @Input() lawyerProfileId: string | null = null;
   @Input() userProfileId: string | null = null;
+  @Input() friendsCount: number = 0;
   @Output() summaryUpdated = new EventEmitter<void>();
+  @Output() showFriends = new EventEmitter<void>();
 
   showEditModal = false;
 
@@ -32,6 +34,12 @@ export class ProfileSummaryComponent {
 
   onSummarySaved(): void {
     this.summaryUpdated.emit();
+  }
+
+  onFriendsClick(): void {
+    if (this.friendsCount > 0) {
+      this.showFriends.emit();
+    }
   }
 }
 

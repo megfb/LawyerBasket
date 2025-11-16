@@ -36,6 +36,10 @@
             <span class="material-symbols-outlined detail-icon">gavel</span>
             <span class="detail-text">{{ summary.barAssociation }} - {{ summary.barNumber }}</span>
           </div>
+          <div class="detail-item" (click)="onFriendsClick()" [class.clickable]="friendsCount > 0">
+            <span class="material-symbols-outlined detail-icon">people</span>
+            <span class="detail-text">{{ friendsCount }} Arkadaş</span>
+          </div>
         </div>
       </div>
       

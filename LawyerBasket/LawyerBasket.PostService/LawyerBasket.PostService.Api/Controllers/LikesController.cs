@@ -31,5 +31,11 @@ namespace LawyerBasket.PostService.Api.Controllers
         {
             return Ok(await _mediator.Send(new GetPostsLikedByUserQuery()));
         }
+
+        [HttpGet("GetPostLikes/{postId}")]
+        public async Task<IActionResult> GetPostLikes(string postId)
+        {
+            return Ok(await _mediator.Send(new GetPostLikesQuery { PostId = postId }));
+        }
     }
 }

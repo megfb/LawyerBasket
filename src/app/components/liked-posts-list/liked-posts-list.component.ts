@@ -11,9 +11,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProfileService } from '../../services/profile.service';
-import { PostService } from '../../services/post.service';
-import { AuthService } from '../../services/auth.service';
-import { PostDto, CommentDto } from '../../models/post.models';
+import { PostDto, PostLikeUserDto } from '../../models/post.models';
+import { PostItemComponent } from '../post-item/post-item.component';
 
 @Component({
   selector: 'app-liked-posts-list',
@@ -28,7 +27,8 @@ import { PostDto, CommentDto } from '../../models/post.models';
     TextareaModule,
     ProgressSpinnerModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    PostItemComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './liked-posts-list.component.html',
@@ -36,19 +36,15 @@ import { PostDto, CommentDto } from '../../models/post.models';
 })
 export class LikedPostsListComponent implements OnInit {
   private profileService = inject(ProfileService);
-  private postService = inject(PostService);
-  private authService = inject(AuthService);
-  private confirmationService = inject(ConfirmationService);
-  private messageService = inject(MessageService);
   private router = inject(Router);
-  private fb = inject(FormBuilder);
 
   likedPosts: PostDto[] = [];
   isLoadingLikedPosts = false;
   likedPostsError: string | null = null;
-  expandedComments: Set<string> = new Set();
-  commentForms: Map<string, FormGroup> = new Map();
-  isSubmittingComment: Map<string, boolean> = new Map();
+  showLikesModal = false;
+  currentPostLikes: PostLikeUserDto[] = [];
+  isLoadingLikes = false;
+  likesError: string | null = null;
 
   ngOnInit(): void {
     this.loadLikedPosts();
@@ -75,264 +71,86 @@ export class LikedPostsListComponent implements OnInit {
     });
   }
 
-  getLikesCount(post: PostDto): number {
-    return post.likes?.length || 0;
-  }
-
-  isLiked(post: PostDto): boolean {
-    const userId = this.authService.getUserIdFromToken();
-    if (!userId || !post.likes) return false;
-    return post.likes.some(like => like.userId === userId);
-  }
-
-  getLikeId(post: PostDto): string | null {
-    const userId = this.authService.getUserIdFromToken();
-    if (!userId || !post.likes) return null;
-    const like = post.likes.find(like => like.userId === userId);
-    return like?.id || null;
-  }
-
-  onToggleLike(event: Event, post: PostDto): void {
-    event.stopPropagation();
-    const userId = this.authService.getUserIdFromToken();
-    if (!userId) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Uyarı',
-        detail: 'Beğenmek için giriş yapmanız gerekiyor.'
-      });
-      return;
-    }
-
-    const isLiked = this.isLiked(post);
-    const likeId = this.getLikeId(post);
-
-    if (isLiked && likeId) {
-      // Unlike
-      this.postService.removeLike(post.id, likeId).subscribe({
-        next: (response) => {
-          if (response && (response.isSuccess === true || response.isSuccess === undefined)) {
-            this.loadLikedPosts();
-          } else {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Hata',
-              detail: response?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
-            });
-          }
-        },
-        error: (error) => {
-          console.error('Beğeni kaldırılırken hata oluştu:', error);
-          if (error.status === 200 || error.status === 204) {
-            this.loadLikedPosts();
-          } else {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Hata',
-              detail: error.error?.errorMessage?.join(', ') || 'Beğeni kaldırılırken bir hata oluştu.'
-            });
-          }
-        }
-      });
-    } else {
-      // Like
-      this.postService.createLike(post.id, userId).subscribe({
-        next: (response) => {
-          if (response.isSuccess && response.data) {
-            this.loadLikedPosts();
-          } else {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Hata',
-              detail: response.errorMessage?.join(', ') || 'Beğeni eklenirken bir hata oluştu.'
-            });
-          }
-        },
-        error: (error) => {
-          console.error('Beğeni ekleme hatası:', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hata',
-            detail: error.error?.errorMessage?.join(', ') || error.error?.message || 'Beğeni eklenirken bir hata oluştu.'
-          });
-        }
-      });
-    }
-  }
-
-  getCommentsCount(post: PostDto): number {
-    return post.comments?.length || 0;
-  }
-
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-    if (diffInSeconds < 60) {
-      return 'Az önce';
-    } else if (diffInSeconds < 3600) {
-      const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} dakika önce`;
-    } else if (diffInSeconds < 86400) {
-      const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} saat önce`;
-    } else if (diffInSeconds < 604800) {
-      const days = Math.floor(diffInSeconds / 86400);
-      return `${days} gün önce`;
-    } else {
-      return date.toLocaleDateString('tr-TR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    }
-  }
-
   goBack(): void {
     this.router.navigate(['/profile']);
   }
 
-  onToggleComments(event: Event, post: PostDto): void {
-    event.stopPropagation();
-    if (this.expandedComments.has(post.id)) {
-      this.expandedComments.delete(post.id);
-    } else {
-      this.expandedComments.add(post.id);
-      this.initializeCommentForm(post.id);
-    }
+  onPostLiked(post: PostDto): void {
+    this.loadLikedPosts();
   }
 
-  getCommentForm(postId: string): FormGroup {
-    if (!this.commentForms.has(postId)) {
-      this.initializeCommentForm(postId);
-    }
-    return this.commentForms.get(postId)!;
+  onCommentAdded(post: PostDto): void {
+    this.loadLikedPosts();
   }
 
-  private initializeCommentForm(postId: string): void {
-    if (!this.commentForms.has(postId)) {
-      this.commentForms.set(postId, this.fb.group({
-        text: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]]
-      }));
-    }
+  onCommentDeleted(data: { postId: string; commentId: string }): void {
+    this.loadLikedPosts();
   }
 
-  isCommentsExpanded(post: PostDto): boolean {
-    return this.expandedComments.has(post.id);
-  }
+  onShowLikes(post: PostDto): void {
+    this.showLikesModal = true;
+    this.currentPostLikes = [];
+    this.isLoadingLikes = true;
+    this.likesError = null;
 
-  getComments(post: PostDto): CommentDto[] {
-    return post.comments || [];
-  }
-
-  onDeleteComment(event: Event, post: PostDto, comment: CommentDto): void {
-    event.stopPropagation();
-    
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Bu yorumu silmek istediğinizden emin misiniz?',
-      icon: 'pi pi-exclamation-triangle',
-      acceptButtonStyleClass: 'p-button-danger',
-      acceptLabel: 'Evet, Sil',
-      rejectLabel: 'İptal',
-      accept: () => {
-        this.deleteComment(post.id, comment.id);
-      }
-    });
-  }
-
-  private deleteComment(postId: string, commentId: string): void {
-    this.postService.removeComment(postId, commentId).subscribe({
-      next: (response) => {
-        if (response && (response.isSuccess === true || response.isSuccess === undefined)) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Başarılı',
-            detail: 'Yorum başarıyla silindi.'
-          });
-          this.loadLikedPosts();
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hata',
-            detail: response?.errorMessage?.join(', ') || 'Yorum silinirken bir hata oluştu.'
-          });
-        }
-      },
-      error: (error) => {
-        console.error('Yorum silinirken hata oluştu:', error);
-        if (error.status === 200 || error.status === 204) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Başarılı',
-            detail: 'Yorum başarıyla silindi.'
-          });
-          this.loadLikedPosts();
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hata',
-            detail: error.error?.errorMessage?.join(', ') || 'Yorum silinirken bir hata oluştu.'
-          });
-        }
-      }
-    });
-  }
-
-  onSubmitComment(post: PostDto): void {
-    const form = this.getCommentForm(post.id);
-    if (form.invalid) {
-      form.markAllAsTouched();
+    // Get user IDs from post.likes array
+    if (!post.likes || post.likes.length === 0) {
+      this.isLoadingLikes = false;
+      this.currentPostLikes = [];
       return;
     }
 
-    this.isSubmittingComment.set(post.id, true);
-    const text = form.get('text')?.value?.trim();
+    const userIds = post.likes.map(like => like.userId).filter((id, index, self) => self.indexOf(id) === index); // Remove duplicates
 
-    if (!text || text.length === 0) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Hata',
-        detail: 'Yorum içeriği boş olamaz.'
-      });
-      this.isSubmittingComment.set(post.id, false);
-      return;
-    }
-
-    this.postService.createComment(post.id, text).subscribe({
+    // Get user profiles using GetUserProfilesByIds
+    this.profileService.getUserProfilesByIds(userIds).subscribe({
       next: (response) => {
-        this.isSubmittingComment.set(post.id, false);
+        this.isLoadingLikes = false;
         if (response.isSuccess && response.data) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Başarılı',
-            detail: 'Yorum başarıyla eklendi.'
-          });
-          form.reset();
-          this.loadLikedPosts();
+          // Map user profiles to PostLikeUserDto
+          this.currentPostLikes = post.likes!
+            .map(like => {
+              const userProfile = response.data!.find(u => u.id === like.userId);
+              if (userProfile) {
+                return {
+                  likeId: like.id,
+                  userId: like.userId,
+                  postId: like.postId,
+                  firstName: userProfile.firstName,
+                  lastName: userProfile.lastName,
+                  profileImage: undefined, // Profile image will be handled in frontend using /img/profilephoto.jpg
+                  createdAt: like.createdAt
+                } as PostLikeUserDto;
+              }
+              return null;
+            })
+            .filter((item): item is PostLikeUserDto => item !== null);
         } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hata',
-            detail: response.errorMessage?.join(', ') || 'Yorum eklenirken bir hata oluştu.'
-          });
+          this.likesError = response.errorMessage?.join(', ') || 'Beğenen kullanıcılar yüklenirken bir hata oluştu.';
         }
       },
       error: (error) => {
-        this.isSubmittingComment.set(post.id, false);
-        console.error('Yorum ekleme hatası:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Hata',
-          detail: error.error?.errorMessage?.join(', ') || error.error?.message || 'Yorum eklenirken bir hata oluştu.'
-        });
+        this.isLoadingLikes = false;
+        console.error('Beğenen kullanıcılar yüklenirken hata oluştu:', error);
+        this.likesError = error.error?.errorMessage?.join(', ') || 'Beğenen kullanıcılar yüklenirken bir hata oluştu.';
       }
     });
   }
 
-  isSubmittingCommentForPost(postId: string): boolean {
-    return this.isSubmittingComment.get(postId) || false;
+  onCloseLikesModal(): void {
+    this.showLikesModal = false;
+    this.currentPostLikes = [];
+    this.likesError = null;
+  }
+
+  getInitials(firstName: string, lastName: string): string {
+    return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+  }
+
+  onUserImageError(event: Event, likeUser: PostLikeUserDto): void {
+    const img = event.target as HTMLImageElement;
+    const initials = this.getInitials(likeUser.firstName, likeUser.lastName);
+    img.src = `data:image/svg+xml;base64,${btoa(`<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="#20b2aa"/><text x="50%" y="50%" font-size="16" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`)}`;
   }
 }
 

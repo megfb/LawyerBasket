@@ -25,3 +25,13 @@ export interface LikesDto {
   updatedAt?: string;
 }
 
+export interface PostLikeUserDto {
+  likeId: string;
+  userId: string;
+  postId: string;
+  firstName: string;
+  lastName: string;
+  profileImage?: string;
+  createdAt: string;
+}
+

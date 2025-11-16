@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResult } from '../models/auth.models';
-import { PostDto, CommentDto, LikesDto } from '../models/post.models';
+import { PostDto, CommentDto, LikesDto, PostLikeUserDto } from '../models/post.models';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +61,10 @@ export class PostService {
         likeId: likeId
       }
     });
+  }
+
+  getPostLikesWithUsers(postId: string): Observable<ApiResult<PostLikeUserDto[]>> {
+    return this.http.get<ApiResult<PostLikeUserDto[]>>(`${this.likesApiUrl}/GetPostLikesWithUsers/${postId}`);
   }
 }
 

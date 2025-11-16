@@ -1,4 +1,7 @@
+using LawyerBasket.Gateway.Api.Contracts;
 using LawyerBasket.Gateway.Api.Dtos;
+using LawyerBasket.Shared.Common.Response;
+using System.Net;
 using System.Text.Json;
 
 namespace LawyerBasket.Gateway.Api.Services
@@ -25,7 +28,7 @@ namespace LawyerBasket.Gateway.Api.Services
                 ?? throw new InvalidOperationException("ServiceUrls:PostService configuration is missing.");
         }
 
-        public async Task<List<PostDto>?> GetPostsCommentedByUserAsync()
+        public async Task<ApiResult<List<PostDto>>> GetPostsCommentedByUserAsync()
         {
             try
             {
@@ -39,7 +42,7 @@ namespace LawyerBasket.Gateway.Api.Services
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("Failed to get posts commented by user. Status: {StatusCode}", response.StatusCode);
-                    return null;
+                    return ApiResult<List<PostDto>>.Fail("Failed to get commented posts", (HttpStatusCode)response.StatusCode);
                 }
 
                 var content = await response.Content.ReadAsStringAsync();
@@ -48,12 +51,19 @@ namespace LawyerBasket.Gateway.Api.Services
                     PropertyNameCaseInsensitive = true
                 });
 
-                return apiResult?.IsSuccess == true ? apiResult.Data : null;
+                if (apiResult == null)
+                {
+                    return ApiResult<List<PostDto>>.Fail("Invalid response from service", HttpStatusCode.InternalServerError);
+                }
+
+                return apiResult.IsSuccess 
+                    ? ApiResult<List<PostDto>>.Success(apiResult.Data ?? new List<PostDto>(), apiResult.Status)
+                    : ApiResult<List<PostDto>>.Fail(apiResult.ErrorMessage ?? new List<string> { "Unknown error" }, apiResult.Status);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error fetching posts commented by user");
-                return new List<PostDto>();
+                return ApiResult<List<PostDto>>.Fail(ex.Message, HttpStatusCode.InternalServerError);
             }
         }
 

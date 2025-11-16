@@ -4,6 +4,10 @@ import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
 import { ProfileTabsComponent } from './profile-tabs/profile-tabs.component';
 import { ProfileExperiencesComponent } from './profile-experiences/profile-experiences.component';
@@ -15,7 +19,7 @@ import { ProfileContactComponent } from './profile-contact/profile-contact.compo
 import { ProfileLawyerInfoComponent } from './profile-lawyer-info/profile-lawyer-info.component';
 import { ProfileData, ProfileSummary, Experience, Education, Certificate, Skill, Address, ContactInfo } from '../../models/profile.models';
 import { ProfileService } from '../../services/profile.service';
-import { UserProfileWDetailsDto } from '../../models/profile-api.models';
+import { UserProfileWDetailsDto, FriendWithProfileDto } from '../../models/profile-api.models';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +30,9 @@ import { UserProfileWDetailsDto } from '../../models/profile-api.models';
     ProgressSpinnerModule,
     MessageModule,
     ButtonModule,
+    DialogModule,
+    ConfirmDialogModule,
+    ToastModule,
     ProfileSummaryComponent,
     ProfileTabsComponent,
     ProfileExperiencesComponent,
@@ -36,11 +43,14 @@ import { UserProfileWDetailsDto } from '../../models/profile-api.models';
     ProfileContactComponent,
     ProfileLawyerInfoComponent
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
   private profileService = inject(ProfileService);
+  private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
   
   profileData: ProfileData = {
     summary: {
@@ -66,8 +76,11 @@ export class ProfileComponent implements OnInit {
 
   lawyerProfileId: string | null = null;
   userProfileId: string | null = null;
+  friendsCount: number = 0;
+  friends: FriendWithProfileDto[] = [];
   isLoading = true;
   errorMessage: string | null = null;
+  showFriendsModal = false;
 
   ngOnInit(): void {
     this.loadProfileData();
@@ -77,12 +90,17 @@ export class ProfileComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    this.profileService.getUserProfileFull().subscribe({
+    this.profileService.getProfileFull().subscribe({
       next: (response) => {
         if (response.isSuccess && response.data) {
-          this.profileData = this.mapToProfileData(response.data);
-          this.lawyerProfileId = response.data.lawyerProfile?.id || null;
-          this.userProfileId = response.data.id || null;
+          if (response.data.userProfile) {
+            this.profileData = this.mapToProfileData(response.data.userProfile);
+            this.lawyerProfileId = response.data.userProfile.lawyerProfile?.id || null;
+            this.userProfileId = response.data.userProfile.id || null;
+          }
+          // Get friends count and list
+          this.friends = response.data.friends || [];
+          this.friendsCount = this.friends.length;
         } else {
           this.errorMessage = response.errorMessage?.join(', ') || 'Profil verileri yüklenemedi.';
         }
@@ -263,12 +281,17 @@ export class ProfileComponent implements OnInit {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
     
     // Sadece summary'yi yeniden yükle (loading state olmadan)
-    this.profileService.getUserProfileFull().subscribe({
+    this.profileService.getProfileFull().subscribe({
       next: (response) => {
         if (response.isSuccess && response.data) {
-          const newProfileData = this.mapToProfileData(response.data);
-          // Sadece summary'yi güncelle
-          this.profileData.summary = newProfileData.summary;
+          if (response.data.userProfile) {
+            const newProfileData = this.mapToProfileData(response.data.userProfile);
+            // Sadece summary'yi güncelle
+            this.profileData.summary = newProfileData.summary;
+          }
+          // Update friends count and list
+          this.friends = response.data.friends || [];
+          this.friendsCount = this.friends.length;
           // Scroll pozisyonunu geri yükle
           requestAnimationFrame(() => {
             window.scrollTo(0, scrollPosition);
@@ -506,6 +529,87 @@ export class ProfileComponent implements OnInit {
   private capitalizeFirst(str: string): string {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  onShowFriends(): void {
+    this.showFriendsModal = true;
+  }
+
+  onCloseFriendsModal(): void {
+    this.showFriendsModal = false;
+  }
+
+  onUserImageError(event: Event, friend: FriendWithProfileDto): void {
+    const img = event.target as HTMLImageElement;
+    if (friend.profile) {
+      const initials = friend.profile.firstName.charAt(0) + friend.profile.lastName.charAt(0);
+      img.src = `data:image/svg+xml;base64,${btoa(`<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg"><rect width="150" height="150" fill="#20b2aa"/><text x="50%" y="50%" font-size="48" fill="white" text-anchor="middle" dy=".3em">${initials}</text></svg>`)}`;
+    }
+  }
+
+  getInitials(firstName: string, lastName: string): string {
+    return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+  }
+
+  onDeleteFriend(event: Event, friend: FriendWithProfileDto): void {
+    event.stopPropagation();
+    
+    const friendName = friend.profile 
+      ? `${friend.profile.firstName} ${friend.profile.lastName}` 
+      : 'Bu arkadaş';
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `${friendName} arkadaşlıktan çıkarılsın mı?`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-danger',
+      acceptLabel: 'Evet, Çıkar',
+      rejectLabel: 'İptal',
+      accept: () => {
+        this.deleteFriend(friend);
+      }
+    });
+  }
+
+  deleteFriend(friend: FriendWithProfileDto): void {
+    this.profileService.deleteFriendship(friend.friendshipId).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          const friendName = friend.profile 
+            ? `${friend.profile.firstName} ${friend.profile.lastName}` 
+            : 'Arkadaş';
+          
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Başarılı',
+            detail: `${friendName} arkadaşlıktan çıkarıldı.`
+          });
+
+          // Remove friend from list
+          this.friends = this.friends.filter(f => f.friendshipId !== friend.friendshipId);
+          this.friendsCount = this.friends.length;
+
+          // If no friends left, close modal
+          if (this.friends.length === 0) {
+            this.showFriendsModal = false;
+          }
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hata',
+            detail: response.errorMessage?.join(', ') || 'Arkadaş silinirken bir hata oluştu.'
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting friend:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hata',
+          detail: 'Arkadaş silinirken bir hata oluştu.'
+        });
+      }
+    });
   }
 }
 

@@ -152,11 +152,19 @@ export interface UserProfileWDetailsDto {
   updatedAt?: string;
 }
 
+export interface FriendWithProfileDto {
+  friendshipId: string;
+  friendUserId: string;
+  friendshipCreatedAt: string;
+  profile?: UserProfileDto;
+}
+
 // Gateway ProfileDto (aggregation)
 export interface ProfileDto {
   userProfile?: UserProfileWDetailsDto;
   posts?: PostDto[];
   commentedPosts?: PostDto[];
   likedPosts?: PostDto[];
+  friends?: FriendWithProfileDto[];
 }
 

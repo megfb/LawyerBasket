@@ -24,5 +24,12 @@ namespace LawyerBasket.ProfileService.Data.UserProfile
 
 
     }
+
+    public async Task<IEnumerable<Domain.Entities.UserProfile>> GetByIdsAsync(IEnumerable<string> ids)
+    {
+      return await _dbContext.UserProfile
+        .Where(x => ids.Contains(x.Id))
+        .ToListAsync();
+    }
   }
 }
