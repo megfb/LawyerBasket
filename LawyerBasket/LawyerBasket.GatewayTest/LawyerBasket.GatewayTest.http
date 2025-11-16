@@ -1,6 +1,0 @@
-@LawyerBasket.GatewayTest_HostAddress = http://localhost:5018
-
-GET {{LawyerBasket.GatewayTest_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
