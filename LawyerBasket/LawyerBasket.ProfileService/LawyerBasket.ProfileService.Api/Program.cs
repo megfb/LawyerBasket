@@ -18,7 +18,7 @@ builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.C
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRabbitMqConsumer<TestConsumer>(queueName: "queue-profile", routingKey: "route.profileservice", exchangeName: "AuthServiceExchange");
-
+builder.Services.AddRabbitMqInfrastructure();
 // Add CORS
 builder.Services.AddCors(options =>
 {

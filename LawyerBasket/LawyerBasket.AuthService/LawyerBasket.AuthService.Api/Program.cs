@@ -16,6 +16,7 @@ builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.C
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRabbitMqPublisher<TestEvent>("AuthServiceExchange");
+builder.Services.AddRabbitMqInfrastructure();
 // Add CORS
 builder.Services.AddCors(options =>
 {
