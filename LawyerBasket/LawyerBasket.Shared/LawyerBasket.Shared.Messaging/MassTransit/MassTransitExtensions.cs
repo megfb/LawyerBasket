@@ -7,124 +7,75 @@ using System.Reflection;
 
 namespace LawyerBasket.Shared.Messaging.MassTransit
 {
-    /// <summary>
-    /// MassTransit yapılandırması için extension metodlar.
-    /// Bu extension'lar ile MassTransit ve RabbitMQ merkezi olarak yapılandırılır.
-    /// </summary>
-    public static class MassTransitExtensions
+  public static class MassTransitExtensions
+  {
+    public static IServiceCollection AddRabbitMqPublisher<TEvent>(this IServiceCollection services, string exchangeName) where TEvent : class
     {
-        /// <summary>
-        /// MassTransit ve RabbitMQ'yu yapılandırır.
-        /// Topic exchange kullanır ve consumer'ları otomatik olarak tarar.
-        /// </summary>
-        /// <param name="services">Service collection</param>
-        /// <param name="configuration">Configuration</param>
-        /// <param name="assemblies">Consumer'ların bulunacağı assembly'ler. Eğer belirtilmezse, çağıran assembly kullanılır.</param>
-        /// <returns>IServiceCollection</returns>
-        public static IServiceCollection AddMassTransitWithRabbitMq(
-            this IServiceCollection services,
-            IConfiguration configuration,
-            params Assembly[] assemblies)
+      services.AddMassTransit(x =>
+      {
+        x.UsingRabbitMq((context, cfg) =>
         {
-            // RabbitMQ ayarlarını yükle
-            var rabbitMqSettings = configuration.GetSection(RabbitMqSettings.SectionName).Get<RabbitMqSettings>()
-                ?? new RabbitMqSettings();
+          // Ortak Host Ayarları
+          cfg.Host("rabbitmq://localhost", h =>
+          {
+            h.Username("guest");
+            h.Password("guest");
+          });
 
-            // RabbitMQ ayarlarını DI container'a ekle
-            services.Configure<RabbitMqSettings>(configuration.GetSection(RabbitMqSettings.SectionName));
+          // --- TOPOLOGY AYARLARI (Mesajlar nereye gidecek?) ---
 
-            // Eğer assembly belirtilmemişse, çağıran assembly'yi kullan
-            if (assemblies == null || assemblies.Length == 0)
-            {
-                assemblies = new[] { Assembly.GetCallingAssembly() };
-            }
+          // 1. Her iki mesaj tipi de AYNI Exchange'e ("micros.events") gitsin.
+          cfg.Message<TEvent>(m => m.SetEntityName(exchangeName));
 
-            // MassTransit yapılandırması
-            services.AddMassTransit(x =>
-            {
-                // Tüm belirtilen assembly'lerdeki consumer'ları otomatik olarak tara ve kaydet
-                foreach (var assembly in assemblies)
-                {
-                    x.AddConsumers(assembly);
-                }
+          // 2. Bu Exchange'in tipi "Topic" olsun.
+          cfg.Publish(typeof(TEvent), p => p.ExchangeType = RabbitMQ.Client.ExchangeType.Topic);
+        });
+      });
 
-                // RabbitMQ bus yapılandırması
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    // RabbitMQ bağlantı ayarları
-                    // MassTransit 8.x'te Host metodu için connection string veya host, port parametreleri kullanılır
-                    // VirtualHost'u connection string içinde veya host metoduna parametre olarak geçirebiliriz
-                    var virtualHost = string.IsNullOrEmpty(rabbitMqSettings.VirtualHost) || rabbitMqSettings.VirtualHost == "/"
-                        ? "/"
-                        : rabbitMqSettings.VirtualHost.TrimStart('/');
-
-                    // Host metodunu host, port ve virtualHost ile çağır
-                    cfg.Host(rabbitMqSettings.Host, (ushort)rabbitMqSettings.Port, virtualHost, h =>
-                    {
-                        h.Username(rabbitMqSettings.Username);
-                        h.Password(rabbitMqSettings.Password);
-                        h.Heartbeat(TimeSpan.FromSeconds(30));
-                    });
-
-                    // Topic exchange kullanımı için publish topology ayarı
-                    // MassTransit 8.x'te tüm message type'lar için topic exchange kullan
-                    // Bu, tüm event'lerin topic exchange üzerinden yayınlanmasını sağlar
-                    cfg.Publish<object>(p =>
-                    {
-                        p.ExchangeType = "topic";
-                    });
-
-                    // Retry policy yapılandırması
-                    cfg.UseMessageRetry(r =>
-                    {
-                        r.Interval(rabbitMqSettings.RetryCount, TimeSpan.FromSeconds(rabbitMqSettings.RetryInterval));
-                        r.Handle<Exception>();
-                    });
-
-                    // Consumer endpoint'lerini otomatik yapılandır
-                    // Her consumer için ayrı queue oluşturulur
-                    // Topic exchange kullanımı için endpoint'ler otomatik olarak yapılandırılır
-                    cfg.ConfigureEndpoints(context, new DefaultEndpointNameFormatter(false));
-                });
-            });
-
-            // MassTransit hosted service'i ekle (bus'ı başlatır)
-            services.AddMassTransitHostedService();
-
-            return services;
-        }
-
-        /// <summary>
-        /// MassTransit ve RabbitMQ'yu yapılandırır (sadece belirtilen assembly için).
-        /// </summary>
-        /// <param name="services">Service collection</param>
-        /// <param name="configuration">Configuration</param>
-        /// <param name="assembly">Consumer'ların bulunacağı assembly</param>
-        /// <returns>IServiceCollection</returns>
-        public static IServiceCollection AddMassTransitWithRabbitMq(
-            this IServiceCollection services,
-            IConfiguration configuration,
-            Assembly assembly)
-        {
-            return services.AddMassTransitWithRabbitMq(configuration, new[] { assembly });
-        }
-
-        /// <summary>
-        /// IPublishEndpoint'i kullanarak event publish etmek için extension metod.
-        /// Topic exchange kullanır.
-        /// </summary>
-        /// <typeparam name="T">IIntegrationEvent türünde bir event</typeparam>
-        /// <param name="publishEndpoint">Publish endpoint</param>
-        /// <param name="event">Publish edilecek event</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Task</returns>
-        public static async Task PublishEventAsync<T>(
-            this IPublishEndpoint publishEndpoint,
-            T @event,
-            CancellationToken cancellationToken = default) where T : class, IIIntegrationEvent
-        {
-            await publishEndpoint.Publish(@event, cancellationToken);
-        }
+      return services;
     }
+
+    // --- B ve C SERVİSLERİ (CONSUMER) İÇİN ---
+    // Generic <TConsumer> yapısı sayesinde her servis kendi Consumer sınıfını verebilir.
+    public static IServiceCollection AddRabbitMqConsumer<TConsumer>(
+        this IServiceCollection services,
+        string queueName,
+        string routingKey, string exchangeName)
+        where TConsumer : class, IConsumer
+    {
+      services.AddMassTransit(x =>
+      {
+        // Gelen Consumer tipini sisteme ekle (Örn: MessageBConsumer)
+        x.AddConsumer<TConsumer>();
+
+        x.UsingRabbitMq((context, cfg) =>
+        {
+          cfg.Host("rabbitmq://localhost", h =>
+          {
+            h.Username("guest");
+            h.Password("guest");
+          });
+
+          cfg.ReceiveEndpoint(queueName, e =>
+          {
+            // Otomatik oluşturmayı kapat (MassTransit varsayılanını ezmek için)
+            e.ConfigureConsumeTopology = false;
+            e.ConfigureConsumer<TConsumer>(context);
+
+            // EXPLICIT BINDING (Açık Bağlama)
+            // "micros.events" exchange'ine bağlan, 
+            // SADECE "route.service.b" etiketli mesajları al.
+            e.Bind(exchangeName, s =>
+            {
+              s.ExchangeType = RabbitMQ.Client.ExchangeType.Topic;
+              s.RoutingKey = routingKey;
+            });
+          });
+        });
+      });
+
+      return services;
+    }
+  }
 }
 

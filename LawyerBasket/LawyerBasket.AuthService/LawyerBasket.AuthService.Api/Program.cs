@@ -2,6 +2,8 @@ using LawyerBasket.AuthService.Api.Extensions;
 using LawyerBasket.AuthService.Application.Extensions;
 using LawyerBasket.AuthService.Data.Extensions;
 using LawyerBasket.AuthService.Infrastructure.Extensions;
+using LawyerBasket.Shared.Messaging.Events;
+using LawyerBasket.Shared.Messaging.MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.Configuration).AddInfraDIContainer(builder.Configuration).AddApiExtension(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddRabbitMqPublisher<TestEvent>("AuthServiceExchange");
 // Add CORS
 builder.Services.AddCors(options =>
 {

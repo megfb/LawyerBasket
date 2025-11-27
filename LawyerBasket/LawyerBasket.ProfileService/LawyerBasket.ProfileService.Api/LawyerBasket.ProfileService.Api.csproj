@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Messaging\LawyerBasket.Shared.Messaging.csproj" />
     <ProjectReference Include="..\LawyerBasket.ProfileService.Data\LawyerBasket.ProfileService.Data.csproj" />
     <ProjectReference Include="..\LawyerBasket.ProfileService.Infrastructure\LawyerBasket.ProfileService.Infrastructure.csproj" />
   </ItemGroup>
