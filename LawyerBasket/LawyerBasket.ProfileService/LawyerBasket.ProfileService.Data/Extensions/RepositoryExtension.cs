@@ -9,7 +9,9 @@ using LawyerBasket.ProfileService.Data.Expertisement;
 using LawyerBasket.ProfileService.Data.Gender;
 using LawyerBasket.ProfileService.Data.LawyerExpertisement;
 using LawyerBasket.ProfileService.Data.LawyerProfile;
+using LawyerBasket.ProfileService.Data.OutboxMessage;
 using LawyerBasket.ProfileService.Data.UserProfile;
+using LawyerBasket.ProfileService.Domain.Entities;
 using LawyerBasket.Shared.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,31 +19,32 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LawyerBasket.ProfileService.Data.Extensions
 {
-    public static class RepositoryExtension
+  public static class RepositoryExtension
+  {
+    public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
-                options.UseNpgsql(connectionString!.PostgreSql);
-            });
+      services.AddDbContext<AppDbContext>(options =>
+      {
+        var connectionString = configuration.GetSection(ConnectionStringOption.Key).Get<ConnectionStringOption>();
+        options.UseNpgsql(connectionString!.PostgreSql);
+      });
 
 
-            services.AddScoped<IAcademyRepository, AcademyRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<ICertificateRepository, CertificateRepository>();
-            services.AddScoped<ICityRepository, CityRepository>();
-            services.AddScoped<IContactRepository, ContactRepository>();
-            services.AddScoped<IExperienceRepository, ExperienceRepository>();
-            services.AddScoped<IExpertisemenetRepository, ExpertisementRepository>();
-            services.AddScoped<IGenderRepository, GenderRepository>();
-            services.AddScoped<ILawyerExpertisementRepository, LawyerExpertisementRepository>();
-            services.AddScoped<ILawyerProfileRepository, LawyerProfileRepository>();
-            services.AddScoped<IUserProfileRepository, UserProfileRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+      services.AddScoped<IAcademyRepository, AcademyRepository>();
+      services.AddScoped<IAddressRepository, AddressRepository>();
+      services.AddScoped<ICertificateRepository, CertificateRepository>();
+      services.AddScoped<ICityRepository, CityRepository>();
+      services.AddScoped<IContactRepository, ContactRepository>();
+      services.AddScoped<IExperienceRepository, ExperienceRepository>();
+      services.AddScoped<IExpertisemenetRepository, ExpertisementRepository>();
+      services.AddScoped<IGenderRepository, GenderRepository>();
+      services.AddScoped<ILawyerExpertisementRepository, LawyerExpertisementRepository>();
+      services.AddScoped<ILawyerProfileRepository, LawyerProfileRepository>();
+      services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+      services.AddScoped<IOutboxMessageRepository, OutboxMessageRepository>();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            return services;
-        }
+      return services;
     }
+  }
 }

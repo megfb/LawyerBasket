@@ -4,6 +4,7 @@ using LawyerBasket.ProfileService.Application.Extensions;
 using LawyerBasket.ProfileService.Data;
 using LawyerBasket.ProfileService.Data.Extensions;
 using LawyerBasket.ProfileService.Infrastructure.Extensions;
+using LawyerBasket.ProfileService.Worker.Extensions;
 using LawyerBasket.Shared.Messaging.MassTransit;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.Configuration).AddInfrastructure(builder.Configuration).AddApiServices(builder.Configuration);
+builder.Services.AddRepositories(builder.Configuration).AddApplication(builder.Configuration).AddInfrastructure(builder.Configuration)
+  .AddApiServices(builder.Configuration).AddWorkerServices(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRabbitMqConsumer<TestConsumer>(queueName: "queue-profile", routingKey: "route.profileservice", exchangeName: "AuthServiceExchange");
