@@ -13,7 +13,7 @@ namespace LawyerBasket.ProfileService.Worker.Extensions
   {
     public static IServiceCollection AddWorkerServices(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddHostedService<ProfileMessageWorker>();
+      services.AddHostedService<OutboxPublisherWorker>();
       return services;
     }
   }

@@ -6,6 +6,7 @@ using LawyerBasket.ProfileService.Application.Dtos;
 using LawyerBasket.ProfileService.Domain.Entities;
 using LawyerBasket.Shared.Common.Domain;
 using LawyerBasket.Shared.Common.Response;
+using LawyerBasket.Shared.Messaging.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -53,7 +54,7 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
           GenderId = request.GenderId,
           BirthDate = request.BirthDate,
           NationalId = request.NationalId,
-          UserType = UserType.Lawyer,
+          UserType = Domain.Entities.UserType.Lawyer,
           CreatedAt = DateTime.UtcNow,
           UpdatedAt = DateTime.UtcNow
         };
@@ -61,10 +62,10 @@ namespace LawyerBasket.ProfileService.Application.CommandHandlers
         var outboxMessage = new OutboxMessage
         {
           Id = Guid.NewGuid().ToString(),
-          Type = "UserProfileCreated",
+          Type = typeof(UserProfileCreatedEvent).AssemblyQualifiedName!,
           Payload = System.Text.Json.JsonSerializer.Serialize(new
           {
-            UserId = entity.Id,
+            Id = entity.Id,
             entity.FirstName,
             entity.LastName,
             entity.Email,

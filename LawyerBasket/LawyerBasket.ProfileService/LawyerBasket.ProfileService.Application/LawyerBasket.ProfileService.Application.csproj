@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Application\" />
-    <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
 
@@ -18,6 +17,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.10" />
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Messaging\LawyerBasket.Shared.Messaging.csproj" />
     <ProjectReference Include="..\LawyerBasket.ProfileService.Domain\LawyerBasket.ProfileService.Domain.csproj" />
   </ItemGroup>
 

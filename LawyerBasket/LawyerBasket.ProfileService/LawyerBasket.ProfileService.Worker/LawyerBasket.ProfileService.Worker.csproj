@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.3.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LawyerBasket.Shared\LawyerBasket.Shared.Messaging\LawyerBasket.Shared.Messaging.csproj" />
+    <ProjectReference Include="..\LawyerBasket.ProfileService.Application\LawyerBasket.ProfileService.Application.csproj" />
   </ItemGroup>
 
 </Project>

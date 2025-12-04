@@ -11,5 +11,6 @@ namespace LawyerBasket.ProfileService.Application.Contracts.Data
   public interface IOutboxMessageRepository : IGenericRepository<OutboxMessage>
   {
 
+    Task<List<OutboxMessage>> GetPendingMessagesAsync(CancellationToken cancellationToken);
   }
 }
