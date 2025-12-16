@@ -1,0 +1,50 @@
+services:
+  authdb:
+    image: postgres
+  postdb:
+    image: mongo
+  profiledb:
+    image: postgres
+  socialdb:
+    image: postgres
+  rabbitmq:
+    image: rabbitmq:3-management
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+  authservice.api:
+    image: authservice_api_image
+    build:
+       context: ./LawyerBasket
+       dockerfile: LawyerBasket.AuthService/LawyerBasket.AuthService.Api/Dockerfile
+  profileservice.api:
+    image: profileservice_api_image
+    build:
+       context: ./LawyerBasket
+       dockerfile: LawyerBasket.ProfileService/LawyerBasket.ProfileService.Api/Dockerfile
+  socialservice.api:
+    image: socialservice_api_image
+    build:
+       context: ./LawyerBasket
+       dockerfile: LawyerBasket.SocialService/LawyerBasket.SocialService.Api/Dockerfile
+  postservice.api:
+    image: postservice_api_image
+    build:
+       context: ./LawyerBasket
+       dockerfile: LawyerBasket.PostService/LawyerBasket.PostService.Api/Dockerfile
+  gateway.api:
+    image: gateway_api_image
+    build:
+       context: ./LawyerBasket
+       dockerfile: LawyerBasket.Gateway/LawyerBasket.Gateway.Api/Dockerfile
+  angular.ui:
+    image: angular_ui_image
+    build:
+       context: .
+       dockerfile: Dockerfile
+volumes:
+  authdb_volume:  
+  postdb_volume:
+  profiledb_volume:
+  socialdb_volume:
+  rabbitmq_volume:
+  elasticsearch_volume:

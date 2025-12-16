@@ -21,12 +21,14 @@ export interface UpdateAcademyRequest {
   endDate?: string | null; // ISO string format
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AcademyService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/academy'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/academy`;
 
   createAcademy(request: CreateAcademyRequest): Observable<ApiResult<AcademyDto>> {
     return this.http.post<ApiResult<AcademyDto>>(`${this.apiUrl}/CreateAcademy`, request);

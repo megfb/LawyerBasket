@@ -19,12 +19,14 @@ export interface UpdateCertificateRequest {
   description?: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CertificateService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/certificate'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/certificate`;
 
   createCertificate(request: CreateCertificateRequest): Observable<ApiResult<CertificatesDto>> {
     return this.http.post<ApiResult<CertificatesDto>>(`${this.apiUrl}/CreateCertificate`, request);

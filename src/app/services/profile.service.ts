@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiResult, ProfileDto, UserProfileWDetailsDto, UserProfileDto } from '../models/profile-api.models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/Profile'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/Profile`;
 
   getUserProfileFull(): Observable<ApiResult<UserProfileWDetailsDto>> {
     // Use GetUserProfileFull endpoint through gateway

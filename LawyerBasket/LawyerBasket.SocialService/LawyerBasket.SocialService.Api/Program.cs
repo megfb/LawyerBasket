@@ -1,4 +1,4 @@
-﻿using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts;
+using LawyerBasket.SocialService.Api.Domain.Repositories.EntityFramework.DbContexts;
 using LawyerBasket.SocialService.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,8 +14,35 @@ builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate(); // Eksik tablolar varsa oluþturur
+  var services = scope.ServiceProvider;
+  var logger = services.GetRequiredService<ILogger<Program>>();
+
+  try
+  {
+    var context = services.GetRequiredService<AppDbContext>();
+    var pendingMigrations = context.Database.GetPendingMigrations();
+
+    if (pendingMigrations.Any())
+    {
+      logger.LogInformation("Applying {Count} pending migration(s)...", pendingMigrations.Count());
+      foreach (var migration in pendingMigrations)
+      {
+        logger.LogInformation("Pending migration: {MigrationName}", migration);
+      }
+
+      context.Database.Migrate();
+      logger.LogInformation("Migrations applied successfully.");
+    }
+    else
+    {
+      logger.LogInformation("No pending migrations. Database is up to date.");
+    }
+  }
+  catch (Exception ex)
+  {
+    logger.LogError(ex, "An error occurred while applying migrations.");
+    throw;
+  }
 }
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -22,12 +22,14 @@ export interface UpdateContactRequest {
   updatedAt: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/contact'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/contact`;
 
   createContact(request: CreateContactRequest): Observable<ApiResult<ContactDto>> {
     return this.http.post<ApiResult<ContactDto>>(`${this.apiUrl}/CreateContact`, request);

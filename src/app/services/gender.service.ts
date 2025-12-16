@@ -11,12 +11,14 @@ export interface GenderDto {
   updatedAt?: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class GenderService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/gender'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/gender`;
 
   getGenders(): Observable<ApiResult<GenderDto[]>> {
     return this.http.get<ApiResult<GenderDto[]>>(`${this.apiUrl}/GetGenders`);

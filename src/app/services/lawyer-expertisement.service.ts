@@ -8,12 +8,14 @@ export interface CreateLawyerExpertisementRequest {
   expertisementIds: string[];
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LawyerExpertisementService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/lawyerexpertisement'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/lawyerexpertisement`;
 
   createLawyerExpertisement(request: CreateLawyerExpertisementRequest): Observable<ApiResult<LawyerExpertisementDto[]>> {
     return this.http.post<ApiResult<LawyerExpertisementDto[]>>(`${this.apiUrl}/CreateLawyerExpertisement`, request);

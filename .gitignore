@@ -130,7 +130,7 @@ coverage/
 .sass-cache/
 
 # Environment / local configs
-src/environments/environment.*.ts
+# Allow base environment files, ignore only .env files
 !.env.example
 .env.local
 .env

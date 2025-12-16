@@ -15,12 +15,14 @@ export interface UpdateAddressRequest {
   cityId: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/address'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/address`;
 
   createAddress(request: CreateAddressRequest): Observable<ApiResult<AddressDto>> {
     return this.http.post<ApiResult<AddressDto>>(`${this.apiUrl}/CreateAddress`, request);

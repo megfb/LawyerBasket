@@ -36,14 +36,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    db.Database.Migrate(); // Eksik tablolar varsa oluþturur
-//}
-// Configure the HTTP request pipeline.
 
-// Use CORS first - Must be before any other middleware that might send responses
 app.UseCors("AllowAngularApp");
 
 if (app.Environment.IsDevelopment())

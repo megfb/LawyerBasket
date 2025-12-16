@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginRequest, RegisterRequest, ApiResult, TokenDto, AppUserDto } from '../models/auth.models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { LoginRequest, RegisterRequest, ApiResult, TokenDto, AppUserDto } from '
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'https://localhost:7001/api/auth'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/auth`;
 
   login(loginRequest: LoginRequest): Observable<ApiResult<TokenDto>> {
     return this.http.post<ApiResult<TokenDto>>(`${this.apiUrl}/login`, loginRequest);
@@ -36,7 +37,7 @@ export class AuthService {
   getUserIdFromToken(): string | null {
     const token = this.getToken();
     if (!token) return null;
-    
+
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || null;

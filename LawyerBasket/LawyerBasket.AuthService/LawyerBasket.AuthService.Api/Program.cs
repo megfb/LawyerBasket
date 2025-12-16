@@ -1,9 +1,11 @@
 using LawyerBasket.AuthService.Api.Extensions;
 using LawyerBasket.AuthService.Application.Extensions;
+using LawyerBasket.AuthService.Data;
 using LawyerBasket.AuthService.Data.Extensions;
 using LawyerBasket.AuthService.Infrastructure.Extensions;
 using LawyerBasket.Shared.Messaging.Events;
 using LawyerBasket.Shared.Messaging.MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,11 +43,38 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    db.Database.Migrate(); // Eksik tablolar varsa oluþturur
-//}
+using (var scope = app.Services.CreateScope())
+{
+  var services = scope.ServiceProvider;
+  var logger = services.GetRequiredService<ILogger<Program>>();
+
+  try
+  {
+    var context = services.GetRequiredService<AppDbContext>();
+    var pendingMigrations = context.Database.GetPendingMigrations();
+
+    if (pendingMigrations.Any())
+    {
+      logger.LogInformation("Applying {Count} pending migration(s)...", pendingMigrations.Count());
+      foreach (var migration in pendingMigrations)
+      {
+        logger.LogInformation("Pending migration: {MigrationName}", migration);
+      }
+
+      context.Database.Migrate();
+      logger.LogInformation("Migrations applied successfully.");
+    }
+    else
+    {
+      logger.LogInformation("No pending migrations. Database is up to date.");
+    }
+  }
+  catch (Exception ex)
+  {
+    logger.LogError(ex, "An error occurred while applying migrations.");
+    throw;
+  }
+}
 // Configure the HTTP request pipeline.
 
 // Use CORS first - Must be before any other middleware that might send responses

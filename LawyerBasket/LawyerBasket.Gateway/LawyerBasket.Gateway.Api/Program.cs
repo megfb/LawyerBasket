@@ -5,8 +5,10 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Ocelot configuration
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+// Ocelot configuration - environment-based
+builder.Configuration
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
 // Add services to the container
 builder.Services.AddControllers()
@@ -63,9 +65,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection(); // Only redirect to HTTPS in Development
 }
-
-app.UseHttpsRedirection();
+else
+{
+    // In Production (Docker), we run on HTTP, no HTTPS redirection
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // Use CORS
 app.UseCors("AllowAngularApp");

@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResult } from '../models/auth.models';
 import { PostDto, CommentDto, LikesDto, PostLikeUserDto } from '../models/post.models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/post'; // Gateway API URL
-  private commentApiUrl = 'https://localhost:7001/api/comment'; // Gateway API URL
-  private likesApiUrl = 'https://localhost:7001/api/likes'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/post`;
+  private commentApiUrl = `${environment.apiUrl}/api/comment`;
+  private likesApiUrl = `${environment.apiUrl}/api/likes`;
 
   getPosts(): Observable<ApiResult<PostDto[]>> {
     return this.http.get<ApiResult<PostDto[]>>(`${this.apiUrl}/GetPosts`);

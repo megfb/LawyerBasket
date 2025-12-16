@@ -1,0 +1,123 @@
+services:
+  authdb:
+    container_name: authdb
+    restart: always
+    ports:
+        - "5432:5432"
+    volumes:
+        - authdb_volume:/var/lib/postgres/data
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=LawyerBasketAuthService 
+  postdb:
+    container_name: postdb
+    restart: always
+    ports:
+        - "27017:27017"
+    volumes:
+       - postdb_volume:/data/db  
+  profiledb:
+    container_name: profiledb
+    restart: always
+    ports:
+        - "5433:5432" 
+    volumes:
+        - profiledb_volume:/var/lib/postgres/data
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=LawyerBasketProfileService  
+  socialdb:
+    container_name: socialdb
+    restart: always
+    ports:
+        - "5434:5432" 
+    volumes:
+        - socialdb_volume:/var/lib/postgres/data 
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=LawyerBasketSocialService 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+    volumes:
+        - rabbitmq_volume:/var/lib/rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+  elasticsearch:
+    container_name: elasticsearch
+    restart: always
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+    volumes:
+        - elasticsearch_volume:/usr/share/elasticsearch/data
+    environment:
+        - discovery.type=single-node
+        - ELASTIC_PASSWORD=imUPqpSN*MAwxoR8v5O6
+        - xpack.security.enabled=true
+        - xpack.security.http.ssl.enabled=false
+  authservice.api:
+    container_name: authservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+        - "ConnectionStrings:PostgreSql=Host=authdb;Port=5432;Database=LawyerBasketAuthService;Username=postgres;Password=1234"
+    ports:
+        - "7299:8080"
+    depends_on:
+       - authdb
+  profileservice.api:
+    container_name: profileservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+        - "ConnectionStrings:PostgreSql=Host=profiledb;Port=5432;Database=LawyerBasketProfileService;Username=postgres;Password=1234"
+    ports:
+        - "7141:8080"
+    depends_on:
+        - profiledb
+  socialservice.api:
+    container_name: socialservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+        - "ConnectionStrings:PostgreSql=Host=socialdb;Port=5432;Database=LawyerBasketSocialService;Username=postgres;Password=1234"
+    ports:
+        - "7176:8080"
+    depends_on:
+        - socialdb
+  postservice.api:
+    container_name: postservice.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+        - MongoOption__ConnectionString=mongodb://postdb:27017
+        - MongoOption__DatabaseName=LawyerBasketPostService
+    ports:
+        - "7254:8080"
+    depends_on:
+        - postdb
+  gateway.api:
+    container_name: gateway.api
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+        - "7000:8080"
+    depends_on:
+        - authservice.api
+        - profileservice.api
+        - socialservice.api
+        - postservice.api
+        - rabbitmq
+        - elasticsearch
+  angular.ui:
+    container_name: angular.ui
+    environment:
+        - NODE_ENV=production
+    ports:
+        - "4200:80"
+    depends_on:
+        - gateway.api

@@ -21,12 +21,14 @@ export interface UpdateExperienceRequest {
   description: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ExperienceService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/experience'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/experience`;
 
   updateExperience(id: string, request: UpdateExperienceRequest): Observable<ApiResult<ExperienceDto>> {
     return this.http.put<ApiResult<ExperienceDto>>(`${this.apiUrl}/UpdateExperience/${id}`, request);

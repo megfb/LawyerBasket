@@ -25,12 +25,14 @@ export interface UpdateUserProfileRequest {
   nationalId?: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/userprofile'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/userprofile`;
 
   createUserProfile(request: CreateUserProfileRequest): Observable<ApiResult<UserProfileDto>> {
     return this.http.post<ApiResult<UserProfileDto>>(`${this.apiUrl}/CreateUserProfile`, request);

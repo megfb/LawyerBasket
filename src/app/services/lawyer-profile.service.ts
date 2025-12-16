@@ -21,12 +21,14 @@ export interface UpdateLawyerProfileRequest {
   about?: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LawyerProfileService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7001/api/lawyerprofile'; // Gateway API URL
+  private apiUrl = `${environment.apiUrl}/api/lawyerprofile`;
 
   createLawyerProfile(request: CreateLawyerProfileRequest): Observable<ApiResult<LawyerProfileDto>> {
     return this.http.post<ApiResult<LawyerProfileDto>>(`${this.apiUrl}/CreateLawyerProfile`, request);
